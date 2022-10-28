@@ -47,11 +47,11 @@ Aktori i njihovi funkcionalni zahtjevi:
         b) brisati sadržaj iz rubrika
 		c) zabraniti pristup bilo kojem članu i treneru
 		d) stvoriti nove članove i dodijeliti im uloge
-		f) vidjeti povijest svih transakcija
-		g) obrisati članove i trenere
-		h) uređivati osobne podatke
-		i) vidjeti trenutne rang liste članova
-		j) pogledati novosti
+		e) vidjeti povijest svih transakcija
+		f) obrisati članove i trenere
+		g) uređivati osobne podatke
+		h) vidjeti trenutne rang liste članova
+		i) pogledati novosti
 		
 	5. Naručitelj može:
 	
