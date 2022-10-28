@@ -1,1 +1,30 @@
-proba!
+UC12: Organizacija turnira
+    Glavni sudionik: Trener
+    Cilj: Organizirati šahovski turnir
+    Sudionici: Baza podataka
+    Preduvjet: Trener prijavljen
+    Opis osnovnog tijeka: 1. Trener pristupa sučelju za kreiranje turnira
+                          2. Trener ispunjava podatke o turniru (datum i vrijeme održavanja, broj sudionika na turniru)
+                          3. Baza podataka pohranjuje podatke o novom turniru
+                          4. Objava podataka o turniru (s mogućnošću prijave na isti) na stranici s turnirima
+
+UC13: Prijava na turnir
+    Glavni sudionik: Član
+    Cilj: Prijaviti se na neki od dostupnih šahovskih turnira
+    Sudionici: Baza podataka
+    Preduvjet: Član prijavljen i turnir postoji
+    Opis osnovnog tijeka: 1. Korisnik pristupa stranici s objavljenim trenutno dostupnim turnirima
+                          2. Korisnik klikne na gumb za prijavu na željeni turnir
+                          3. Baza ažurira tablicu sudionika na prijavljenom turniru
+                          4. Korisnik je uspješno prijavljen na turnir
+
+UC14: Upravljanje turnirom
+    Glavni sudionik: Trener
+    Cilj: Mogućnost izmjene podataka i/ili liste sudionika za turnir
+    Sudionici: Baza podataka, članovi
+    Preduvjet: Trener prijavljen i organizator turnira u pitanju, postojanje turnira 
+    Opis osnovnog tijeka: 1. Trener pristupa sučelju za uređenje podataka o turniru
+                          2. Trener izmjenjuje podatke
+                          3. Podatke potvrđuje i šalje na bazu podataka
+                          4. Baza ažurira podatke
+				  5. Ovisno o napravljenim izmjenama mijenja se prikaz unutar aplikacije
