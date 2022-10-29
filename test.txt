@@ -1,1 +1,16 @@
-testing git
+Cilj ovog projekta je razviti programsku podršku za stvaranje web aplikacije “Šahisti“ koja će olakšati korisnicima, tj. šahovskom klubu lakše poslovanje. Aplikacija će omogućiti članovima da imaju različite razine pristupa i da svako od njih može obaviti ono što želi i treba.
+Neregistrirani korisnici će moći vidjeti novosti, rang listu i dnevnu taktiku. Oni će također imati mogućnost registracije kao član preko aplikacije, a već postojeći korisnici će se moći prijaviti u svoj korisnički račun preko korisničkog imena/e-mail adrese i svoje lozinke.
+Za registraciju novog člana su potrebni:
+-korisničko ime
+-e-mail adresa
+-ime i prezime člana
+-lozinka
+Nakon što se novi korisnik registira morat će preko aplikacije uplatiti članarinu prije nego dobije sve povlastice člana. Naknadno se mogu korisniku dodijeliti prava trenera ili administratora ukoliko je to potrebno. Svaki registrirani korisnik svoje podatke može mijenjati i izbrisati svoj račun.
+Član ima sva prava kao i neregistrirani korisnik te uz to može rješavati dnevne taktike za mjesto na rang ljestvici, dnevnu taktiku može također i ocjeniti ovisno o težini, može dogovarati termine treninga sa pojedinim trenerom te se može prijaviti za nadolazeće turnire. Član je kao što smo već naveli dužan plaćati članarinu.
+Trener ima sva prava kao član, ali ne mora plaćati članarinu. On je odgovoran za postavljanje dnevnih taktika i njihovo ispravljanje ukoliko je netko predložio ispravak ili bolje rješenje. Ima mogućnost organizirati turnire i slagati raspored treninga za nadolazeće razdoblje.
+Administrator ima najvišu razinu pristupa stranici i prava trenera koja proširuje sa mogućnošću brisanja i ispunjavanja svih rubrirka na aplikaciju, blokiranjem bio kojeg člana ili trenera te brisanje korisnika. On također ima pristup svim obavljenim transakcijama u samoj aplikaciji.
+Aplikacije će kreirati navedene rang liste mjereći vrijeme potrebno za njihovo rješavanje i preko rezultata kreirati težinsku rang listu koja je podložna promjenama ukoliko se za rješenje utvrdi da je krivo ili neoptimalno. 
+Aplikaciju je također moguće koristiti za plaćanje članarine za izabrani mjesec. Kao što smo već naveli, povjest tranaskcija čuvati će se i biti će vidljiva admnistratoru.
+
+//TO BE EXPANDED.....WORK IN PROGRESS
+
