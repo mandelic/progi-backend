@@ -27,4 +27,27 @@ UC14: Upravljanje turnirom
                           2. Trener izmjenjuje podatke
                           3. Podatke potvrđuje i šalje na bazu podataka
                           4. Baza ažurira podatke
-				  5. Ovisno o napravljenim izmjenama mijenja se prikaz unutar aplikacije
+				          5. Ovisno o napravljenim izmjenama mijenja se prikaz unutar aplikacije
+
+BAZA
+KORISNIK: Ovaj entitet sadrži sve važne informacije o korisniku aplikacije. 
+          Sadrži atribute: id_korisnika, mail, ime, prezime, lozinku, broj mobitela korisnika, broj kartice za placanje te razinu ovlasti korisnika. 
+          Ovaj entitet u vezi je Many-to-One s entitetima turnir, trening, rang lista i to sa svima preko atributa id_korisnika
+          Nadalje u vezi je One-to-One s entitetom transakcija te Many-to-Many s entitetok greška oba dvoje također preko korisnikovog jedinstvenog id-a
+
+OSTALI ZAHTJEVI
+
+    - Sustav treba omoguciti rad više korisnika u stvarnom vremenu
+    - Korisničko sučelje i sustav moraju podržavati hrvatsku abecedu (dijakritičke znakove) pri unosu i prikazu tekstualnog sadržaja
+    - Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi
+    - Veza s bazom podataka mora biti kvalitetno zaštičena, brza i otporna na vanjske greške
+    - Sustav treba biti implementiran kao web aplikacija koristeći objektno-orijentirane jezike
+    - Neispravno korištenje korisničkog sučelja ne smije narušiti funkcionalnost i rad sustava
+    - Susutva treba biti jednostavan i lako razumljiv korisnicima bez opširnijih uputa
+    - Nadogradnja sustava ne smije narušavati postoječe funkcionalnosti sustava
+    - Sustav kao valutu koristi kuvajtski dinar (KWD)
+    - Pristup sustavu mora biti omogučen iz javne mreže pomoću HTTPS
+    - Nesto dodati?
+
+
+
