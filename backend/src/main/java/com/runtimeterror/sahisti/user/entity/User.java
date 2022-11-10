@@ -38,4 +38,12 @@ public class User {
     @NotNull
     String roles;
 
+    public User(String email, String firstName, String lastName, String password, String phoneNumber, String cardNumber) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.cardNumber = cardNumber;
+    }
 }

@@ -11,6 +11,7 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
+    private String password;
     private String phoneNumber;
     private String cardNumber;
 
@@ -18,6 +19,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
+        this.password = user.getPassword();
         this.phoneNumber = user.getPhoneNumber();
         this.cardNumber = user.getCardNumber();
     }
