@@ -31,7 +31,7 @@ UC14: Upravljanje turnirom
 
 BAZA
 KORISNIK: Ovaj entitet sadrži sve važne informacije o korisniku aplikacije. 
-          Sadrži atribute: id_korisnika, mail, ime, prezime, lozinku, broj mobitela korisnika, broj kartice za placanje te razinu ovlasti korisnika. 
+          Sadrži atribute: id_korisnika, mail, ime, prezime, lozinku, broj mobitela korisnika, broj kartice za placanje, membership_paid te razinu ovlasti korisnika, 
           Ovaj entitet u vezi je Many-to-One s entitetima turnir, trening, rang lista i to sa svima preko atributa id_korisnika
           Nadalje u vezi je One-to-One s entitetom transakcija te Many-to-Many s entitetom greška oba dvoje također preko korisnikovog jedinstvenog id-a
 
@@ -48,6 +48,44 @@ OSTALI ZAHTJEVI
     - Sustav kao valutu koristi kuvajtski dinar (KWD)
     - Pristup sustavu mora biti omogućen iz javne mreže pomoću HTTPS
     - Nešto dodati?
+
+
+SEKVENCIJSKI DIJAGRAMI
+
+Obrasci uporabe UC12 i UC14:  ---- izbacujemo!!
+Osmislivši organizaciju turnira trener šalje podatke o turniru poslužitelju.
+Poslužitelj ispunjeni obrazac prosljeđuje bazi podataka koja ga pohranjuje.
+Trener ima mogućnost izmjenjivati podatke o turniru.
+Kada trener pristupi sučelju za izmjenu podataka o turniru i odluči promijeniti neki podatak
+šalje promijenjene informacije poslužitelju koji ga prosljeđuje bazi podataka koja azurira izmjenjene podatke. 
+Baza i poslužitelj vracaju potvrdu kako su azurirani podaci uspješno pohranjeni.
+Ako  nakon pristupanja sučelju trener želi odustati od promijene podataka javlja web aplikaciji da nema promjena.
+
+
+Obraci uporabe UC18 i UC19  --- izbacujemo!
+Nakon što član riješi zadatak dnevne taktike svoje riješenje predaje web pregledniku koji ga prosljeđuje bazi koja ga sprema i vraća potvrdu o uspješnosti.
+Potom web aplikacija nudi članu mogućnost ocijenjivanja dnevne taktike. Član može odlučiti ne ocijeniti taktiku, a ako ocijeni, ocijenu šalje web aplikacji 
+koja ga prosljeđuje bazi podataka koja ga pohranjuje i vraca potvrdu o usoješnom spremanju.
+
+
+Obrzac uprabe UC4
+Posjetitelj šalje zahtjev za prikaz stranice za prijavu te mu je ona prikazuje.
+
+
+Obrzac uprabe UC16 - placanje
+
+Obrasci uporabe UC10 i UC22 (bivsi 23) --- ispraviti
+kad trener pristupi korisničkom prfilu dobije obavijest o prijavljenoj grešci
+Osmislivši dnevni zadatak trener šalje zadatak poslužitelju. 
+Poslužitelj dnevni zadatak prosljeđuje bazi podataka koja ga pohranjuje. 
+Baza podataka odgovara poslužitelju je li uspješno pohranjen dnevni zadatak, a poslužitelj to prosljeđuje korisniku. 
+Ako je netko od članova prijavio grešku u dnevnoj taktici i predložio novo rješenje aplikacija šalje poruku treneru koji je postavio taktiku da postoji greška i da pregleda predloženo novo rješenje. 
+Trener pregledava zadatak i utvrđuje da li stvarno postoji greška i da li je novo odgovor prosljeđuje poslužitelju.(...).
+
+registracija, prijava u sustav, promjena osobnih podataka, placanje članarine
+
+
+
 
 
 
