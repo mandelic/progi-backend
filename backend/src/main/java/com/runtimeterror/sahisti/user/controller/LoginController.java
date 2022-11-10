@@ -14,22 +14,16 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/v1/users")
+@RequestMapping("/v1/login")
 @RestController
-public class UserController {
+public class LoginController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll() {
-        return ResponseEntity.ok(userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList()));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDTO) {
-        User newUser = userService.addUser(new User(userDTO.getEmail(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getPassword(), userDTO.getPhoneNumber(), userDTO.getCardNumber()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(newUser));
+    @PostMapping()
+    public ResponseEntity<Boolean> loginUser(@Valid @RequestBody LoginDTO loginDTO) {
+        return ResponseEntity.ok().body(userService.verifyLogin(loginDTO));
     }
 
 
