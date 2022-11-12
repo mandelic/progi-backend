@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.user.service.impl;
 
+import com.runtimeterror.sahisti.exception.UserIdNotFoundException;
 import com.runtimeterror.sahisti.user.controller.dto.LoginDTO;
 import com.runtimeterror.sahisti.user.controller.dto.TokenDTO;
 import com.runtimeterror.sahisti.user.entity.User;
@@ -36,6 +37,10 @@ public class UserServiceImpl implements UserService {
             if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) return new TokenDTO("User authenticated.", user.getRole(), "");
         }
         return new TokenDTO("Wrong email or password.", "", "");
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
     }
 
 }

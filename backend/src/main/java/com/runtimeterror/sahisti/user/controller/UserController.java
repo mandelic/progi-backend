@@ -27,6 +27,13 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList()));
     }
 
+    @PreAuthorize("hasRole('MEMBER')")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(new UserDTO(userService.findById(id)));
+    }
+
+
     @PostMapping
     public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDTO) {
         User newUser = userService.addUser(new User(userDTO.getEmail(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getPassword(), userDTO.getPhoneNumber(), userDTO.getCardNumber()));
