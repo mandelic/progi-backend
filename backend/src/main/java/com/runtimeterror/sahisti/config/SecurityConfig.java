@@ -1,9 +1,10 @@
-package com.runtimeterror.config;
+package com.runtimeterror.sahisti.config;
 
 import com.runtimeterror.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -13,6 +14,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
 
@@ -21,8 +23,10 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .addFilterAfter(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests((auth) ->
-                        auth.antMatchers(HttpMethod.GET, "/api/v1/users").hasRole("ROLE_MEMBER")
-                                .anyRequest().permitAll())
+                        auth
+                            .antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+                            .anyRequest().permitAll()
+                        )
                 .httpBasic(withDefaults());
         return http.build();
     }

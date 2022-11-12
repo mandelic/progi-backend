@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasRole('MEMBER')")
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
         return ResponseEntity.ok(userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList()));

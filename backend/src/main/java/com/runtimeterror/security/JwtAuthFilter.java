@@ -37,19 +37,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
+            System.out.println("TU");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         }
     }
 
     private boolean parseJwtToken(HttpServletRequest request) {
-        String header = request.getHeader("Authentication");
+        String header = request.getHeader("Authorization");
         return header != null && header.startsWith("Bearer ");
     }
 
     private Claims validateToken(HttpServletRequest request) {
-        String jwtToken = request.getHeader("Authentication").replace("Bearer ", "");
-        return Jwts.parser().setSigningKey("cweSecretKey".getBytes()).parseClaimsJws(jwtToken).getBody();
+        String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
+        return Jwts.parser().setSigningKey("sahistiSecretKey".getBytes()).parseClaimsJws(jwtToken).getBody();
     }
 
 }
