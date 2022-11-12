@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/v1/login")
 @RestController
+@CrossOrigin(origins = "*")
 public class LoginController {
 
     @Autowired
