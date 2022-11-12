@@ -26,4 +26,36 @@ For building and running the application you need:
 ####
 * After the application is successfully done loading, you can run defined endpoint in *Postman* with
   ```http://localhost:8080/api/v1/users```
-#### 
+
+
+| Http Method | path               | ROLE_MEMBER | public | 
+|-------------|--------------------|-------------|--------|
+| GET         | /api/v1/users      | ✅           | -      |
+|             | /api/v1/users/{id} | ✅           | -      |
+| POST        | /api/v1/users      | ✅           | -      | 
+|             | /api/v1/login      | ✅           | ✅      | 
+
+####
+```POST: http://localhost:8080/api/v1/login```: 
+```
+{
+    "email": "some@example.com",
+    "password": "myPassw0rd"
+}
+```
+####
+
+####
+```POST: http://localhost:8080/api/v1/users```:
+```
+{
+    "email": "some@example.com",
+    "firstName":"Name",
+    "lastName":"LastName",
+    "password": "myPassw0rd",
+    "phoneNumber":"0987654321",
+    "cardNumber":"123456789"
+}
+```
+####
+
