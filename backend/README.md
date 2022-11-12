@@ -14,14 +14,9 @@ For building and running the application you need:
 
 ### Running the application locally
 
-* To run the application, you must be connected to Postgres database.
-1. Create a database with the name *sahisti*
-2. Set username to *postgres*, and leave password empty.
-3. If establishing connection succeeded you can proceed with running the application.
-
 *Intellij specific database setup:*
    1. To add a new database connection (data source) open Database window through *View -> Tool Windows -> Database*.
-         In Database window, you can add new Data Source by clicking *+* sign then select *PostgreSQL*. Set user to *postgres*, and Database to *sahisti*.
+         In Database window, you can add new Data Source by clicking *+* sign then select *PostgreSQL*. Set user to ```postgres```, password to ```t4gi5oDJHx3rPtjNk7GA``` and URL to ```jdbc:postgresql://containers-us-west-70.railway.app:6705/railway```.
          Everything else should be default value.
    2. To ensure that the connection to the data source is successful, click Test Connection.
    3. If Test connection succeeded you can proceed with running the application.
