@@ -48,7 +48,6 @@ public class LoginController {
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1800000))
                 .signWith(SignatureAlgorithm.HS256,
                         "sahistiSecretKey".getBytes()).compact();
 

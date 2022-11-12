@@ -23,10 +23,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-
             if (parseJwtToken(request)) {
                 Claims claims = validateToken(request);
-                if(claims.get("authorities") != null) {
+                if (claims.get("authorities") != null) {
                     List<String> authorities = (List) claims.get("authorities");
                     UsernamePasswordAuthenticationToken auth =
                             new UsernamePasswordAuthenticationToken(
@@ -41,7 +40,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.clearContext();
             }
             filterChain.doFilter(request, response);
-
     }
 
     private boolean parseJwtToken(HttpServletRequest request) {
