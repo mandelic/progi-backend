@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users;
 
+
 CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,
@@ -9,5 +10,5 @@ CREATE TABLE users
     password VARCHAR(100),
     phone_number VARCHAR(15),
     card_number VARCHAR(16),
-    roles VARCHAR(100)
+    role VARCHAR(100)
 );
