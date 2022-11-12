@@ -1,16 +1,13 @@
 package com.runtimeterror.sahisti.user.controller;
 
-import com.runtimeterror.sahisti.user.controller.DTO.LoginDTO;
-import com.runtimeterror.sahisti.user.controller.DTO.TokenDTO;
-import com.runtimeterror.sahisti.user.controller.DTO.UserDTO;
-import com.runtimeterror.sahisti.user.entity.User;
+import com.runtimeterror.sahisti.user.controller.dto.LoginDTO;
+import com.runtimeterror.sahisti.user.controller.dto.TokenDTO;
 import com.runtimeterror.sahisti.user.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;

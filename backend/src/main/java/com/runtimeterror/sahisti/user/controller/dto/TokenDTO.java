@@ -1,4 +1,4 @@
-package com.runtimeterror.sahisti.user.controller.DTO;
+package com.runtimeterror.sahisti.user.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,6 @@
 package com.runtimeterror.sahisti.user.controller;
 
-import com.runtimeterror.sahisti.user.controller.DTO.LoginDTO;
-import com.runtimeterror.sahisti.user.controller.DTO.UserDTO;
+import com.runtimeterror.sahisti.user.controller.dto.UserDTO;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/v1/users")
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -32,6 +32,5 @@ public class UserController {
         User newUser = userService.addUser(new User(userDTO.getEmail(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getPassword(), userDTO.getPhoneNumber(), userDTO.getCardNumber()));
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(newUser));
     }
-
 
 }
