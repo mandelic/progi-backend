@@ -1,6 +1,6 @@
 package com.runtimeterror.sahisti.config;
 
-import com.runtimeterror.security.JwtAuthFilter;
+import com.runtimeterror.sahisti.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

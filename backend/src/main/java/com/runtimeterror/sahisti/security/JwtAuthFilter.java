@@ -1,4 +1,4 @@
-package com.runtimeterror.security;
+package com.runtimeterror.sahisti.security;
 
 import com.runtimeterror.sahisti.exception.json.ValidationErrorJson;
 import io.jsonwebtoken.*;
