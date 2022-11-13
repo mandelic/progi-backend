@@ -5,10 +5,10 @@ CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) UNIQUE,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    password VARCHAR(100),
-    phone_number VARCHAR(15),
-    card_number VARCHAR(16),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    password VARCHAR(150),
+    phone_number VARCHAR(20),
+    card_number VARCHAR(25),
     role VARCHAR(100)
 );
