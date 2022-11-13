@@ -11,26 +11,23 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor
 public class UserDTO {
-    @NotBlank(message = "email must not be blank")
-    @Pattern(regexp = "^(.+)@(\\S+)$", message = "email not in valid format")
-    @Size(max = 70, message = "email exceeded char limit")
+    @Pattern(regexp = "^(.+)@(\\S+)$", message = "Adresa e-pošte je neispravnog oblika.")
+    @Size(max = 70, message = "Adresa e-pošte premašuje zadani broj znakova.")
     private String email;
-    @NotBlank(message = "firstname must not be blank")
-    @Size(max = 30, message = "firstname exceeded char limit")
+    @NotBlank(message = "Ime je neispravnog oblika.")
+    @Size(max = 30, message = "Ime premašuje zadani broj znakova.")
     private String firstName;
-    @NotBlank(message = "lastname must not be blank")
-    @Size(max = 30, message = "lastname exceeded char limit")
+    @NotBlank(message = "Prezime je neispravnog oblika.")
+    @Size(max = 30, message = "Prezime premašuje zadani broj znakova.")
     private String lastName;
-    @NotBlank(message = "password must not be blank")
-    @Size(max = 120, message = "password exceeded char limit")
+    @NotBlank(message = "Lozinka je neispravnog oblika.")
+    @Size(max = 120, message = "Lozinka premašuje zadani broj znakova.")
     private String password;
-    @NotBlank(message = "phone number must not be blank")
-    @Pattern(regexp = "[+]*[0-9]{9,}", message = "phone number not in valid format")
-    @Size(max = 15, message = "phone number exceeded char limit")
+    @Pattern(regexp = "[+]*[0-9]{9,}", message = "Broj mobitela je neispravnog oblika.")
+    @Size(max = 15, message = "Broj mobitela premašuje zadani broj znakova.")
     private String phoneNumber;
-    @NotBlank(message = "card number must not be blank")
-    @Pattern(regexp = "[0-9]{14,}", message = "card number not in valid format")
-    @Size(max = 20, message = "card number exceeded char limit")
+    @Pattern(regexp = "[0-9]{14,}", message = "Broj kartice je neispravnog oblika.")
+    @Size(max = 20, message = "Broj kartice premašuje zadani broj znakova.")
     private String cardNumber;
 
     public UserDTO(User user) {
