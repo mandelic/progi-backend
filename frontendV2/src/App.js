@@ -7,8 +7,9 @@ import Login from './pages/Login';
 import Kontakt from './pages/Kontakt';
 import DnevnaTaktika from './pages/DnevnaTaktika';
 import Profil from './pages/Profil';
+import User from './pages/User';
 
-import "bootstrap/dist/css/bootstrap.min.css"
+
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/kontakt' element={<Kontakt/>} />
         <Route path='/dnevna-taktika' element={<DnevnaTaktika/>} />
         <Route path='/profil' element={<Profil/>} />
+        <Route path='/user' element={<User/>} />
       </Routes>
     </Router>
     </>

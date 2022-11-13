@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState }  from 'react'
 import {Link} from 'react-router-dom';
 import './NavBar.css';
 
-function NavBar() {
+
+
+let userILIlogin = "user"
+if(localStorage.length != 1){userILIlogin = "login"}
+console.log(userILIlogin)
+
+export default function NavBar() {
+    let [authMode, setAuthMode] = useState("notsingin")
+
+    const changeAuthMode = () => {
+      setAuthMode(authMode === "signin" ? "notsingin" : "signin")
+    }
+if(authMode == 'notsingin'){
   return (
     <>
     <div className='NavBar'>
@@ -20,15 +32,47 @@ function NavBar() {
             Kontakt
         </Link>
         </li>
-        <li className='login'>
-        <Link to='/login'>
-            login
+        <li className={userILIlogin}>
+        <Link to={`/${userILIlogin}`}>
+            {userILIlogin}
         </Link>
         </li>
+        
     </ul>    
     </div>
   </>
   )
 }
 
-export default NavBar
+else{
+return (
+    <>
+    <div className='NavBar'>
+    <Link className='Home' to='/'>
+        Home
+    </Link>
+    <ul className='container'>
+        <li className='dnevnaTaktika'>
+        <Link to='/dnevna-taktika'>
+            Dnevna Taktika
+        </Link>
+        </li>
+        <li className='kontakt'>
+        <Link to='/kontakt'>
+            Kontakt
+        </Link>
+        </li>
+
+        <li className='profil'>
+        <Link to='/profil'>
+            profil
+        </Link>
+        </li>
+        
+    </ul>    
+    </div>
+  </>
+  )
+}
+}
+

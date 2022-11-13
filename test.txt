@@ -37,7 +37,7 @@ KORISNIK: Ovaj entitet sadrži sve važne informacije o korisniku aplikacije.
 
 OSTALI ZAHTJEVI
 
-    - Sustav treba omogučiti rad više korisnika u stvarnom vremenu
+    - Sustav treba omogućiti rad više korisnika u stvarnom vremenu
     - Korisničko sučelje i sustav moraju podržavati hrvatsku abecedu (dijakritičke znakove) pri unosu i prikazu tekstualnog sadržaja
     - Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi
     - Veza s bazom podataka mora biti kvalitetno zaštićena, brza i otporna na vanjske greške
