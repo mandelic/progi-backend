@@ -15,6 +15,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,11 +32,11 @@ public class ValidationAdvice {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorJson> methodArgumentNotUniqueException(DataIntegrityViolationException ex, WebRequest request) {
+    public ResponseEntity<ValidationErrorJson> methodArgumentNotUniqueException(DataIntegrityViolationException ex, WebRequest request) {
         String path = ((ServletWebRequest)request).getRequest().getRequestURI();
         String message = ex.getMessage();
         if (message.contains("users_email_key")) message = "email must be unique.";
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorJson(path, message));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ValidationErrorJson(path, Arrays.asList(message)));
     }
 
 }
