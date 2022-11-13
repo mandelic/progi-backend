@@ -1,8 +1,10 @@
 import React from 'react'
 
+import NavBar from '../components/NavBar';
+
 function DnevnaTaktika() {
   return (
-    <div>DnevnaTaktika</div>
+    <div>      <NavBar></NavBar>DnevnaTaktika</div>
   )
 }
 

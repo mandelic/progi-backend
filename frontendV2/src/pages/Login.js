@@ -2,13 +2,16 @@ import React, { useState }  from 'react'
 import './Login.css'
 import '../App.css'
 import { useLocation, useNavigate } from "react-router";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../components/NavBar';
+import { buildQueries } from '@testing-library/react';
 
 export default function (props) {
   let [authMode, setAuthMode] = useState("signin")
   let  [email, setMail] = useState("");
   let [password, setPassword] = useState("");
-  let [firsName, setIme] = useState("");
+  let [firstName, setIme] = useState("");
   let [lastName, setPrezime] = useState("");
   let [phoneNumber, setMobitel] = useState("");
   let [cardNumber, setKartica] = useState("");
@@ -25,7 +28,7 @@ export default function (props) {
   }
 
   const username = (p) => {
-    setIme(firsName = p)
+    setIme(firstName = p)
   }
 
   const userprezime = (p) => {
@@ -61,22 +64,29 @@ export default function (props) {
   .then(data => {
     if(data.message === 'User authenticated.'){
       localStorage.setItem("profil", data.token);
-      window.location.reload();
-
       navigate("/");
 
     } else{
-      alert(data.message)
-      console.log(data.message)
+      toast.error( data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
       navigate("/login")
     }
   });
-  navigate("/");
+
   }
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/login", {
+    fetch("http://localhost:8080/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -84,7 +94,7 @@ export default function (props) {
       },
       body: JSON.stringify({
           email: email,
-          firsName: firsName,
+          firstName: firstName,
           lastName: lastName,
           password: password,
           phoneNumber: phoneNumber,
@@ -93,23 +103,35 @@ export default function (props) {
   })
   .then((res) => res.json())
   .then(data => {
-    if(data.message === 'User authenticated.'){
+    console.log(data.errors)
+    if(!data.errors){
       localStorage.setItem("profil", data.token);
-      window.location.reload();
-
       navigate("/");
 
     } else{
-      alert(data.message)
-      console.log(data.message)
-      navigate("/login")
+      for(let i in data.errors){
+        toast.error( data.errors[i], {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
     }
   });
-  navigate("/");
+
   }
 
   if (authMode === "signin") {
     return (
+      <>
+      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+      <NavBar></NavBar>
       <div className="Auth-form-container" id='color-bg-primary'>
         <form className="Auth-form" id='color-bg-secundary'>
           <div className="Auth-form-content">
@@ -153,10 +175,14 @@ export default function (props) {
           </div>
         </form>
       </div>
+      </>
     )
   }
 
   return (
+    <>
+    <ToastContainer toastStyle={{ backgroundColor: '#634133'}}/>
+    <NavBar></NavBar>
     <div className="Auth-form-container" id='color-bg-primary'>
     <form className="Auth-form-sign-up" id='color-bg-secundary'>
       <div className="Auth-form-content">
@@ -243,5 +269,6 @@ export default function (props) {
         </div>
       </form>
     </div>
+    </>
   )
 }
