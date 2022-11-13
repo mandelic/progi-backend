@@ -35,7 +35,7 @@ public class ValidationAdvice {
     public ResponseEntity<ValidationErrorJson> methodArgumentNotUniqueException(DataIntegrityViolationException ex, WebRequest request) {
         String path = ((ServletWebRequest)request).getRequest().getRequestURI();
         String message = ex.getMessage();
-        if (message.contains("users_email_key")) message = "email must be unique.";
+        if (message.contains("users_email_key")) message = "Adresa e-pošte već postoji.";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ValidationErrorJson(path, Arrays.asList(message)));
     }
 
