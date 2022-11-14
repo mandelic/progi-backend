@@ -3,9 +3,9 @@ FROM openjdk:17-alpine AS builder
 
 # Kopiranje izvornog koda u container
 COPY ../gradle /gradle/
-COPY ../gradlew gradlew
-COPY ../build.gradle build.gradle
-COPY ../settings.gradle settings.gradle
+COPY ../gradlew .
+COPY ../build.gradle .
+COPY ../settings.gradle .
 COPY ../src /src/
 RUN chmod +x gradlew
 
