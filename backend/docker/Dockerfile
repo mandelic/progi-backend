@@ -7,7 +7,6 @@ COPY backend/gradlew .
 COPY backend/build.gradle .
 COPY backend/settings.gradle .
 COPY backend/src/ src
-COPY /backend/sahisti-0.0.1-SNAPSHOT.jar /app.jar
 RUN chmod +x gradlew
 
 # Pokretanje builda
@@ -21,11 +20,12 @@ FROM openjdk:17-alpine
 #RUN apk install <nesto>
 
 ## Kopiranje izvrsnog JAR-a iz build containera u izvrsni container
-#COPY --from=builder build/*.jar /app.jar
+COPY --from=builder build/*.jar /app.jar
 
 # Izlaganje porta
 EXPOSE 8080
 
 # Naredba kojom se pokrece aplikacija
 ENTRYPOINT ["java","-jar","/app.jar"]
+CMD ["-start"]
 
