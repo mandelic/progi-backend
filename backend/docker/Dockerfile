@@ -26,7 +26,7 @@ COPY --from=builder /build/libs/*.jar /app.jar
 EXPOSE 8080
 
 # Naredba kojom se pokrece aplikacija
-CMD ["-start"]
+#CMD ["-start"]
 #RUN ["chmod", "+x", "/app.jar"]
 ENTRYPOINT ["java","-jar","/app.jar"]
 
