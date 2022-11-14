@@ -6,7 +6,7 @@ COPY ../../gradle gradle
 COPY ../../gradlew .
 COPY ../build.gradle .
 COPY ../../settings.gradle .
-COPY ../../src src
+COPY ../src src
 RUN chmod +x gradlew
 
 # Pokretanje builda
