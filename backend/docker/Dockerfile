@@ -26,5 +26,5 @@ COPY --from=builder build/*.jar /backend/build/libs/sahisti-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
 
 # Naredba kojom se pokrece aplikacija
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/backend/build/libs/sahisti-0.0.1-SNAPSHOT.jar"]
 
