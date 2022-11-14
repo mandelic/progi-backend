@@ -169,7 +169,7 @@ export default function (props) {
                 Predaj
               </button>
             </div>
-            <p className="text-center mt-2">
+            <p className="text-center">
               Zaboravio si <a className='link' id='color-text-highlight' href="#">lozinku?</a>
             </p>
           </div>
