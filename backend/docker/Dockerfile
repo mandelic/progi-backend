@@ -2,11 +2,11 @@
 FROM openjdk:17-alpine AS builder
 
 # Kopiranje izvornog koda u container
-COPY ../gradle gradle
-COPY ../gradlew .
-COPY ../build.gradle .
-COPY ../settings.gradle .
-COPY ../src src
+COPY ../../gradle gradle
+COPY ../../gradlew .
+COPY ../../build.gradle .
+COPY ../../settings.gradle .
+COPY ../../src src
 RUN chmod +x gradlew
 
 # Pokretanje builda
@@ -27,3 +27,4 @@ EXPOSE 8080
 
 # Naredba kojom se pokrece aplikacija
 ENTRYPOINT ["java","-jar","/app.jar"]
+
