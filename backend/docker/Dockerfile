@@ -20,11 +20,11 @@ FROM openjdk:17-alpine
 #RUN apk install <nesto>
 
 ## Kopiranje izvrsnog JAR-a iz build containera u izvrsni container
-COPY --from=builder build/*.jar /backend/build/libs/sahisti-0.0.1-SNAPSHOT.jar
+COPY --from=builder build/*.jar /backend/sahisti-0.0.1-SNAPSHOT.jar
 
 # Izlaganje porta
 EXPOSE 8080
 
 # Naredba kojom se pokrece aplikacija
-ENTRYPOINT ["java","-jar","/backend/build/libs/sahisti-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/backend/sahisti-0.0.1-SNAPSHOT.jar"]
 
