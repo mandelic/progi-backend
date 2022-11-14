@@ -1,15 +1,12 @@
 # Container za izgradnju (build) aplikacije
 FROM openjdk:17-alpine AS builder
 
-RUN mkdir -p /gradle
-RUN mkdir -p /src
-
 # Kopiranje izvornog koda u container
-COPY ../gradle/ /gradle
-COPY ../gradlew /gradlew
-COPY ../build.gradle /build.gradle
-COPY ../settings.gradle /settings.gradle
-COPY ../src/ /src
+COPY backend/gradle/ gradle
+COPY backend/gradlew .
+COPY backend/build.gradle .
+COPY backend/settings.gradle .
+COPY backend/src/ src
 RUN chmod +x gradlew
 
 # Pokretanje builda
