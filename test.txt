@@ -1,1 +1,88 @@
-testing git
+UC2: Pregled rang liste dnevnog zadatka
+    Glavni sudionik: Korisnik
+    Cilj: Pregledati rang listu dnevnog zadatka
+    Sudionici: Baza podataka
+    Preduvjet: -
+    Opis osnovnog tijeka:
+        1. Korisnik pristupa stranici
+        2. Korisnik odabire poveznicu za rang listu
+        3. Aplikacija dohvaća podatke rang liste iz baze
+        4. Prikazuje se rang lista dnevnog zadatka
+
+UC3: Pristup dnevnom zadatku
+    Glavni sudionik: Korisnik
+    Cilj: Pristupiti dnevnom zadatku
+    Sudionici: -
+    Preduvjet: -
+    Opis osnovnog tijeka:
+        1. Korisnik pristupa stranici
+        2. Korisnik odabire poveznicu za dnevni zadatak
+        3. Prikazuje se dnevni zadatak
+
+UC4: Registracija
+    Glavni sudionik: Korisnik
+    Cilj: Stvoriti korisnički račun za pristup sustavu
+    Sudionici: Baza podataka
+    Preduvjet: -
+    Opis osnovnog tijeka:
+        1. Korisnik pristupa stranici
+        2. Korisnik odabire opciju za registraciju
+        3. Korisnik unosi potrebne korisničke podatke
+        4. Baza podataka pohranjuje podatke o novom korisniku
+        5. Korisnik prima obavijest o uspješnoj registraciji
+    Opis mogućih odstupanja:
+        3.a Odabir već zauzetog korisničkog imena ili e-maila, unos korisničkog podatka
+            u nedozvoljenom formatu ili pružanje neispravnog e-maila
+            1. Sustav obavještavav korisnika o neuspjelom upisu i vraća ga na stranicu za registraciju
+            2. Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
+
+UC5: Prijava u sustav
+    Glavni sudionik: Član/Trener
+    Cilj: Dobiti pristup korisničkom sučelju
+    Sudionici: Baza podataka
+    Preduvjet: Registracija
+    Opis osnovnog tijeka:
+        1. Unos korisničkog imena i lozinke
+        2. Potvrda o ispravnosti unesenih podataka preko baze podataka
+        3. Pristup korisničkim funkcijama
+    Opis mogućih odstupanja:
+        2.a Neispravno korisničko ime ili lozinka
+            1. Sustav obavještava korisnika o neuspjelom upisu i vraća ga na stranicu za prijavu
+            2. Korisnik mijenja potrebne podatke te završava unos ili odustaje od prijave
+
+UC6: Pregled osobnih podataka
+    Glavni sudionik: Član/Trener
+    Cilj: Pregledati osobne podatke
+    Sudionici: Baza podataka
+    Preduvjet: Član/Trener prijavljen
+    Opis osnovnog tijeka:
+        1. Korisnik odabire opciju "Osobni podaci"
+        2. Baza podataka dohvaća osobne podatke korisnika
+        3. Aplikacija prikazuje osobne podatke korisnika
+
+UC7: Promjena osobnih podataka
+    Glavni sudionik: Član/Trener
+    Cilj: Promijeniti osobne podatke
+    Sudionici: Baza podataka
+    Preduvjet: Član/Trener prijavljen
+    Opis osnovnog tijeka:
+        1. Korisnik odabere opciju za promjenu podataka
+        2. Korisnik mijenja svoje osobne podatke
+        3. Korisnik sprema promjene
+        4. Baza podataka se ažurira
+        5. Aplikacija prikazuje stranicu s korisnikovim ažuriranim podacima
+    Opis mogućih odstupanja:
+    2.a Korisnik promijeni svoje osobne podatke, ali ne odabere opciju "Spremi promjenu"
+        1. Sustav obavještava korisnika da nije spremio podatke prije izlaska iz prozora
+
+UC8: Brisanje korisničkog računa
+    Glavni sudionik: Član/Trener
+    Cilj: Izbrisati svoj korisnički račun
+    Sudionici: Baza podataka
+    Preduvjet: Član/Trener prijavljen
+    Opis osnovnog tijeka:
+        1. Korisnik odabere opciju za pregled osobnih podataka
+        2. Otvara se stranica s osobnim podacima korisnika
+        3. Korisnik odabire opciju za brisanje računa
+        3. Korisnički račun se izbriše iz baze podataka
+        5. Otvara se stranica za registraciju
