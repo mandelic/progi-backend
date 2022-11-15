@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-        target: "https://sahisti-lii1.onrender.com/",
+        target: "http://localhost:8080/",
         changeOrigin: true,
     })
   );
