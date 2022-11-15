@@ -86,7 +86,7 @@ export default function (props) {
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("http://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/users", {
+    fetch("https://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -130,7 +130,8 @@ export default function (props) {
   if (authMode === "signin") {
     return (
       <>
-      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
       <NavBar></NavBar>
       <div className="Auth-form-container" id='color-bg-primary'>
         <form className="Auth-form" id='color-bg-secundary'>
