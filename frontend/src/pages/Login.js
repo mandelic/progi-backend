@@ -92,6 +92,7 @@ export default function (props) {
           Accept: "application/json",
           "Content-Type": "application/json",
       },
+      referrerPolicy: "unsafe_url",
       body: JSON.stringify({
           email: email,
           firstName: firstName,
@@ -130,7 +131,6 @@ export default function (props) {
   if (authMode === "signin") {
     return (
       <>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
       <NavBar></NavBar>
       <div className="Auth-form-container" id='color-bg-primary'>
