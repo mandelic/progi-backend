@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "http://localhost:8080/",
+      target: "http://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com",
       changeOrigin: true,
     })
   );
