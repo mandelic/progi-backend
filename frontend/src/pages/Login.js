@@ -49,7 +49,7 @@ export default function (props) {
 
   async function predajSignIn(e){
     e.preventDefault();
-    fetch("http://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/login", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/login", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -86,13 +86,12 @@ export default function (props) {
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("https://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/users", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
       },
-      referrerPolicy: "unsafe_url",
       body: JSON.stringify({
           email: email,
           firstName: firstName,
