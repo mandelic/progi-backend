@@ -49,7 +49,7 @@ export default function (props) {
 
   async function predajSignIn(e){
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/login", {
+    fetch("http://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/login", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -86,7 +86,7 @@ export default function (props) {
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/users", {
+    fetch("http://sahistiprogi-env.eba-qihmse7y.eu-central-1.elasticbeanstalk.com/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",
