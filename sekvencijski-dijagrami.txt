@@ -1,0 +1,34 @@
+Obrazac uporabe UC4 - registracija
+
+Posjetitelj šalje zahtjev poslužitelju za prikaz stranice za prijavu te mu je on prikazuje.
+Na stranici za prijavu osim obrasca za prijavu nalazi se i poveznica na stranicu za registraciju, ako posjetitelj još nema profil i želi ga izraditi.
+Klikom na poveznicu za registraciju posjetitelj šalje zahtjev poslužitelju za prikaz stranice i obrasca za registraciju te mu je on i prikazuje.
+Ispod polja za unos teksta, odnosno traženih podataka, nalazi se gumb predaj. Klikom na gumb predaj, unesene podatke pregledava poslužitelj u komunikaciji s bazom podataka.
+Točnije provjerava jesu li sva polja ispunjenja i pravilnog formata.
+Ako jesu dalje provjerava postoji li u bazi već član s unesenom email adresom (ne smiju biti dva korisnika s istom email adresom).
+Ako naiđe na bilo kakvu grešku javlja je natrag posjetitelju s odgovarajućom porukom.
+U suprotnom ako su sve provjere prošle u redu u bazi se stvori novi korisnik i poslužitelj javlja posjetitelju poruku uspješnog registriranja i preusmjeruje ga na 
+početnu stranicu i automatski ga prijavi na novo stvoreni korisnički račun.
+
+
+Obrazac uporabe UC16 - plaćanje
+
+Svakih 15 dana web-aplikacije dohvaća iz baze podataka popis članova koji nisu još platili članarinu za ovaj mjesec.
+Članovima na popisu web-aplikacija šalje obavijest, točnije upozorenje da trebaju podmititi mjesečnu članarinu klubu.
+Uz samo upozorenje, odmah im se nudi i mogućnost plaćanja.
+Ako se član odluči odmah platiti, šalje podatke za transakciju poslužitelju. 
+Ako je sve u redu podaci se prosljeđuju bazi koja ih pohranjuje te prvo aplikacija a potom i član dobiva potvrdu u uspješno provedenoj transakciji i spremanju podataka.
+Ako je transakcija neuspjela aplikacija javlja poruku o grešci.
+
+
+Obrasci uporabe UC10 i UC22 - postavljanje taktike i pojavljivanje pogreške
+
+Trener na svom profilu na podstranici taktika odabire taktiku koju će postaviti za taj dan.
+Poslužitelj taktiku dohvaća iz baze podataka te nakon uspješnog postavljanja treneru šalje potvrdu uspješnog dodavanja taktike koja je sada i vidljiva na aplikaciji.
+Ako je neki od članova rješavajući dnevnu taktiku prijavio grešku, treneru će se prilikom pristupa svom profilu pojaviti obavijest o tome. I to na sljedeći način.
+Trener šalje zahtjev za prikaz stranice svog profila te mu je poslužitelj i prikazuje. Potom poslužitelj iz baze dohvaća prijavljene greške.
+Ako postoje prijavljene greške, poslužitelj ih prikazuje treneru. Trener opcionalno nakon pregleda šalje nazad poslužitelju informaciju o valjanosti greške i prijedloga.
+Ako je greška potvrđena poslužitelj u bazi mijenja podatke to jest rješenja za taktiku. Poruku o uspješnosti izmijenjenih podataka čekaju i poslužitelj i trener.
+Još jedna zadaća poslužitelja kada je greška potvrđena je da revidira rang listu, odnosno da bazi pošalje zahtjev za revidiranjem. Nakon uspješnih izmjena na
+rang listi poslužitelj dobiva potvrdu od baze te prikazuje novu, izmijenjenu rang listu 
+
