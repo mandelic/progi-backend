@@ -1,0 +1,59 @@
+.pozdrav-container{
+    display: flex;
+    grid-gap: 8px;
+}
+
+
+.slika-container{
+    width: 60%;
+    height: 100%;
+}
+
+.text-container{
+    width: 40%;
+    height: 100%;
+}
+
+.slika{
+    height: 99%;
+    width: 100%;
+}
+
+.linesize {
+    width: 90%;
+    border-top: 4px solid #392a16
+    
+}
+
+p{
+    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-top: 10px;
+    text-align: left;
+    color: #392a16;
+    font-size: 2.2rem;
+    font-style: italic;
+    font-weight: 800;
+}
+
+.text2{
+    font-weight: 250;
+    font-size: 1.5rem;
+    font-style: normal;
+    padding-top: 15px;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .pozdrav-container{
+        flex-direction: column;
+    }
+    .slika-container{
+        width: 100%;
+    }
+
+    .text-container{
+        width: 100%;
+    }
+
+}
