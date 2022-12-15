@@ -1,6 +1,7 @@
 import React from 'react'
 import './Profil.css'
 import NavBar from '../components/NavBar';
+import Profil_NavBar from '../components/Profil_NavBar'
 import { useLocation, useNavigate } from "react-router";
 
 function Profil() {
@@ -17,12 +18,10 @@ function logout(){
   return (
     <> <NavBar></NavBar >
     <div className='profilContainer' id='color-bg-primary'>
-    <div className='profil' id='color-bg-primary'> DOBRODOŠAO!
+    <Profil_NavBar></Profil_NavBar>
     </div>
-    <button type="submit" className="btn" onClick={logout}>
-                Odjavi se!
-    </button>
-    </div>
+    
+
     </>
   )
 }

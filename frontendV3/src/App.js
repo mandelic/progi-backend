@@ -7,6 +7,8 @@ import Kontakt from './pages/Kontakt';
 import DnevnaTaktika from './pages/DnevnaTaktika';
 import Profil from './pages/Profil';
 import User from './pages/User';
+import Trening from './pages/Trening';
+import Turnir from './pages/Turnir'
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,6 +25,8 @@ function App() {
         <Route path='/dnevna-taktika' element={<DnevnaTaktika/>} />
         <Route path='/profil' element={<Profil/>} />
         <Route path='/user' element={<User/>} />
+        <Route path='/trening' element={<Trening/>} />
+        <Route path='/turnir' element={<Turnir/>} />
       </Routes>
     </Router>
     </>

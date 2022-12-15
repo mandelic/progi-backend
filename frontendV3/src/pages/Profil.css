@@ -1,11 +1,8 @@
 .profilContainer{
-    height: 88vh;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    height: 87vh;
+    font-size: large;
 }
 
-.profil{
-    font-weight: 800;
-    font-size: 2rem;
-    margin: 50px;
-}
 

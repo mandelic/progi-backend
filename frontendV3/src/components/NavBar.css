@@ -51,6 +51,10 @@
   margin-right: 2rem;
 }
 
+.nav-menu-profil{
+  text-align: center;
+}
+
 .nav-item {
   height: 80px;
 }
