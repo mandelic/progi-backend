@@ -1,8 +1,52 @@
 .profilContainer{
-    display: grid;
-    grid-template-columns: 1fr 10fr;
-    height: 87vh;
-    font-size: large;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    grid-gap: 15px;
 }
 
+.profil-text{
+    text-align: center;
+    font-size: 35px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.izbornik{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.kartica {
+
+    width: 60vh;
+    height: 62vh;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    border-radius: 8px;
+    background-color: #c1b098;
+  }
+
+.btn2{
+    width: 40vh;
+    align-self: center;
+    
+}
+
+.slika-container2{
+    height: 80%;
+
+}
+
+.slika2{
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.poveznica{
+    text-align: center;
+    align-self: center;
+}
 

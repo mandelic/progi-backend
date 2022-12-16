@@ -5,10 +5,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Kontakt from './pages/Kontakt';
 import DnevnaTaktika from './pages/DnevnaTaktika';
-import Profil from './pages/Profil';
+import Podaci from './pages/Podaci';
 import User from './pages/User';
 import Trening from './pages/Trening';
 import Turnir from './pages/Turnir'
+import Profil from './pages/Profil';
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -27,6 +28,7 @@ function App() {
         <Route path='/user' element={<User/>} />
         <Route path='/trening' element={<Trening/>} />
         <Route path='/turnir' element={<Turnir/>} />
+        <Route path='/podaci' element={<Podaci/>} />
       </Routes>
     </Router>
     </>
