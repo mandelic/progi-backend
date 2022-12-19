@@ -1,4 +1,4 @@
-package com.runtimeterror.sahisti.config;
+package com.runtimeterror.sahisti.configuration.config;
 
 import com.runtimeterror.sahisti.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;

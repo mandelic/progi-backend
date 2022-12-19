@@ -1,6 +1,6 @@
 package com.runtimeterror.sahisti.user.service.impl;
 
-import com.runtimeterror.sahisti.exception.UserIdNotFoundException;
+import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
 import com.runtimeterror.sahisti.user.controller.dto.LoginDTO;
 import com.runtimeterror.sahisti.user.controller.dto.TokenDTO;
 import com.runtimeterror.sahisti.user.entity.User;

@@ -1,6 +1,6 @@
-package com.runtimeterror.sahisti.exception;
+package com.runtimeterror.sahisti.configuration.exception;
 
-import com.runtimeterror.sahisti.exception.json.ErrorJson;
+import com.runtimeterror.sahisti.configuration.exception.json.ErrorJson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

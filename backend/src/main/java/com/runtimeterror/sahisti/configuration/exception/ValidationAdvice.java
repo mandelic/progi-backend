@@ -1,7 +1,6 @@
-package com.runtimeterror.sahisti.exception;
+package com.runtimeterror.sahisti.configuration.exception;
 
-import com.runtimeterror.sahisti.exception.json.ErrorJson;
-import com.runtimeterror.sahisti.exception.json.ValidationErrorJson;
+import com.runtimeterror.sahisti.configuration.exception.json.ValidationErrorJson;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

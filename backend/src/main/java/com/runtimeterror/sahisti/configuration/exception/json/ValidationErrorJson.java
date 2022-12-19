@@ -1,4 +1,4 @@
-package com.runtimeterror.sahisti.exception.json;
+package com.runtimeterror.sahisti.configuration.exception.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
