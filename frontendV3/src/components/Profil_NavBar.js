@@ -9,7 +9,7 @@ function Profil_nb() {
     <>
             <ul className='nav-menu-profil' id='color-bg-secundary'>
             <li className='nav-item'>
-            <Link to = '/profil' className='nav-links' id={trenutno == 'profil' ? 'color-text-highlight' : 'color-text'}>
+            <Link to = '/podaci' className='nav-links' id={trenutno == 'podaci' ? 'color-text-highlight' : 'color-text'}>
                 PODACI
             </Link>
         </li>
