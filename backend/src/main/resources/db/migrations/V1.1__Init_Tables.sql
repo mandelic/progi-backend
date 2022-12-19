@@ -9,3 +9,9 @@ CREATE TABLE users
     card_number VARCHAR(25),
     role VARCHAR(100)
 );
+
+CREATE TABLE column
+(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100)
+);
