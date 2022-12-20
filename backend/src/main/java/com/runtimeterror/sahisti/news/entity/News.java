@@ -35,4 +35,10 @@ public class News {
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     User author;
+
+    public News(LocalDateTime date, String title, Boolean visible) {
+        this.date = date;
+        this.title = title;
+        this.visible = visible;
+    }
 }
