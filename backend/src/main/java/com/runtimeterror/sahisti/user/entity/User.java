@@ -1,5 +1,8 @@
 package com.runtimeterror.sahisti.user.entity;
 
+import com.runtimeterror.sahisti.news.entity.News;
+import com.runtimeterror.sahisti.rankedList.entity.RankedList;
+import com.runtimeterror.sahisti.transaction.entity.Transaction;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +51,15 @@ public class User {
     @Size(max = 30)
     String cardNumber;
 
+    @ManyToOne
+    @JoinColumn(name="list_id", nullable = false)
+    private RankedList ranked_list;
+
+    @OneToMany(mappedBy="author")
+    Set<News> news;
+
+    @OneToOne(mappedBy="user")
+    Transaction transaction;
     private String role;
 
     public User(String email, String firstName, String lastName, String password, String phoneNumber, String cardNumber) {
