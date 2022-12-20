@@ -10,6 +10,7 @@ import User from './pages/User';
 import Trening from './pages/Trening';
 import Turnir from './pages/Turnir'
 import Profil from './pages/Profil';
+import Placanje  from './pages/Placanje';
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -29,6 +30,7 @@ function App() {
         <Route path='/trening' element={<Trening/>} />
         <Route path='/turnir' element={<Turnir/>} />
         <Route path='/podaci' element={<Podaci/>} />
+        <Route path='/placanje' element={<Placanje/>} />
       </Routes>
     </Router>
     </>

@@ -23,6 +23,11 @@ function Profil_nb() {
                 TRENING
             </Link>
         </li>
+        <li className='nav-item'>
+            <Link to = '/placanje' className='nav-links' id={trenutno == 'placanje' ? 'color-text-highlight' : 'color-text'}>
+                PLAĆANJE
+            </Link>
+        </li>
         
     </ul>    
     </>
