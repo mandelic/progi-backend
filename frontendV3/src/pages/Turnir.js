@@ -3,26 +3,30 @@ import './Podaci.css'
 import NavBar from '../components/NavBar';
 import Profil_NavBar from '../components/Profil_NavBar'
 import Popup from '../components/Popup';
+import { useLocation, useNavigate } from "react-router";
 
 function Turnir() {
   let  [naslov, setNaslov] = useState("");
   let [datum, setDatum] = useState("");
   let [lokacija, setLokacija] = useState("");
 
+  const navigate = useNavigate();
+
   const trenernaslov = (n) => {
     setNaslov(naslov = n)
   }
 
   const trenerdatum = (d) => {
-    setNaslov(datum = d)
+    setDatum(datum = d)
   }
 
   const trenerlokacija = (l) => {
-    setNaslov(lokacija = l)
+    setLokacija(lokacija = l)
   }
 
   async function predajTurnir(e){
     alert("to-do......")
+    setIsOpen(!isOpen);
   }
 
   let trener = true
