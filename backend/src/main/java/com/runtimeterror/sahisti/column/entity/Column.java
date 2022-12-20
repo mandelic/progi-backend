@@ -27,4 +27,8 @@ public class Column {
 
     @OneToMany(mappedBy="column")
     private Set<News> news;
+
+    public Column(String title) {
+        this.title = title;
+    }
 }

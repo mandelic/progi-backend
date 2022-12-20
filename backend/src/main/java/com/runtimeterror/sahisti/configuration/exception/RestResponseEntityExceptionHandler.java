@@ -9,11 +9,19 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.swing.text.html.parser.Entity;
+
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserIdNotFoundException.class)
     public ResponseEntity<ErrorJson> handleAuthorIdNotFoundException(UserIdNotFoundException exception, WebRequest request) {
+        String path = ((ServletWebRequest)request).getRequest().getRequestURI();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorJson(path, exception.getMessage()));
+    }
+
+    @ExceptionHandler(EntityIdNotFoundException.class)
+    public ResponseEntity<ErrorJson> handleEntityIdNotFoundException(EntityIdNotFoundException exception, WebRequest request) {
         String path = ((ServletWebRequest)request).getRequest().getRequestURI();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorJson(path, exception.getMessage()));
     }
