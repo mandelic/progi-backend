@@ -43,16 +43,8 @@ CREATE TABLE news
 CREATE TABLE ranked_list
 (
     id SERIAL PRIMARY KEY,
-    points INTEGER
-);
-
-CREATE TABLE list_member
-(
-    list_id INTEGER,
-    member_id INTEGER,
-    CONSTRAINT list_member_pk PRIMARY KEY(member_id, list_id),
-    CONSTRAINT member_fk FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT list_fk FOREIGN KEY (list_id) REFERENCES ranked_list(id) ON DELETE CASCADE
+    points INTEGER,
+    member INTEGER
 );
 
 CREATE TABLE tournament
