@@ -50,3 +50,10 @@
     align-self: center;
 }
 
+@media screen and (max-width: 960px) {
+    .izbornik{
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+    }
+}

@@ -15,7 +15,7 @@ function NavBar() {
 
   let userILIlogin = "PROFIL"
   let lin = "profil"
-  if(localStorage.length != 1){userILIlogin = "PRIJAVA";lin="login"}
+  if(localStorage.length != 2){userILIlogin = "PRIJAVA";lin="login"}
 
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true)

@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import './Podaci.css'
 import NavBar from '../components/NavBar';
 import Profil_NavBar from '../components/Profil_NavBar'
 import Popup from '../components/Popup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Trening() {
   let  [trajanje, setTrajanje] = useState("");
   let [datum, setDatum] = useState("");
   let [lokacija, setLokacija] = useState("");
+  let [nepr, setNePr] = useState([])
+  let [pr, setPr] = useState([])
+  let [sviTreninzi, setT] = useState([])
 
   const trenertrajanje = (t) => {
     setTrajanje(trajanje = t)
@@ -21,12 +26,65 @@ function Trening() {
     setLokacija(lokacija = l)
   }
 
+  let id = localStorage.getItem('userId')
+
+  let trener = false;
+  let admin = false;
+
+  
+
   async function predajTrening(e){
-    alert("to-do......")
-    setIsOpen(!isOpen);
+    e.preventDefault();
+    let f = "http://localhost:8080/api/v1/coach/" + id + "/training"
+    fetch(f, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        date: datum,
+        location: lokacija,
+        duration: trajanje
+      }),  
+    })
+    .then((res) => {
+      console.log(res.status)
+      if(res.status == '400'){
+        console.log("da")
+        toast.error( "pogrešan format", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      else{
+        toast.success( "uspješno dodan trening", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+        setIsOpen(!isOpen);
+      }
+
+  })
+  setDatum("");
+  setLokacija("");
+  setTrajanje("")
   }
 
-  let trener = true
 
   
   const [isOpen, setIsOpen] = useState(false);
@@ -35,42 +93,212 @@ function Trening() {
   }
 
 
-  let prT= [{
-    naslov: 'redovni trening',
-    datum: '23.4.2011',
-    opis: 'jdsdjis',
-    organizator: 'marko'
-  }]
 
-  let slT =[
-    {
-    naslov: 'trenig za turnir',
-    datum: '23.4.2011',
-    opis: 'jdsdjis',
-    organizator: 'marko'
-    },
-    {
-      naslov: 'trenig',
-      datum: '23.4.2011',
-      opis: 'jdsdjis',
-      organizator: 'pero'
+  function prijavaNaTrenig(idTreninga) {
+    let f = "http://localhost:8080/api/v1/training/" + idTreninga + "/member"
+    console.log(f)
+    fetch(f, {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+      },
+      body: id  
+  })
+  .then((res) => {
+    console.log(res)
+    if(res.status == '400'){
+      console.log("ups")
     }
+    else{
+      toast.success("yey!")
+    }
+    res.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+    
+  }
 
-]
+  // to do: prT i slT dohvatiti iz backenda i 
 
+  useEffect(() => {
+    let f = "http://localhost:8080/api/v1/training/" + id + "/not-applied"
+    fetch(f, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      setNePr(data)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+  }, [])
+
+
+  useEffect(() => {
+    let f = "http://localhost:8080/api/v1/training/" + id + "/applied"
+    fetch(f, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("prijavljeni:")
+      console.log(data)
+      
+      setPr(data)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+  }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/v1/training", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      setT(data)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+  }, [])
+
+if(!admin && !trener){
   return (
     <div>      
+      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+      <NavBar></NavBar>
+      <div className='podaciContainer' id='color-bg-primary'>
+        <Profil_NavBar></Profil_NavBar>
+
+
+        <div>
+          <div className='t'>
+
+            <table className='t-table'>
+              <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
+              <tr>
+                <th>datum</th>
+                <th>lokacija</th>
+                <th>trajanje</th>
+                <th>organizator</th>
+              </tr>
+              {pr.map((val,key) =>{
+                return(
+                  <tr key={key}>
+                    <td>{val.date}</td>
+                    <td>{val.location}</td>
+                    <td>{val.duration}</td>
+                    <td>{val.coachName}</td>
+                  </tr>
+                )
+              })}
+            </table>
+          </div>
+          <div className='t'>
+          <table className='t-table'>
+              <caption>NADOLAZECI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
+              <tr>
+                <th>datum</th>
+                <th>lokacija</th>
+                <th>trajanje</th>
+                <th>organizator</th>
+                <th>prijavi se</th>
+              </tr>
+              {nepr.map((val,key) =>{
+                return(
+                  <tr key={key}>
+                    <td>{val.date}</td>
+                    <td>{val.location}</td>
+                    <td>{val.duration}</td>
+                    <td>{val.coachName}</td>
+                    <td><button className='btn'  onClick={() => prijavaNaTrenig(val.id)} >želim se prijaviti!</button></td>
+                  </tr>
+                )
+              })}
+              </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  )
+}
+else if(admin){
+  return(
+    <>
+        <div>      
+      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+      <NavBar></NavBar>
+      <div className='podaciContainer' id='color-bg-primary'>
+        <Profil_NavBar></Profil_NavBar>
+        <div>
+          <div className='t'>
+          <table className='t-table'>
+              <caption>NADOLAZECI TRENINZI</caption>
+              <tr>
+                <th>datum</th>
+                <th>lokacija</th>
+                <th>trajanje</th>
+                <th>organizator</th>
+                <th>uredi</th>
+              </tr>
+              {sviTreninzi.map((val,key) =>{
+                return(
+                  <tr key={key}>
+                    <td>{val.date}</td>
+                    <td>{val.location}</td>
+                    <td>{val.duration}</td>
+                    <td>{val.coachName}</td>
+                    <td><button className='btn'>obrisi</button></td>
+                  </tr>
+                )
+              })}
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
+  )
+}
+else if(trener){
+  return(
+    <>
+        <div>      
+      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
       <NavBar></NavBar>
       <div className='podaciContainer' id='color-bg-primary'>
         <Profil_NavBar></Profil_NavBar>
 
         {isOpen && <Popup
       content={<>
+      <p>Kreiraj Trening</p>
       <div className="form-group mt-3">
               <label>Datum</label>
               <input
                 type="datum"
                 className="form-control mt-1"
+                placeholder='2022-05-10T22:03:46'
                 onChange={(e) => trenerdatum(e.target.value)}
                 required
               />
@@ -102,51 +330,27 @@ function Trening() {
 
         <div>
           <div className='t'>
-
-            <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
-              <tr>
-                <th>trening</th>
-                <th>datum</th>
-                <th>opis</th>
-                <th>organizator</th>
-              </tr>
-              {prT.map((val,key) =>{
-                return(
-                  <tr key={key}>
-                    <td>{val.naslov}</td>
-                    <td>{val.datum}</td>
-                    <td>{val.opis}</td>
-                    <td>{val.organizator}</td>
-                  </tr>
-                )
-              })}
-            </table>
-          </div>
-          <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
+              <caption>NADOLAZECI TVOJI TRENINZI</caption>
               <tr>
-                <th>trening</th>
                 <th>datum</th>
-                <th>opis</th>
+                <th>lokacija</th>
+                <th>trajanje</th>
                 <th>organizator</th>
-                <th>prijavi se</th>
               </tr>
-              {slT.map((val,key) =>{
+              {sviTreninzi.map((val,key) =>{
                 return(
                   <tr key={key}>
-                    <td>{val.naslov}</td>
-                    <td>{val.datum}</td>
-                    <td>{val.opis}</td>
-                    <td>{val.organizator}</td>
-                    <td><button className='btn'>želim se prijaviti!</button></td>
+                    <td>{val.date}</td>
+                    <td>{val.location}</td>
+                    <td>{val.duration}</td>
+                    <td>{val.coachName}</td>
                   </tr>
                 )
               })}
               </table>
           </div>
-          <div className={trener ? 'trener-da' : 'trener-ne'}>
+          <div className='trener-da'>
           Pozdrav, trenere! Spreman za kreirati novi trening?
           <hr />
           <button className='btn' id='trener-gumb' onClick={togglePopup}> KREIRAJ NOVI TRENING</button>
@@ -154,7 +358,10 @@ function Trening() {
         </div>
       </div>
     </div>
+    </>
   )
 }
+}
+
 
 export default Trening

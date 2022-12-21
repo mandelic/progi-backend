@@ -6,10 +6,14 @@
   align-items: center;
   align-content: center;
 }
-.slika{
-  width: 90%;
-  height: 100%;
-  align-self: center;
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr
+}
+.chess{
+  width: 80%;
+  height: 80%;
+  align-self: center
 }  
 th {
   border-bottom: 1px solid rgb(0, 0, 0);

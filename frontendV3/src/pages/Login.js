@@ -48,8 +48,9 @@ export default function (props) {
   }
 
   async function predajSignIn(e){
+    console.log("hej")
     e.preventDefault();
-    fetch("https://sahisti-lii1.onrender.com/api/v1/login", {
+    fetch("http://localhost:8080/api/v1/login", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -62,8 +63,11 @@ export default function (props) {
   })
   .then((res) => res.json())
   .then(data => {
+    console.log("tu")
+    console.log(data)
     if(data.message === 'User authenticated.'){
       localStorage.setItem("profil", data.token);
+      localStorage.setItem("userId",data.userId)
       navigate("/");
 
     } else{
@@ -86,7 +90,7 @@ export default function (props) {
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("https://sahisti-lii1.onrender.com/api/v1/users", {
+    fetch("http://localhost:8080/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -106,7 +110,19 @@ export default function (props) {
     console.log(data.errors)
     if(!data.errors){
       localStorage.setItem("profil", data.token);
-      navigate("/");
+      navigate("/login");
+      changeAuthMode();
+      toast.success( "Uspješno si registriran, slobodno se prijavi s novo stvorenim profilom", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
 
     } else{
       for(let i in data.errors){

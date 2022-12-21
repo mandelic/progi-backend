@@ -3,10 +3,18 @@ import './DnevnaTaktika.css'
 import NavBar from '../components/NavBar';
 import { useLocation, useNavigate } from "react-router";
 import { useState }  from 'react'
+import Popup from '../components/Popup'
 
 
 
 function DnevnaTaktika() {
+
+  var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = dd + '.' + mm + '.' + yyyy + '.';
 
 
   let  [rjesenje, setRjesenje] = useState("");
@@ -25,27 +33,88 @@ function DnevnaTaktika() {
     setGreska(greska = p)
   }
 
-  async function predajOcjenu(e){
-    console.log("predajemo ocijenu")
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
 
+  function ppredajOcjenu(e){
+    alert("Ocjena uspješno podnesena")
+  }
+  function ppredajGresku(e){
+    alert("Uspješno")
+  }
+  function ppredajRjesenje(e){
+    alert("Predano");
+    setIsOpen(!isOpen)
+  }
+  async function predajOcjenu(e){
+    e.preventDefault();
+      fetch({
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ocjena: ocjena
+        }),   
+    })
+    .then((res) => res.json())
+    .then(data => {
       alert("Ocjena uspješno podnesena")
       navigate('/')
-
+    });
   }
 
   async function predajGresku(e){
-    console.log("predajemo grešku")
+    e.preventDefault();
+      fetch({
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            greska: greska
+        }),   
+    })
+    .then((res) => res.json())
+    .then(data => {
       alert("Prijava greške uspješno podnesena")
       navigate('/')
-
+    });
   }
 
-
   async function predajRjesenje(e){
-    console.log("predajem!")
 
-    document.getElementById('proba').innerHTML += '<div>hej!!</div>'
-  return(
+    e.preventDefault();
+      fetch({
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            rjesenje: rjesenje
+        }),   
+    })
+    .then((res) => res.json())
+    .then(data => {
+      if(data.message === 'Solution correct'){
+        alert("Rješenje je ispravno")
+      } else{
+        alert("Rješenje neispravno")
+      }
+
+    });
+  }
+  return (
+    <div>      <NavBar></NavBar>
+
+{
+        isOpen && <Popup content = {<>
+      
       <><><div className="form-group mt-3">
         <label>Ocjena</label>
         <select name="list"
@@ -60,7 +129,7 @@ function DnevnaTaktika() {
           <option>5</option>
         </select>
       </div><div>
-          <button type="submit" className="btn" onClick={predajOcjenu}>
+          <button type="submit" className="btn" onClick={ppredajOcjenu}>
             Predaj ocjenu
           </button>
 
@@ -73,26 +142,26 @@ function DnevnaTaktika() {
             onChange={(e) => usergreska(e.target.value)}
             required />
         </div><div>
-            <button type="submit" className="btn" onClick={predajGresku}>
+            <button type="submit" className="btn" onClick={ppredajGresku}>
               Predaj grešku
             </button>
           </div></></>
-)
-    
-  }
+
+          </>}
+          handleClose = {togglePopup}
+          />}
+      <div class='container'>
+        <img className='chess' src={require('../images/chess.jpg')}  alt="chessboard"/>
 
 
-    
-  return (
-    <div>      <NavBar></NavBar>
-      <div id='proba'>
-        <img className='slika' src={require('../images/chess.jpg')}  alt="chessboard"/>
-      </div>
+ 
+
+
+
 
       <div>
       <div>
-        <p id = "date"></p>
-      </div>
+        <p id = "date">Taktika dana {today}</p>
       <textarea
             type="text"
             id='color-bg-primary'
@@ -100,7 +169,7 @@ function DnevnaTaktika() {
             cols="200"
             required
           ></textarea>
-      </div>
+      </div></div></div>
 
       <div className="form-group mt-3">
           <label>Sljedeći potez</label>
@@ -113,7 +182,7 @@ function DnevnaTaktika() {
           />
       </div>
       <div>
-        <button type="submit" className="btn" onClick={predajRjesenje}>
+        <button type="submit" className="btn" onClick={ppredajRjesenje}>
             Predaj rješenje
         </button>
       </div>

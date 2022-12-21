@@ -25,6 +25,29 @@ function Turnir() {
   }
 
   async function predajTurnir(e){
+        /*
+    e.preventDefault();
+    fetch(".....", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        date: datum,
+        title: naslov,
+        location: lokacija
+      }),  
+    })
+    .then((res) => res.json())
+    .then(data => {
+      if(data.message == "ok"){
+      toast.succes(data.message)
+    }else{
+      toast.error(data.message)
+    }
+  })
+    */
     alert("to-do......")
     setIsOpen(!isOpen);
   }
@@ -36,6 +59,7 @@ function Turnir() {
     setIsOpen(!isOpen);
   }
 
+  // to-do dohvat trninga
   let prT= [{
     naslov: 'dobrotvorni turnir',
     datum: '23.4.2011',
@@ -69,6 +93,7 @@ function Turnir() {
 
     {isOpen && <Popup
       content={<>
+      <p>Kreiraj Turnir</p>
       <div className="form-group mt-3">
               <label>Naslov</label>
               <input
