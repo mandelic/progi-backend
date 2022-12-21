@@ -27,7 +27,7 @@ public class CoachTournamentController {
     private UserService userService;
 
     @PostMapping("/coach/{id}/tournament")
-    public ResponseEntity<TournamentDetailsDTO> addTournament(@PathVariable Long id,@Valid @RequestBody TournamentDTO tournamentDTO) {
+    public ResponseEntity<TournamentDetailsDTO> addTournament(@PathVariable Long id, @Valid @RequestBody TournamentDTO tournamentDTO) {
         User coach = userService.findById(id);
         Tournament tournament = tournamentService.addTournament(new Tournament(tournamentDTO.getDate(),tournamentDTO.getTitle(),tournamentDTO.getLocation(),coach));
         return ResponseEntity.status(HttpStatus.CREATED).body(new TournamentDetailsDTO(tournament));
