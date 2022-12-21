@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.training.controller.dto;
 
+import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.training.entity.Training;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +26,5 @@ public class TrainingDetailsDTO {
         this.duration = training.getDuration();
         this.coachName = training.getCoach().getFirstName() + " " + training.getCoach().getLastName();
     }
+
 }

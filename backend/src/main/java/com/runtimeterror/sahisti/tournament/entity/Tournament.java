@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tournament")
@@ -29,5 +31,16 @@ public class Tournament {
 
     @ManyToOne
     @JoinColumn(name="coach_id", nullable=false)
-    User user;
+    User coach;
+
+    @ManyToMany
+    Set<User> members = new HashSet<>();
+
+    public Tournament(LocalDateTime date, String title, String location, User coach) {
+        this.date = date;
+        this.title = title;
+        this.location = location;
+        this.coach = coach;
+        visible = true;
+    }
 }

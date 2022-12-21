@@ -2,6 +2,7 @@ package com.runtimeterror.sahisti.user.entity;
 
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.rankedList.entity.RankedList;
+import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.transaction.entity.Transaction;
 import com.sun.istack.NotNull;
@@ -70,6 +71,14 @@ public class User {
     )
     Set<Training> trainings = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "tournament_member",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "tournament_id")
+    )
+    Set<Tournament> tournaments = new HashSet<>();
+
     private String role;
 
     public User(String email, String firstName, String lastName, String password, String phoneNumber, String cardNumber) {
@@ -85,6 +94,11 @@ public class User {
     public void addTraining(Training training) {
         this.trainings.add(training);
         training.getMembers().add(this);
+    }
+
+    public void addTournament(Tournament tournament) {
+        this.tournaments.add(tournament);
+        tournament.getMembers().add(this);
     }
 
     public void removeTraining(Long trainingId) {
