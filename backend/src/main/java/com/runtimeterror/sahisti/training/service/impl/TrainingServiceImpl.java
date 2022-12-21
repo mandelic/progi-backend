@@ -26,11 +26,13 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     public List<Training> findAllRelevant() {
+        userRepository.findAll();
         return trainingRepository.findAllByVisible(true);
     }
 
     @Override
     public List<Training> findAllByUserId(Long id) {
+        userRepository.findAll();
         List<Training> criteriaTraining = trainingRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
         List<Training> byUserTraining = trainingRepository.findAllByUserId(id);
         return criteriaTraining.stream().filter(training -> byUserTraining.contains(training)).collect(Collectors.toList());

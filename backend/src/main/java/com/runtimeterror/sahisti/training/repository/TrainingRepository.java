@@ -11,6 +11,6 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
     List<Training> findAllByVisible(Boolean visible);
     List<Training> findAllByVisibleAndDateAfter(Boolean visible, LocalDateTime date);
 
-    @Query(value = "SELECT t.* FROM training LEFT JOIN training_member t_m ON t_m.training_id = t.id WHERE t_m.member_id = :id", nativeQuery = true)
+    @Query(value = "SELECT t.* FROM training t LEFT JOIN training_member t_m ON t_m.training_id = t.id WHERE t_m.member_id = :id", nativeQuery = true)
     List<Training> findAllByUserId(Long id);
 }
