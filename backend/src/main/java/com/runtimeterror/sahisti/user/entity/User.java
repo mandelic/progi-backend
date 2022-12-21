@@ -2,6 +2,7 @@ package com.runtimeterror.sahisti.user.entity;
 
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.rankedList.entity.RankedList;
+import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.transaction.entity.Transaction;
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -60,6 +61,15 @@ public class User {
 
     @OneToOne(mappedBy="user")
     Transaction transaction;
+
+    @ManyToMany
+    @JoinTable(
+            name = "training_member",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "training_id")
+    )
+    Set<Training> trainings = new HashSet<>();
+
     private String role;
 
     public User(String email, String firstName, String lastName, String password, String phoneNumber, String cardNumber) {
@@ -71,4 +81,19 @@ public class User {
         this.cardNumber = cardNumber;
         this.role = "ROLE_MEMBER";
     }
+
+    public void addTraining(Training training) {
+        this.trainings.add(training);
+        training.getMembers().add(this);
+    }
+
+    public void removeTraining(Long trainingId) {
+        Training training = this.trainings.stream().filter(b -> b.getId() == trainingId).findFirst().orElse(null);
+        if (training != null) {
+            this.trainings.remove(training);
+            training.getMembers().remove(this);
+        }
+    }
+
+
 }

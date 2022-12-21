@@ -88,7 +88,7 @@ CREATE TABLE training
     date DATE,
     location VARCHAR(200),
     visible BOOLEAN,
-    duration TIMESTAMP,
+    duration INTEGER,
     coach_id INTEGER
 );
 

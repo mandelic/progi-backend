@@ -1,10 +1,15 @@
 package com.runtimeterror.sahisti.user.controller.dto;
 
+import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
+import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -15,6 +20,7 @@ public class UserDetailsDTO {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private List<Training> trainings;
     private String role;
 
     public UserDetailsDTO(User user) {
@@ -22,6 +28,13 @@ public class UserDetailsDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.phoneNumber = user.getPhoneNumber();
+        this.trainings = user.getTrainings().stream().toList();
         this.role = user.getRole();
     }
+
+    public List<TrainingDetailsDTO> getTrainings() {
+        return trainings.stream().map(t -> new TrainingDetailsDTO(t)).collect(Collectors.toList());
+    }
+
+
 }

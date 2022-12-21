@@ -1,5 +1,7 @@
 package com.runtimeterror.sahisti.user.controller;
 
+import com.runtimeterror.sahisti.training.controller.dto.TrainingDTO;
+import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
 import com.runtimeterror.sahisti.user.controller.dto.UserDTO;
 import com.runtimeterror.sahisti.user.controller.dto.UserDetailsDTO;
 import com.runtimeterror.sahisti.user.entity.User;
