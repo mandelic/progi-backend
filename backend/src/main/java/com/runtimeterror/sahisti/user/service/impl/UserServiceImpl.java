@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findById(Long id) {
+        System.out.println(userRepository.findAll());
         return userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
     }
 
