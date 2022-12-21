@@ -34,6 +34,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Training> findAllByUserId(Long id) {
         userRepository.findAll();
         List<Training> criteriaTraining = trainingRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
+        if (!userRepository.existsById(id)) throw new UserIdNotFoundException(id);
         List<Training> byUserTraining = trainingRepository.findAllByUserId(id);
         return criteriaTraining.stream().filter(training -> byUserTraining.contains(training)).collect(Collectors.toList());
     }

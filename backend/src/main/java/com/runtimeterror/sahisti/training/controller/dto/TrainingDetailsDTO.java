@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class TrainingDetailsDTO {
+    private Long id;
     private LocalDateTime date;
     private String location;
     private Boolean visible;
@@ -17,6 +18,7 @@ public class TrainingDetailsDTO {
     private String coachName;
 
     public TrainingDetailsDTO(Training training) {
+        this.id = training.getId();
         this.date = training.getDate();
         this.location = training.getLocation();
         this.visible = training.getVisible();
