@@ -10,11 +10,12 @@ import Popup from '../components/Popup'
 function DnevnaTaktika() {
 
   var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  
+  today = dd + '.' + mm + '.' + yyyy + '.';
 
-today = dd + '.' + mm + '.' + yyyy + '.';
 
 
   let  [rjesenje, setRjesenje] = useState("");
@@ -42,73 +43,13 @@ today = dd + '.' + mm + '.' + yyyy + '.';
     alert("Ocjena uspješno podnesena")
   }
   function ppredajGresku(e){
-    alert("Uspješno")
+    alert("Prijava greške uspješno podnesena")
   }
   function ppredajRjesenje(e){
-    alert("Predano");
+    alert("Vaše rješenje je predano");
     setIsOpen(!isOpen)
   }
-  async function predajOcjenu(e){
-    e.preventDefault();
-      fetch({
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            ocjena: ocjena
-        }),   
-    })
-    .then((res) => res.json())
-    .then(data => {
-      alert("Ocjena uspješno podnesena")
-      navigate('/')
-    });
-  }
 
-  async function predajGresku(e){
-    e.preventDefault();
-      fetch({
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            greska: greska
-        }),   
-    })
-    .then((res) => res.json())
-    .then(data => {
-      alert("Prijava greške uspješno podnesena")
-      navigate('/')
-    });
-  }
-
-  async function predajRjesenje(e){
-
-    e.preventDefault();
-      fetch({
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            rjesenje: rjesenje
-        }),   
-    })
-    .then((res) => res.json())
-    .then(data => {
-      if(data.message === 'Solution correct'){
-        alert("Rješenje je ispravno")
-      } else{
-        alert("Rješenje neispravno")
-      }
-
-    });
-  }
   return (
     <div>      <NavBar></NavBar>
 
@@ -160,16 +101,15 @@ today = dd + '.' + mm + '.' + yyyy + '.';
 
 
       <div>
-      <div>
-        <p id = "date">Taktika dana {today}</p>
+        <p> Taktika dana {today}</p>
       <textarea
             type="text"
             id='color-bg-primary'
-            rows="50"
-            cols="200"
+            rows="32"
+            cols="50"
             required
           ></textarea>
-      </div></div></div>
+      </div></div>
 
       <div className="form-group mt-3">
           <label>Sljedeći potez</label>

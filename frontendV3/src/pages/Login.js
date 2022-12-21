@@ -68,6 +68,7 @@ export default function (props) {
     if(data.message === 'User authenticated.'){
       localStorage.setItem("profil", data.token);
       localStorage.setItem("userId",data.userId)
+      localStorage.setItem("role", data.role)
       navigate("/");
 
     } else{

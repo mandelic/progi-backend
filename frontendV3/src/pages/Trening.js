@@ -28,8 +28,14 @@ function Trening() {
 
   let id = localStorage.getItem('userId')
 
-  let trener = false;
-  let admin = false;
+  let uloga = localStorage.getItem("role")
+
+  if(uloga == "ROLE_ADMIN"){
+    var admin = true;
+  }
+if(uloga == "ROLE_CHOACH"){
+  var trener = true;
+}
 
   
 
