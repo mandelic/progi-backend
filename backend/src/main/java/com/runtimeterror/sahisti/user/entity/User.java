@@ -19,8 +19,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = "email")
-       })
+                @UniqueConstraint(columnNames = "email")
+        })
 @Getter @Setter @NoArgsConstructor
 public class User {
 
@@ -52,10 +52,6 @@ public class User {
     @NotBlank(message = "card number must not be blank")
     @Size(max = 30)
     String cardNumber;
-
-    @ManyToOne
-    @JoinColumn(name="list_id", nullable = false)
-    private RankedList ranked_list;
 
     @OneToMany(mappedBy="author")
     Set<News> news;

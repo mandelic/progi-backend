@@ -22,6 +22,11 @@ public class RankedList {
 
     Long points;
 
-    @OneToMany(mappedBy="ranked_list")
-    Set<User> members = new HashSet<>();
+    @Column(name = "member")
+    Long member;
+
+    public RankedList(Long points, Long member_id) {
+        this.points = points;
+        this.member = member_id;
+    }
 }
