@@ -2,7 +2,6 @@ package com.runtimeterror.sahisti.training.service.impl;
 
 import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
-import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.training.repository.TrainingRepository;
 import com.runtimeterror.sahisti.training.service.TrainingService;
@@ -27,7 +26,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public List<Training> findAllRelevant() {
         userRepository.findAll();
-        return trainingRepository.findAllByVisible(true);
+        return trainingRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
     }
 
     @Override
@@ -36,7 +35,7 @@ public class TrainingServiceImpl implements TrainingService {
         List<Training> criteriaTraining = trainingRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
         if (!userRepository.existsById(id)) throw new UserIdNotFoundException(id);
         List<Training> byUserTraining = trainingRepository.findAllByUserId(id);
-        return criteriaTraining.stream().filter(training -> byUserTraining.contains(training)).collect(Collectors.toList());
+        return criteriaTraining.stream().filter(byUserTraining::contains).collect(Collectors.toList());
     }
 
     @Override
