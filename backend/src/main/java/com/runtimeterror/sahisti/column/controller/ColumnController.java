@@ -33,7 +33,7 @@ public class ColumnController {
     }
 
     @PostMapping
-    public ResponseEntity<ColumnDTO> addUser(@Valid @RequestBody ColumnDTO columnDTO) {
+    public ResponseEntity<ColumnDTO> addColumn(@Valid @RequestBody ColumnDTO columnDTO) {
         Column newColumn = columnService.addColumn(new Column(columnDTO.getTitle()));
         return ResponseEntity.status(HttpStatus.CREATED).body(new ColumnDTO(newColumn));
     }

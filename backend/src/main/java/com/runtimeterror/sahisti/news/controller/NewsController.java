@@ -31,7 +31,7 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsDTO> addUser(@Valid @RequestBody NewsDTO newsDTO) {
+    public ResponseEntity<NewsDTO> addNews(@Valid @RequestBody NewsDTO newsDTO) {
         News newNews = newsService.addNews(new News(newsDTO.getDate(), newsDTO.getTitle(), newsDTO.getVisible()));
         return ResponseEntity.status(HttpStatus.CREATED).body(new NewsDTO(newNews));
     }

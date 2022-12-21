@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.user.controller;
 
 import com.runtimeterror.sahisti.user.controller.dto.UserDTO;
+import com.runtimeterror.sahisti.user.controller.dto.UserDetailsDTO;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class UserController {
     @PreAuthorize("hasRole('MEMBER')")
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
-        return ResponseEntity.ok(userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList()));
+        return ResponseEntity.ok(userService.findAll().stream().map(UserDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasRole('MEMBER')")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(new UserDTO(userService.findById(id)));
+    public ResponseEntity<UserDetailsDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(new UserDetailsDTO(userService.findById(id)));
     }
 
 

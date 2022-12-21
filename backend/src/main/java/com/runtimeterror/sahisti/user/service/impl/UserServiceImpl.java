@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     public TokenDTO verifyLogin(LoginDTO loginDTO) {
         if (userRepository.existsByEmail(loginDTO.getEmail())){
             User user = userRepository.findByEmail(loginDTO.getEmail());
-            if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) return new TokenDTO("User authenticated.", user.getRole(), "");
+            if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) return new TokenDTO("User authenticated.", user.getRole(), "", user.getId());
         }
-        return new TokenDTO("Wrong email or password.", "", "");
+        return new TokenDTO("Wrong email or password.", "", "", null);
     }
 
     public User findById(Long id) {
