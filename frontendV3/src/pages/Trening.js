@@ -37,6 +37,9 @@ if(uloga == "ROLE_CHOACH"){
   var trener = true;
 }
 
+//trener = true
+//admin = true
+
   
 
   async function predajTrening(e){

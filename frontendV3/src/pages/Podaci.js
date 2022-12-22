@@ -16,6 +16,7 @@ import {FaChessRook} from 'react-icons/fa'
 function Podaci() {
   
 let [podaci, setPodaci] = useState([])
+let [rang, setRang] = useState("-")
 
 useEffect(() => {
   let f = "http://localhost:8080/api/v1/users/" + localStorage.getItem("userId")
@@ -24,6 +25,7 @@ useEffect(() => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
     }
   })
   .then((res) => res.json())
@@ -36,6 +38,34 @@ useEffect(() => {
   })
 }, [])
 
+useEffect(() => {
+  let f = "http://localhost:8080/api/v1/ranked-list/" + localStorage.getItem("userId")
+  fetch(f, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    }
+  })
+  .then((res) => {
+    console.log(res)
+    if(res.status == '404'){
+      console.log("jos nije na rang listi")
+    }
+    else{
+      res.json().then((data) => {
+        console.log(data)
+        setRang(data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+    }
+  })
+
+}, [])
+
+
   let korisnik = {
     email: 'fran.hunski@gmail.com',
     ime: 'fran',
@@ -46,12 +76,7 @@ useEffect(() => {
 
   const navigate = useNavigate();
 
-function logout(){
 
-    window.localStorage.clear();
-    navigate("/");
-
-}
 
   return (
     <> <NavBar></NavBar >
@@ -62,18 +87,18 @@ function logout(){
           <div className="Podaci-form" id='color-bg-secundary'>
             <div className="Podaci-form-content">
               <div>
-                <p className='textPodaci'>Ime: Fran</p>
-                <p className='textPodaci'>Prezime: Hunski</p>
-                <p className='textPodaci'>E-mail: fran.hunski@gmail.com</p>
-                <p className='textPodaci'>Mobitel: 0992332294</p>
-                <p className='textPodaci'>Uloga: član</p>
+                <p className='textPodaci'>Ime: {podaci.firstName}</p>
+                <p className='textPodaci'>Prezime: {podaci.lastName}</p>
+                <p className='textPodaci'>E-mail: {podaci.email}</p>
+                <p className='textPodaci'>Mobitel: {podaci.phoneNumber}</p>
+                <p className='textPodaci'>Uloga: {podaci.role}</p>
               </div>
             </div>
             <div className="Podaci-form-content">
-              <p className='textPodaci'>Pozicija na rang listi: 1.</p>
-              <p className='textPodaci'>Bodovi: 100</p>
-              <p className='textPodaci'>Broj odigranih turnira: 3</p>
-              <p className='textPodaci'>Broj odrađenih treninga: 10</p>
+              <p className='textPodaci'>Pozicija na rang listi: {rang}</p>
+              <p className='textPodaci'>Bodovi: to-do</p> 
+              <p className='textPodaci'>Broj odigranih turnira: to-do</p>
+              <p className='textPodaci'>Broj odrađenih treninga: to-do</p>
             </div>
             <div className='chess-icons-container'>
               <FaChessBishop className='chess-icons-container' size={"4vh"}></FaChessBishop>
