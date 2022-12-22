@@ -10,7 +10,9 @@ import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TournamentServiceImpl implements TournamentService {
@@ -35,6 +37,15 @@ public class TournamentServiceImpl implements TournamentService {
     public List<Tournament> findAllVisibile() {
         userRepository.findAll();
         return tournamentRepository.findAllByVisible(true);
+    }
+
+    @Override
+    public List<Tournament> findAllByUserID(long id) {
+        userRepository.findAll();
+        List<Tournament> criteriaTournament = tournamentRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
+        if (!userRepository.existsById(id)) throw new UserIdNotFoundException(id);
+        List<Tournament> byUserTournament = tournamentRepository.findAllByUserId(id);
+        return criteriaTournament.stream().filter(byUserTournament::contains).collect(Collectors.toList());
     }
 
     @Override

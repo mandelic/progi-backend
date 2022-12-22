@@ -13,6 +13,8 @@ public interface TournamentService {
 
     List<Tournament> findAllVisibile();
 
+    List<Tournament> findAllByUserID(long id);
+
     User addMember(long id, long memberID);
 
 }

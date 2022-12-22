@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.tournament.controller;
 
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
+import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
 import com.runtimeterror.sahisti.user.controller.dto.UserDetailsDTO;
 import com.runtimeterror.sahisti.user.entity.User;
@@ -31,6 +32,22 @@ public class TournamentController {
         User user = tournamentService.addMember(id, memberId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDetailsDTO(user));
     }
+
+    @GetMapping("/{id}/applied")
+    public ResponseEntity<List<TournamentDetailsDTO>> findAllByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok(tournamentService.findAllByUserID(id).stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}/not-applied")
+    public ResponseEntity<List<TournamentDetailsDTO>> findAllByUserIdNotApplied(@PathVariable Long id) {
+        List<Tournament> allRelevant= tournamentService.findAllVisibile();
+        List<Tournament> allByUserId= tournamentService.findAllByUserID(id);
+        allRelevant = allRelevant.stream().filter(training -> !allByUserId.contains(training)).collect(Collectors.toList());
+        return ResponseEntity.ok(allRelevant.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+    }
+
+
+
 
 
 
