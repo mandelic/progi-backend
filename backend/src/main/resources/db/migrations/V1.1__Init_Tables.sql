@@ -3,12 +3,12 @@ DROP TABLE IF EXISTS news_author;
 DROP TABLE IF EXISTS news;
 DROP TABLE IF EXISTS columns;
 DROP TABLE IF EXISTS ranked_list;
-DROP TABLE IF EXISTS tournament_member;
+DROP TABLE IF EXISTS tournament_members;
 DROP TABLE IF EXISTS training_member;
-DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS training;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tournament;
 
 CREATE TABLE users
 (
@@ -57,7 +57,7 @@ CREATE TABLE tournament
     coach_id INTEGER
 );
 
-CREATE TABLE tournament_member
+CREATE TABLE tournament_members
 (
     tournament_id INTEGER,
     member_id INTEGER,

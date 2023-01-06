@@ -1,5 +1,7 @@
 package com.runtimeterror.sahisti.user.controller.dto;
 
+import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
+import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
 import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.user.entity.User;
@@ -21,6 +23,7 @@ public class UserDetailsDTO {
     private String lastName;
     private String phoneNumber;
     private List<Training> trainings;
+    private List<Tournament> tournaments;
     private String role;
 
     public UserDetailsDTO(User user) {
@@ -29,11 +32,16 @@ public class UserDetailsDTO {
         this.lastName = user.getLastName();
         this.phoneNumber = user.getPhoneNumber();
         this.trainings = user.getTrainings().stream().toList();
+        this.tournaments = user.getTournaments().stream().toList();
         this.role = user.getRole();
     }
 
     public List<TrainingDetailsDTO> getTrainings() {
         return trainings.stream().map(t -> new TrainingDetailsDTO(t)).collect(Collectors.toList());
+    }
+
+    public List<TournamentDetailsDTO> getTournaments() {
+        return tournaments.stream().map(t -> new TournamentDetailsDTO(t)).collect(Collectors.toList());
     }
 
 

@@ -33,7 +33,7 @@ public class Tournament {
     @JoinColumn(name="coach_id", nullable=false)
     User coach;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tournaments")
     Set<User> members = new HashSet<>();
 
     public Tournament(LocalDateTime date, String title, String location, User coach) {

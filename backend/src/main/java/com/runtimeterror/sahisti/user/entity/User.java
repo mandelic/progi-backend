@@ -69,7 +69,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "tournament_member",
+            name = "tournament_members",
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "tournament_id")
     )
