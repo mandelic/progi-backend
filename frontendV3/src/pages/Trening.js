@@ -37,7 +37,7 @@ if(uloga == "ROLE_CHOACH"){
   var trener = true;
 }
 
-//trener = true
+trener = true
 //admin = true
 
   
@@ -92,6 +92,9 @@ if(uloga == "ROLE_CHOACH"){
   setDatum("");
   setLokacija("");
   setTrajanje("")
+  document.getElementById("datum").value = ""
+  document.getElementById("lokacija").value = ""
+  document.getElementById("trajanje").value = ""
   }
 
 
@@ -118,9 +121,30 @@ if(uloga == "ROLE_CHOACH"){
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
+      toast.error( "došlo je do pogreške", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
     }
     else{
-      toast.success("yey!")
+      toast.success( "uspješno si prijavljen na trening", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
     }
     res.json()
   })
@@ -305,6 +329,7 @@ else if(trener){
       <div className="form-group mt-3">
               <label>Datum</label>
               <input
+                id='datum'
                 type="datum"
                 className="form-control mt-1"
                 placeholder='2022-05-10T22:03:46'
@@ -315,6 +340,7 @@ else if(trener){
         <div className="form-group mt-3">
               <label>Lokacija</label>
               <input
+                id='lokacija'
                 type="lokacija"
                 className="form-control mt-1"
                 onChange={(e) => trenerlokacija(e.target.value)}
@@ -324,6 +350,7 @@ else if(trener){
         <div className="form-group mt-3">
               <label>Trajanje</label>
               <input
+                id='trajanje'
                 type="trajanje"
                 className="form-control mt-1"
                 onChange={(e) => trenertrajanje(e.target.value)}
