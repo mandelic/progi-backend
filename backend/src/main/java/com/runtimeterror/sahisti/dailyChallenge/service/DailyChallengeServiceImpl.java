@@ -1,10 +1,32 @@
 package com.runtimeterror.sahisti.dailyChallenge.service;
 
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.game.Game;
+import com.github.bhlangonijr.chesslib.move.Move;
+import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class DailyChallengeServiceImpl implements DailyChallengeService {
-
+    @Override
     public void startGame() {
+
+    }
+
+    @Override
+    public String inputMove(String move) {
+        return null;
+    }
+
+    @Override
+    public int getChooseAssignment(int assignmentNumber) {
+        return 0;
+    }
+
+    /*public void startGame() {
         PgnHolder pgn = new PgnHolder("sahisti/backend/src/main/resources/chessGames/WorldChamp2018.pgn"); //controller za odabir datoteke
         pgn.loadPgn();
         float score = 10;
@@ -51,5 +73,5 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
 
     public int getChooseAssignment(int assignmentNumber) {
         return assignmentNumber;
-    }
+    }*/
 }
