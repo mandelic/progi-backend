@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -91,5 +92,26 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         }
         BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString());
         return boardDTO;
+    }
+
+    @Override
+    public List<BoardDTO> getAll() throws Exception {
+        List<BoardDTO> allChallenges = new ArrayList<>();
+        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        pgn.loadPgn();
+
+        for (int m = 0; m < 15; m++) {
+            Game game = pgn.getGames().get(m);
+            game.loadMoveText();
+            MoveList moves = game.getHalfMoves();
+            int j = moves.size() - 1;
+            Board board = new Board();
+            for (int i = 0; i < j; i++) {
+                board.doMove(moves.get(i));
+            }
+            BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString());
+            allChallenges.add(boardDTO);
+        }
+        return allChallenges;
     }
 }

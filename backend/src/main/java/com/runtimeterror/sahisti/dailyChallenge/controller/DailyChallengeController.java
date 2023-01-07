@@ -1,10 +1,10 @@
 package com.runtimeterror.sahisti.dailyChallenge.controller;
 
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AssignmentDTO;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AvailableChallenges;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
-import com.runtimeterror.sahisti.news.controller.dto.NewsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,6 +42,13 @@ public class DailyChallengeController {
     public ResponseEntity<DailyChallenge> deleteDailyChallenge(@PathVariable Long id) {
         return ResponseEntity.ok(dailyChallengeService.removeDailyChallenge(id));
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
+    @GetMapping("/get-all")
+    public ResponseEntity<AvailableChallenges> getAllChallenges() throws Exception {
+        return ResponseEntity.ok(new AvailableChallenges(dailyChallengeService.getAll()));
+    }
+
 
 
 }
