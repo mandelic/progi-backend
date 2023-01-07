@@ -21,6 +21,21 @@ public class BoardDTO {
     public BoardDTO(String board) {
         String[] boardSplit = board.split("\n");
         for (int i  = 0; i < 8; i++) {
+            /*String line = boardSplit[i];
+            line = line.replace("p", "♙");
+            line = line.replace("k", "♔");
+            line = line.replace("r", "♖");
+            line = line.replace("q", "♕");
+            line = line.replace("b", "♗");
+            line = line.replace("n", "♘");
+            line = line.replace("P", "♟");
+            line = line.replace("K", "♚");
+            line = line.replace("R", "♜");
+            line = line.replace("Q", "♛");
+            line = line.replace("B", "♝");
+            line = line.replace("N", "♞");
+            line = line.replace(".", "◩");
+            this.board.add(line);*/
             this.board.add(boardSplit[i]);
         }
         side = boardSplit[8].split(":")[1].trim();

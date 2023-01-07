@@ -16,8 +16,6 @@ import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,8 +27,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
 
     @Autowired
     private UserRepository userRepository;
-    
-
 
     public Boolean startGame(String move) throws Exception {
 
@@ -40,7 +36,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
         Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
-
 
         MoveList moves = game.getHalfMoves();
         int j = moves.size()-1;
@@ -87,8 +82,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
         Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
-
-
         MoveList moves = game.getHalfMoves();
         int j = moves.size()-1;
         Board board = new Board();
