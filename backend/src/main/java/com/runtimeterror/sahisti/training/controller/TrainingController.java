@@ -47,4 +47,9 @@ public class TrainingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDetailsDTO(user));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TrainingDetailsDTO> deleteTraining(@PathVariable Long id) {
+        return ResponseEntity.ok(new TrainingDetailsDTO(trainingService.removeTraining(id)));
+    }
+
 }

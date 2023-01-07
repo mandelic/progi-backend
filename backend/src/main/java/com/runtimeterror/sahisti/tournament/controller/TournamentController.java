@@ -3,6 +3,7 @@ package com.runtimeterror.sahisti.tournament.controller;
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
+import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
 import com.runtimeterror.sahisti.user.controller.dto.UserDetailsDTO;
 import com.runtimeterror.sahisti.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +47,9 @@ public class TournamentController {
         return ResponseEntity.ok(allRelevant.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
     }
 
-
-
-
-
-
-
-
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TournamentDetailsDTO> deleteTournament(@PathVariable Long id) {
+        return ResponseEntity.ok(new TournamentDetailsDTO(tournamentService.removeTournament(id)));
+    }
 
 }

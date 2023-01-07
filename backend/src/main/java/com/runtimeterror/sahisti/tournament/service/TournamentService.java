@@ -9,12 +9,14 @@ public interface TournamentService {
 
     Tournament addTournament(Tournament tournament);
 
-    Tournament findById(long id);
+    Tournament findById(Long id);
 
     List<Tournament> findAllVisibile();
 
-    List<Tournament> findAllByUserID(long id);
+    List<Tournament> findAllByUserID(Long id);
 
-    User addMember(long id, long memberID);
+    User addMember(Long id, Long memberID);
+    
+    Tournament removeTournament(Long id);
 
 }

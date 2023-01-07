@@ -51,4 +51,11 @@ public class TrainingServiceImpl implements TrainingService {
         member.addTraining(training);
         return userRepository.save(member);
     }
+
+    @Override
+    public Training removeTraining(Long id) {
+        Training training = trainingRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Training", id));
+        training.setVisible(false);
+        return trainingRepository.save(training);
+    }
 }

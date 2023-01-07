@@ -15,4 +15,6 @@ public interface TrainingService{
     Training addTraining(Training training);
 
     User addMember(Long id, Long memberId);
+
+    Training removeTraining(Long id);
 }

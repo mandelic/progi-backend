@@ -5,6 +5,7 @@ import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.repository.TournamentRepository;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
+import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Tournament findById(long id) {
+    public Tournament findById(Long id) {
         return tournamentRepository.findById(id).orElseThrow();
     }
 
@@ -40,7 +41,7 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public List<Tournament> findAllByUserID(long id) {
+    public List<Tournament> findAllByUserID(Long id) {
         userRepository.findAll();
         List<Tournament> criteriaTournament = tournamentRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
         if (!userRepository.existsById(id)) throw new UserIdNotFoundException(id);
@@ -49,12 +50,19 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public User addMember(long id, long memberID) {
+    public User addMember(Long id, Long memberID) {
         Tournament tournament = tournamentRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Tournament", id));
         userRepository.findAll();
         User member = userRepository.findById(memberID).orElseThrow(() -> new UserIdNotFoundException(memberID));
         member.addTournament(tournament);
         return userRepository.save(member);
+    }
+
+    @Override
+    public Tournament removeTournament(Long id) {
+        Tournament tournament = tournamentRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Tournament", id));
+        tournament.setVisible(false);
+        return tournamentRepository.save(tournament);
     }
 
 
