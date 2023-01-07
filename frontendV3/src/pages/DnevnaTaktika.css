@@ -59,3 +59,27 @@ td {
   height: 200px;
   width: 1000px;
 }
+
+
+
+#b00, #b01{
+  background-color: pink;
+}
+
+.chessboard{
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 500px;
+  height: 500px;
+  font-size: 45px;
+}
+
+.boardTR{
+  border: 1px solid black;
+  width: 100%;
+}
+
+.boardTD{
+  border: 1px solid black;
+  width: 12%;
+}

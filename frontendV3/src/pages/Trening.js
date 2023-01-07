@@ -14,6 +14,8 @@ function Trening() {
   let [pr, setPr] = useState([])
   let [sviTreninzi, setT] = useState([])
 
+  
+
   const trenertrajanje = (t) => {
     setTrajanje(trajanje = t)
   }

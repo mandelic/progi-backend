@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar';
 import { useLocation, useNavigate } from "react-router";
 import { useState }  from 'react'
 import Popup from '../components/Popup'
+import { useEffect } from 'react';
+
 
 
 
@@ -13,9 +15,31 @@ function DnevnaTaktika() {
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
+
+  var board = ["...K....", "k.......", "........", "........", "........", "........", "........", "........"]
   
   today = dd + '.' + mm + '.' + yyyy + '.';
 
+
+  useEffect(() =>{
+    let K = "king"
+    for(let i=0; i<board.length; i++) {
+      for(let j=0; j<board[i].length; j++){
+        let id = 'b' + String(i) + String(j)
+        console.log(id)
+        switch(board[i][j]){
+          case "K":
+            document.getElementById(id).innerHTML = "&#9819";
+            break;
+          case "k":
+            document.getElementById(id).innerHTML = "&#9813";
+            break
+          default:
+            document.getElementById(id).innerHTML = ".";
+        }
+      }
+    }
+  }, [])
 
 
   let  [rjesenje, setRjesenje] = useState("");
@@ -91,10 +115,31 @@ function DnevnaTaktika() {
           </>}
           handleClose = {togglePopup}
           />}
+
+
+
       <div class='container'>
-        <img className='chess' src={require('../images/chess.jpg')}  alt="chessboard"/>
 
 
+          <div className='chess'>
+            <table className='chessboard'>
+
+            {board.map((val,key) =>{
+                return(
+                  <tr className='boardTR'>
+                  <td className='boardTD'id={'b'+key+'0'}> </td>
+                  <td className='boardTD' id={'b'+key+'1'}></td>
+                  <td className='boardTD' id={'b'+key+'2'}></td>
+                  <td className='boardTD' id={'b'+key+'3'}></td>
+                  <td className='boardTD' id={'b'+key+'4'}></td>
+                  <td className='boardTD' id={'b'+key+'5'}></td>
+                  <td className='boardTD' id={'b'+key+'6'}></td>
+                  <td  className='boardTD'id={'b'+key+'7'}></td>
+                  </tr>
+                )
+              })}
+            </table>
+          </div>
  
 
 
