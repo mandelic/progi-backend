@@ -1,7 +1,5 @@
 package com.runtimeterror.sahisti.dailyChallenge.controller.dto;
 
-package com.runtimeterror.sahisti.ChessGame.controller.dto;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
