@@ -3,6 +3,7 @@ package com.runtimeterror.sahisti.dailyChallenge.controller;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AssignmentDTO;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AvailableChallenges;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.DailyChallengeDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,14 @@ public class DailyChallengeController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("coach/{coachId}")
-    public ResponseEntity<DailyChallenge> newChallenge(@PathVariable Long coachId, @RequestBody AssignmentDTO assignmentDTO) throws Exception {
-        return ResponseEntity.ok(dailyChallengeService.addDailyChallenge(assignmentDTO.getAssignmentNumber(), coachId));
+    public ResponseEntity<DailyChallengeDTO> newChallenge(@PathVariable Long coachId, @RequestBody AssignmentDTO assignmentDTO) throws Exception {
+        return ResponseEntity.ok(new DailyChallengeDTO(dailyChallengeService.addDailyChallenge(assignmentDTO.getAssignmentNumber(), coachId)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<DailyChallenge> deleteDailyChallenge(@PathVariable Long id) {
-        return ResponseEntity.ok(dailyChallengeService.removeDailyChallenge(id));
+    public ResponseEntity<DailyChallengeDTO> deleteDailyChallenge(@PathVariable Long id) {
+        return ResponseEntity.ok(new DailyChallengeDTO(dailyChallengeService.removeDailyChallenge(id)));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")

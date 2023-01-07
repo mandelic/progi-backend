@@ -23,8 +23,8 @@ public class UserDetailsDTO {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private List<Training> trainings;
-    private List<Tournament> tournaments;
+    //private List<Training> trainings;
+    //private List<Tournament> tournaments;
     private String role;
 
     public UserDetailsDTO(User user) {
@@ -33,18 +33,18 @@ public class UserDetailsDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.phoneNumber = user.getPhoneNumber();
-        this.trainings = user.getTrainings().stream().toList();
-        this.tournaments = user.getTournaments().stream().toList();
+        //this.trainings = user.getTrainings().stream().toList();
+        //this.tournaments = user.getTournaments().stream().toList();
         this.role = user.getRole();
     }
 
-    public List<TrainingDetailsDTO> getTrainings() {
+    /*public List<TrainingDetailsDTO> getTrainings() {
         return trainings.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList());
     }
 
     public List<TournamentDetailsDTO> getTournaments() {
         return tournaments.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList());
-    }
+    }*/
 
 
 }
