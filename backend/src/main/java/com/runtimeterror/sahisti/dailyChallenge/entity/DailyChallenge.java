@@ -7,9 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "dailychallenge",
+@Table(name = "daily_challenge",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "id")
         })
@@ -20,20 +22,25 @@ public class DailyChallenge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotBlank(message = "grade must be between 1 and 5")
+    LocalDate date;
+
+
     int grade;
 
-    boolean visible;
+    Boolean visible;
+
+    int assignmentNumber;
 
     @ManyToOne
     @JoinColumn(name="coach_id", nullable=false)
     User coach;
 
-    public DailyChallenge(Long id, int grade, boolean visible, User coach) {
-        this.id = id;
+    public DailyChallenge(int grade, LocalDate date, int assignmentNumber, User coach) {
         this.grade = grade;
-        this.visible = visible;
+        this.date = date;
+        this.assignmentNumber = assignmentNumber;
         this.coach = coach;
+        this.visible = true;
     }
 }
 

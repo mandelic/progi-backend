@@ -12,11 +12,7 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 public class AnswerDTO {
-    @Pattern(regexp = "[A-H][1-8]", message = "Položaj je u polju a-h, 1-8.")
-    @Size(max = 2, message = "Položaj zahtjeva slovo i broj polja.")
-    private String startingPosition;
-
-    @Pattern(regexp = "[A-H][1-8]", message = "Položaj je u polju a-h, 1-8.")
-    @Size(max = 2, message = "Položaj zahtjeva slovo i broj polja.")
-    private String endingPosition;
+    @Pattern(regexp = "[A-Ha-h][1-8][A-Ha-h][1-8]", message = "Unesite početni i krajnji položaj. Položaj je u polju a-h, 1-8.")
+    @Size(max = 4, message = "Položaj zahtjeva slovo i broj polja.")
+    private String move;
 }

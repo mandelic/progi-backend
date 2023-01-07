@@ -26,5 +26,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorJson(path, exception.getMessage()));
     }
 
+    @ExceptionHandler(CustomMessageException.class)
+    public ResponseEntity<ErrorJson> handleCustomMessage(CustomMessageException exception, WebRequest request) {
+        String path = ((ServletWebRequest)request).getRequest().getRequestURI();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorJson(path, exception.getMessage()));
+    }
+
 }
 

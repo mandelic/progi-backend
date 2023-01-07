@@ -1,15 +1,22 @@
-package com.runtimeterror.sahisti.dailyChallenge.service;
+package com.runtimeterror.sahisti.dailyChallenge.service.impl;
 
 import com.github.bhlangonijr.chesslib.Board;
-import com.github.bhlangonijr.chesslib.Square;
 import com.github.bhlangonijr.chesslib.game.Game;
 import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
+import com.runtimeterror.sahisti.configuration.exception.CustomMessageException;
+import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
+import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
+import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
+import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
+import com.runtimeterror.sahisti.user.entity.User;
+import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,11 +25,17 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Autowired
     private DailyChallengeRepository dailyChallengeRepository;
 
-    public void startGame(int assignmentNumber, String move) throws Exception {
-        PgnHolder pgn = new PgnHolder("sahisti/backend/src/main/resources/chessgames/WorldChamp2018.pgn"); //controller za odabir datoteke
+    @Autowired
+    private UserRepository userRepository;
+    
+
+    public Boolean startGame(String move) throws Exception {
+
+        PgnHolder pgn = new PgnHolder("C:\\faks\\progi\\sahisti\\backend\\src\\main\\resources\\chessGames\\WorldChamp2018.pgn"); //controller za odabir datoteke
         pgn.loadPgn();
-        float score = 10;
-        Game game = pgn.getGames().get(assignmentNumber);
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        Game game = pgn.getGames().get(dc.getAssignmentNumber());
         game.loadMoveText();
 
         MoveList moves = game.getHalfMoves();
@@ -41,21 +54,25 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         System.out.println(moves2);
         if (moves2.contains(m1)) {
             board.doMove(m1);
-            if (board.getFen().equals(b2.getFen()))
-                System.out.println("Correct, well done.");
-            else {
-                if (score > 1)
-                    score -= 0.5;
-                System.out.println("Incorrect, try again.");
-            }
-
+            return board.getFen().equals(b2.getFen());
         }
         else {
-            if (score > 1)
-                score -= 0.5;
-            System.out.println("Invalid move, try again.");
+            return false;
         }
-        //controller za pohranu rezultata
+    }
 
+    @Override
+    public DailyChallenge addDailyChallenge(int assignmentNumber, Long id) {
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc != null) throw new CustomMessageException("Trener je već odabrao dnevnu taktiku za danas.");
+        User coach = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+        return dailyChallengeRepository.save(new DailyChallenge(0, LocalDate.now(),assignmentNumber, coach));
+    }
+
+    @Override
+    public DailyChallenge removeDailyChallenge(Long id) {
+        DailyChallenge dailyChallenge = dailyChallengeRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("DailyChallenge", id));
+        dailyChallenge.setVisible(false);
+        return dailyChallengeRepository.save(dailyChallenge);
     }
 }
