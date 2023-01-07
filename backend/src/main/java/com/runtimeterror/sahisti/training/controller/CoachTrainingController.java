@@ -8,6 +8,7 @@ import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ public class CoachTrainingController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("/coach/{id}/training")
     public ResponseEntity<TrainingDetailsDTO> addTraining(@PathVariable Long id, @Valid @RequestBody TrainingDTO trainingDTO) {
         User coach = userService.findById(id);

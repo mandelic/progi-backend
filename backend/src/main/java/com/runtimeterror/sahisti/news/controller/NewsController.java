@@ -7,6 +7,7 @@ import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +32,7 @@ public class NewsController {
         return ResponseEntity.ok(new NewsDTO(newsService.findById(id)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<NewsDTO> deleteNews(@PathVariable Long id) {
         return ResponseEntity.ok(new NewsDTO(newsService.removeNews(id)));

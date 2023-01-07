@@ -9,6 +9,7 @@ import com.runtimeterror.sahisti.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class TournamentController {
         return ResponseEntity.ok(tournamentService.findAllVisibile().stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
     @PostMapping("/{id}/member")
     public ResponseEntity<UserDetailsDTO> addMember(@PathVariable Long id, @RequestBody Long memberId) {
         User user = tournamentService.addMember(id, memberId);
@@ -46,7 +48,7 @@ public class TournamentController {
         allRelevant = allRelevant.stream().filter(training -> !allByUserId.contains(training)).collect(Collectors.toList());
         return ResponseEntity.ok(allRelevant.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<TournamentDetailsDTO> deleteTournament(@PathVariable Long id) {
         return ResponseEntity.ok(new TournamentDetailsDTO(tournamentService.removeTournament(id)));

@@ -27,7 +27,6 @@ public class News {
 
     String title;
     String content;
-
     Boolean visible;
 
     @ManyToOne

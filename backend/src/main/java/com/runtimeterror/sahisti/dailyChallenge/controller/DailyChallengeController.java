@@ -6,6 +6,7 @@ import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import com.runtimeterror.sahisti.news.controller.dto.NewsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,11 +30,13 @@ public class DailyChallengeController {
         return ResponseEntity.ok(dailyChallengeService.startGame(answerDTO.getMove()));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("coach/{coachId}")
     public ResponseEntity<DailyChallenge> newChallenge(@PathVariable Long coachId, @RequestBody int assignmentNumber) throws Exception {
         return ResponseEntity.ok(dailyChallengeService.addDailyChallenge(assignmentNumber, coachId));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<DailyChallenge> deleteDailyChallenge(@PathVariable Long id) {
         return ResponseEntity.ok(dailyChallengeService.removeDailyChallenge(id));

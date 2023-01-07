@@ -9,6 +9,7 @@ import com.runtimeterror.sahisti.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,12 +42,14 @@ public class TrainingController {
         return ResponseEntity.ok(allRelevant.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
     @PostMapping("/{id}/member")
     public ResponseEntity<UserDetailsDTO> addMember(@PathVariable Long id, @RequestBody Long memberId) {
         User user = trainingService.addMember(id, memberId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDetailsDTO(user));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<TrainingDetailsDTO> deleteTraining(@PathVariable Long id) {
         return ResponseEntity.ok(new TrainingDetailsDTO(trainingService.removeTraining(id)));

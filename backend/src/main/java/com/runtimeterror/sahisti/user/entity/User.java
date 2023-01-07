@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.user.entity;
 
+import com.runtimeterror.sahisti.news.entity.DailyChallengeError;
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.rankedList.entity.RankedList;
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
@@ -74,6 +75,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "tournament_id")
     )
     Set<Tournament> tournaments = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "dcerror_members",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "dce_id")
+    )
+    Set<DailyChallengeError> dcerrors = new HashSet<>();
 
     private String role;
 

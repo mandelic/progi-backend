@@ -16,6 +16,7 @@ import com.runtimeterror.sahisti.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,6 +37,7 @@ public class ColumnNewsController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("/column/{columnId}/author/{authorId}/news")
     public ResponseEntity<NewsDTO> addNews(@PathVariable("columnId") Long columnId, @PathVariable("authorId") Long authorId, @Valid @RequestBody NewsDTO newsDTO) {
         User author = userService.findById(authorId);

@@ -11,6 +11,7 @@ import com.runtimeterror.sahisti.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ public class CoachTournamentController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("/coach/{id}/tournament")
     public ResponseEntity<TournamentDetailsDTO> addTournament(@PathVariable Long id, @Valid @RequestBody TournamentDTO tournamentDTO) {
         User coach = userService.findById(id);

@@ -32,7 +32,6 @@ public class RankedListController {
 
     @PostMapping("/{id}")
     public ResponseEntity<Integer> addUserToList(@PathVariable Long id, @RequestBody Long points) {
-        System.out.println("TU");
         int position = rankedListService.addUserToList(id, points) + 1;
         if (position == 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         return ResponseEntity.ok(position);
