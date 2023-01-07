@@ -52,6 +52,7 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public User addMember(Long id, Long memberID) {
         Tournament tournament = tournamentRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Tournament", id));
+        if (tournament.getVisible() == false) throw new EntityIdNotFoundException("Tournament", id);
         userRepository.findAll();
         User member = userRepository.findById(memberID).orElseThrow(() -> new UserIdNotFoundException(memberID));
         member.addTournament(tournament);

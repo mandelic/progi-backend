@@ -46,6 +46,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public User addMember(Long id, Long memberId) {
         Training training = trainingRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Training", id));
+        if (training.getVisible() == false) throw new EntityIdNotFoundException("Training", id);
         System.out.println(userRepository.findAll());
         User member = userRepository.findById(memberId).orElseThrow(() -> new UserIdNotFoundException(memberId));
         member.addTraining(training);
