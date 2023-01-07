@@ -62,9 +62,6 @@ td {
 
 
 
-#b00, #b01{
-  background-color: pink;
-}
 
 .chessboard{
   border: 1px solid black;
@@ -81,5 +78,15 @@ td {
 
 .boardTD{
   border: 1px solid black;
-  width: 12%;
+  width: 11%;
+}
+
+#slova{
+  font-size: 30px;
+  border-bottom: 3px solid black;
+}
+
+#brojevi{
+  font-size: 30px;
+  border-right: 3px solid black;
 }

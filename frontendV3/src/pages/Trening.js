@@ -209,6 +209,7 @@ admin = true
     })
     .then((res) => res.json())
     .then((data) => {
+      console.log("HEJ")
       console.log(data)
       setT(data)
     })
