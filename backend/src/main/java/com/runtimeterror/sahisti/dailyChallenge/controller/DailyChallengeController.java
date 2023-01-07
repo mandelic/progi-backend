@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.dailyChallenge.controller;
 
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AssignmentDTO;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
@@ -32,8 +33,8 @@ public class DailyChallengeController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @PostMapping("coach/{coachId}")
-    public ResponseEntity<DailyChallenge> newChallenge(@PathVariable Long coachId, @RequestBody int assignmentNumber) throws Exception {
-        return ResponseEntity.ok(dailyChallengeService.addDailyChallenge(assignmentNumber, coachId));
+    public ResponseEntity<DailyChallenge> newChallenge(@PathVariable Long coachId, @RequestBody AssignmentDTO assignmentDTO) throws Exception {
+        return ResponseEntity.ok(dailyChallengeService.addDailyChallenge(assignmentDTO.getAssignmentNumber(), coachId));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
