@@ -96,14 +96,4 @@ public class User {
         this.tournaments.add(tournament);
         tournament.getMembers().add(this);
     }
-
-    public void removeTraining(Long trainingId) {
-        Training training = this.trainings.stream().filter(b -> b.getId() == trainingId).findFirst().orElse(null);
-        if (training != null) {
-            this.trainings.remove(training);
-            training.getMembers().remove(this);
-        }
-    }
-
-
 }
