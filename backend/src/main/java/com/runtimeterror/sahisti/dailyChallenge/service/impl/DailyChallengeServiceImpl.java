@@ -48,12 +48,13 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         for(int i = 0; i<j;i++) {
             board.doMove(moves.get(i));
         }
-
+        System.out.println(moves.get(j));
         Move m1 = new Move(move,board.getSideToMove());
         Board b2 = board.clone();
         b2.doMove(moves.get(j));
         List<Move> moves2 = board.legalMoves();
-
+        System.out.println(moves2);
+        System.out.println(board.getSideToMove());
         if (moves2.contains(m1)) {
             board.doMove(m1);
             return board.getFen().equals(b2.getFen());

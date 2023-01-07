@@ -23,6 +23,6 @@ public class BoardDTO {
         for (int i  = 0; i < 8; i++) {
             this.board.add(boardSplit[i]);
         }
-        side = boardSplit[8];
+        side = boardSplit[8].split(":")[1].trim();
     }
 }
