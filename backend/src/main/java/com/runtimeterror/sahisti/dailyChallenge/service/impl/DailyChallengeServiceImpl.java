@@ -1,36 +1,28 @@
 package com.runtimeterror.sahisti.dailyChallenge.service;
 
 import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.Square;
 import com.github.bhlangonijr.chesslib.game.Game;
 import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
+import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class DailyChallengeServiceImpl implements DailyChallengeService {
-    @Override
-    public void startGame() {
 
-    }
+    @Autowired
+    private DailyChallengeRepository dailyChallengeRepository;
 
-    @Override
-    public String inputMove(String move) {
-        return null;
-    }
-
-    @Override
-    public int getChooseAssignment(int assignmentNumber) {
-        return 0;
-    }
-
-    /*public void startGame() {
-        PgnHolder pgn = new PgnHolder("sahisti/backend/src/main/resources/chessGames/WorldChamp2018.pgn"); //controller za odabir datoteke
+    public void startGame(int assignmentNumber, String move) throws Exception {
+        PgnHolder pgn = new PgnHolder("sahisti/backend/src/main/resources/chessgames/WorldChamp2018.pgn"); //controller za odabir datoteke
         pgn.loadPgn();
         float score = 10;
-        Game game = pgn.getGames().get(getChooseAssignment());
+        Game game = pgn.getGames().get(assignmentNumber);
         game.loadMoveText();
 
         MoveList moves = game.getHalfMoves();
@@ -40,8 +32,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
             board.doMove(moves.get(i));
         }
 
-        String s = getS();
-        Move m1 = new Move(s,board.getSideToMove());
+        Move m1 = new Move(move,board.getSideToMove());
         System.out.println("FEN: " + board.getFen());
         Board b2 = board;
         b2.doMove(moves.get(j));
@@ -65,13 +56,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
             System.out.println("Invalid move, try again.");
         }
         //controller za pohranu rezultata
-    }
 
-    public String inputMove(String move) {
-        return move;
     }
-
-    public int getChooseAssignment(int assignmentNumber) {
-        return assignmentNumber;
-    }*/
 }

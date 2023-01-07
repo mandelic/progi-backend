@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS training;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tournament;
+DROP TABLE IF EXISTS daily_challenge;
 
 CREATE TABLE users
 (
@@ -51,7 +52,7 @@ CREATE TABLE ranked_list
 CREATE TABLE tournament
 (
     id SERIAL PRIMARY KEY,
-    date DATE,
+    date TIMESTAMP,
     title VARCHAR(100),
     location VARCHAR(200),
     visible BOOLEAN,
@@ -78,7 +79,7 @@ CREATE TABLE transactions
 CREATE TABLE training
 (
     id SERIAL PRIMARY KEY,
-    date DATE,
+    date TIMESTAMP,
     location VARCHAR(200),
     visible BOOLEAN,
     duration INTEGER,
@@ -92,4 +93,14 @@ CREATE TABLE training_member
     CONSTRAINT training_member_pk PRIMARY KEY(member_id, training_id),
     CONSTRAINT member_fk FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT training_fk FOREIGN KEY (training_id) REFERENCES training(id) ON DELETE CASCADE
+);
+
+CREATE TABLE daily_challenge
+(
+    id SERIAL PRIMARY KEY,
+    date DATE,
+    grade FLOAT,
+    assignment_number INTEGER,
+    visible BOOLEAN,
+    coach_id INTEGER
 );
