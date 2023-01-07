@@ -33,12 +33,12 @@ function Turnir() {
   if(uloga == "ROLE_ADMIN"){
     var admin = true;
   }
-if(uloga == "ROLE_CHOACH"){
+if(uloga == "ROLE_SENSEI"){
   var trener = true;
 }
 
 //trener = true
-//admin = true
+admin = true
 
   
 
@@ -216,6 +216,53 @@ if(uloga == "ROLE_CHOACH"){
     })
   }, [])
 
+
+   function obrisiTurnir(id){
+    let f = "http://localhost:8080/api/v1/tournament/" + id
+    console.log(f)
+    fetch(f, {
+      method: "DELETE",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+      },
+  })
+  .then((res) => {
+    console.log(res)
+    if(res.status == '400'){
+      console.log("ups")
+      toast.error( "došlo je do pogreške", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    else{
+      toast.success( "uspješno obrisan turnir", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    res.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+  }
+
 if(!admin && !trener){
   return (
     <div>      
@@ -309,7 +356,7 @@ else if(admin){
                     <td>{val.location}</td>
                     
                     <td>{val.coachName}</td>
-                    <td><button className='btn'>obrisi</button></td>
+                    <td><button className='btn' onClick={() => obrisiTurnir(val.id)}>obrisi</button></td>
                   </tr>
                 )
               })}
