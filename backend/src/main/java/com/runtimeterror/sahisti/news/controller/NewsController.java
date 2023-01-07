@@ -3,6 +3,7 @@ package com.runtimeterror.sahisti.news.controller;
 import com.runtimeterror.sahisti.news.controller.dto.NewsDTO;
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.news.service.NewsService;
+import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,8 @@ public class NewsController {
         return ResponseEntity.ok(new NewsDTO(newsService.findById(id)));
     }
 
-    @PostMapping
-    public ResponseEntity<NewsDTO> addNews(@Valid @RequestBody NewsDTO newsDTO) {
-        News newNews = newsService.addNews(new News(newsDTO.getDate(), newsDTO.getTitle(), newsDTO.getVisible()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new NewsDTO(newNews));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<NewsDTO> deleteNews(@PathVariable Long id) {
+        return ResponseEntity.ok(new NewsDTO(newsService.removeNews(id)));
     }
 }

@@ -10,5 +10,7 @@ public interface NewsService {
     List<News> findAll();
     News findById(Long id);
     News addNews(News news);
+    News removeNews(Long id);
+    List<News> findByColumnId(Long id);
 
 }

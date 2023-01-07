@@ -4,6 +4,7 @@ import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundExcepti
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.news.repository.NewsRepository;
 import com.runtimeterror.sahisti.news.service.NewsService;
+import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,17 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News addNews(News news) {
         return newsRepository.save(news);
+    }
+
+    @Override
+    public News removeNews(Long id) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("News", id));
+        news.setVisible(false);
+        return newsRepository.save(news);
+    }
+
+    @Override
+    public List<News> findByColumnId(Long id) {
+        return newsRepository.findAllByColumnId(id);
     }
 }

@@ -11,13 +11,17 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class NewsDTO {
+    Long id;
     LocalDateTime date;
     String title;
+    String content;
     Boolean visible;
 
     public NewsDTO(News news) {
+        this.id = news.getId();
         this.date = news.getDate();
         this.title = news.getTitle();
-        this.visible = news.getVisible();
+        this.content = news.getContent();
+        this.visible = news.getVisible() != null ? news.getVisible() : true;
     }
 }

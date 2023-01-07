@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetailsDTO {
+    Long id;
     private String email;
     private String firstName;
     private String lastName;
@@ -27,6 +28,7 @@ public class UserDetailsDTO {
     private String role;
 
     public UserDetailsDTO(User user) {
+        this.id = user.getId();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -37,11 +39,11 @@ public class UserDetailsDTO {
     }
 
     public List<TrainingDetailsDTO> getTrainings() {
-        return trainings.stream().map(t -> new TrainingDetailsDTO(t)).collect(Collectors.toList());
+        return trainings.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList());
     }
 
     public List<TournamentDetailsDTO> getTournaments() {
-        return tournaments.stream().map(t -> new TournamentDetailsDTO(t)).collect(Collectors.toList());
+        return tournaments.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList());
     }
 
 

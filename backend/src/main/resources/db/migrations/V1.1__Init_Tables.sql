@@ -35,6 +35,7 @@ CREATE TABLE news
     id SERIAL PRIMARY KEY,
     date DATE,
     title VARCHAR(200),
+    content TEXT,
     visible BOOLEAN,
     column_id INTEGER,
     author_id INTEGER

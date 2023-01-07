@@ -6,6 +6,7 @@ import com.runtimeterror.sahisti.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class News {
     LocalDateTime date;
 
     String title;
+    String content;
 
     Boolean visible;
 
@@ -36,9 +38,11 @@ public class News {
     @JoinColumn(name = "author_id", nullable = false)
     User author;
 
-    public News(LocalDateTime date, String title, Boolean visible) {
+    public News(LocalDateTime date, String title, String content, User author, Column column) {
         this.date = date;
         this.title = title;
-        this.visible = visible;
+        this.content = content;
+        this.author = author;
+        this.column = column;
     }
 }
