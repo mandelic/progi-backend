@@ -21,7 +21,7 @@ public class DailyChallengeController {
 
     @GetMapping
     public ResponseEntity<BoardDTO> showBoard() throws Exception {
-        return ResponseEntity.ok(new BoardDTO(dailyChallengeService.showBoard()));
+        return ResponseEntity.ok(dailyChallengeService.showBoard());
     }
 
     @PostMapping("/make-a-move")

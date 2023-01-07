@@ -8,6 +8,7 @@ import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import com.runtimeterror.sahisti.configuration.exception.CustomMessageException;
 import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
@@ -75,7 +76,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     }
 
     @Override
-    public String showBoard() throws Exception {
+    public BoardDTO showBoard() throws Exception {
         PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
@@ -88,6 +89,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         for(int i = 0; i<j;i++) {
             board.doMove(moves.get(i));
         }
-        return board.toString();
+        BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString());
+        return boardDTO;
     }
 }

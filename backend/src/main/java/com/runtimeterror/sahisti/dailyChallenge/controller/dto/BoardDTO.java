@@ -17,8 +17,11 @@ public class BoardDTO {
 
     private List<String> board = new ArrayList<>();
     private String side;
+    private String result;
+    private String whitePlayer;
+    private String blackPlayer;
 
-    public BoardDTO(String board) {
+    public BoardDTO(String board, String result, String whitePlayer, String blackPlayer) {
         String[] boardSplit = board.split("\n");
         for (int i  = 0; i < 8; i++) {
             /*String line = boardSplit[i];
@@ -39,5 +42,8 @@ public class BoardDTO {
             this.board.add(boardSplit[i]);
         }
         side = boardSplit[8].split(":")[1].trim();
+        this.result = result;
+        this.whitePlayer  = whitePlayer;
+        this.blackPlayer = blackPlayer;
     }
 }

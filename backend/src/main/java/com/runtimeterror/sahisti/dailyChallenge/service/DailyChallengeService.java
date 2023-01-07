@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.dailyChallenge.service;
 
 import com.github.bhlangonijr.chesslib.Board;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 
 public interface DailyChallengeService {
@@ -10,7 +11,7 @@ public interface DailyChallengeService {
 
     DailyChallenge removeDailyChallenge(Long id);
 
-    String showBoard() throws Exception;
+    BoardDTO showBoard() throws Exception;
 }
 
 
