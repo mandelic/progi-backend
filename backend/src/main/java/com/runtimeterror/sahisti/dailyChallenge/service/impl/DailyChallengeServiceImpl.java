@@ -16,6 +16,8 @@ import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,14 +31,16 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     private UserRepository userRepository;
     
 
+
     public Boolean startGame(String move) throws Exception {
 
-        PgnHolder pgn = new PgnHolder("C:\\faks\\progi\\sahisti\\backend\\src\\main\\resources\\chessGames\\WorldChamp2018.pgn"); //controller za odabir datoteke
+        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
-        Game game = pgn.getGames().get(dc.getAssignmentNumber());
+        Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
+
 
         MoveList moves = game.getHalfMoves();
         int j = moves.size()-1;
@@ -47,7 +51,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
 
         Move m1 = new Move(move,board.getSideToMove());
         System.out.println("FEN: " + board.getFen());
-        Board b2 = board;
+        Board b2 = board.clone();
         b2.doMove(moves.get(j));
         List<Move> moves2 = board.legalMoves();
 
@@ -74,5 +78,24 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         DailyChallenge dailyChallenge = dailyChallengeRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("DailyChallenge", id));
         dailyChallenge.setVisible(false);
         return dailyChallengeRepository.save(dailyChallenge);
+    }
+
+    @Override
+    public String showBoard() throws Exception {
+        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        pgn.loadPgn();
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
+        game.loadMoveText();
+
+
+        MoveList moves = game.getHalfMoves();
+        int j = moves.size()-1;
+        Board board = new Board();
+        for(int i = 0; i<j;i++) {
+            board.doMove(moves.get(i));
+        }
+        return board.toString();
     }
 }

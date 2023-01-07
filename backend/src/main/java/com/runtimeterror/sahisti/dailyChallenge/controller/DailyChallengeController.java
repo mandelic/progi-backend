@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.dailyChallenge.controller;
 
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import com.runtimeterror.sahisti.news.controller.dto.NewsDTO;
@@ -18,9 +19,13 @@ public class DailyChallengeController {
     @Autowired
     private DailyChallengeService dailyChallengeService;
 
+    @GetMapping
+    public ResponseEntity<BoardDTO> showBoard() throws Exception {
+        return ResponseEntity.ok(new BoardDTO(dailyChallengeService.showBoard()));
+    }
+
     @PostMapping("/make-a-move")
     public ResponseEntity<Boolean> makeAMove(@Valid @RequestBody com.runtimeterror.sahisti.ChessGame.controller.dto.AnswerDTO answerDTO) throws Exception {
-        System.out.println(answerDTO.getMove());
         return ResponseEntity.ok(dailyChallengeService.startGame(answerDTO.getMove()));
     }
 
