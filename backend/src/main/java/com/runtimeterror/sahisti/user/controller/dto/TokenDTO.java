@@ -10,4 +10,5 @@ public class TokenDTO {
     private String message;
     private String role;
     private String token;
+    private Long userId;
 }
