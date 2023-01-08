@@ -20,8 +20,9 @@ public class BoardDTO {
     private String result;
     private String whitePlayer;
     private String blackPlayer;
+    private String solution;
 
-    public BoardDTO(String board, String result, String whitePlayer, String blackPlayer) {
+    public BoardDTO(String board, String result, String whitePlayer, String blackPlayer, String solution) {
         String[] boardSplit = board.split("\n");
         for (int i  = 0; i < 8; i++) {
             /*String line = boardSplit[i];
@@ -45,5 +46,6 @@ public class BoardDTO {
         this.result = result;
         this.whitePlayer  = whitePlayer;
         this.blackPlayer = blackPlayer;
+        this.solution = solution;
     }
 }

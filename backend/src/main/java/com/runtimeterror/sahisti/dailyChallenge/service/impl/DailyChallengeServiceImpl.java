@@ -106,7 +106,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         for(int i = 0; i<j;i++) {
             board.doMove(moves.get(i));
         }
-        BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString());
+        BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
         return boardDTO;
     }
 
@@ -125,7 +125,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
             for (int i = 0; i < j; i++) {
                 board.doMove(moves.get(i));
             }
-            BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString());
+            BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
             allChallenges.add(boardDTO);
         }
         return allChallenges;
