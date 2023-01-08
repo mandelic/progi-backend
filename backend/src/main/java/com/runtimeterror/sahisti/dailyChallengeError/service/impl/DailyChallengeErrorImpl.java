@@ -38,4 +38,12 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
     public List<DailyChallengeError> getAllUnchecked() {
         return dailyChallengeErrorRepository.findAllByChecked(false);
     }
+
+    @Override
+    public DailyChallengeError validateError(Long dceId, Boolean validation) {
+        DailyChallengeError dce = dailyChallengeErrorRepository.findById(dceId).orElseThrow(() -> new EntityIdNotFoundException("Daily challenge", dceId));
+        dce.setValid(validation);
+        dce.setChecked(true);
+        return dailyChallengeErrorRepository.save(dce);
+    }
 }

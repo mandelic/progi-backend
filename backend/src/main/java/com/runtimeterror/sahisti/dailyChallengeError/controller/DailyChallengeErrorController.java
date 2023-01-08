@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.dailyChallengeError.controller;
 
 import com.electronwill.nightconfig.core.conversion.Path;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.ValidateDTO;
 import com.runtimeterror.sahisti.dailyChallengeError.controller.dto.DceDTO;
 import com.runtimeterror.sahisti.dailyChallengeError.controller.dto.DceDetailsDTO;
 import com.runtimeterror.sahisti.dailyChallengeError.service.DailyChallengeErrorService;
@@ -31,6 +32,12 @@ public class DailyChallengeErrorController {
     @GetMapping("/unchecked")
     public ResponseEntity<List<DceDetailsDTO>> getAllUnchecked() {
         return ResponseEntity.ok(dailyChallengeErrorService.getAllUnchecked().stream().map(DceDetailsDTO::new).collect(Collectors.toList()));
+    }
+
+    @PreAuthorize("hasAnyRole('SENSEI', 'ADMIN')")
+    @PostMapping("/{dceId}/validate")
+    public ResponseEntity<DceDetailsDTO> sendDCError(@PathVariable Long dceId, @RequestBody ValidateDTO validateDTO) {
+        return ResponseEntity.ok(new DceDetailsDTO(dailyChallengeErrorService.validateError(dceId, validateDTO.getValidation())));
     }
 
 }
