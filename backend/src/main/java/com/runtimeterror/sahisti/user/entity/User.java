@@ -57,8 +57,8 @@ public class User {
     @OneToMany(mappedBy="author")
     Set<News> news;
 
-    @OneToOne(mappedBy="user")
-    Transaction transaction;
+    @OneToMany(mappedBy="user")
+    private Set<Transaction> transactions;
 
     @ManyToMany
     @JoinTable(

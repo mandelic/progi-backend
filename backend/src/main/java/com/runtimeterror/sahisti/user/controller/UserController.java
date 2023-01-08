@@ -1,5 +1,6 @@
 package com.runtimeterror.sahisti.user.controller;
 
+import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDTO;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
 import com.runtimeterror.sahisti.user.controller.dto.RoleDTO;
@@ -51,5 +52,10 @@ public class UserController {
         return ResponseEntity.ok(new UserDTO(userService.changeRole(id, roleDTO.getRole())));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDetailsDTO> deleteTournament(@PathVariable Long id) {
+        return ResponseEntity.ok(new UserDetailsDTO(userService.deleteUser(id)));
+    }
 
 }

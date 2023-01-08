@@ -73,7 +73,7 @@ CREATE TABLE tournament_members
 CREATE TABLE transactions
 (
     id SERIAL PRIMARY KEY,
-    date DATE,
+    month VARCHAR(100),
     price INTEGER,
     member_id INTEGER
 );

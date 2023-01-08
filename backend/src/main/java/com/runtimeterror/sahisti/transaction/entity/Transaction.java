@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,12 +21,18 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    LocalDateTime date;
+    String month;
 
     Long price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="member_id", nullable=false)
     User user;
+
+    public Transaction(String month, Long price, User user) {
+        this.month = month;
+        this.price = price;
+        this.user = user;
+    }
 
 }
