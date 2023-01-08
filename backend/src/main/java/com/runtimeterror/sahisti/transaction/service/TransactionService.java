@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TransactionService {
 
-    Transaction addTransaction(String month,Long id);
+    Transaction addTransaction(String month, String year, Long id);
 
-    List<Transaction> getById(Long id);
+    List<Transaction> getByMemberId(Long id);
 
     List<Transaction> getAll();
 }

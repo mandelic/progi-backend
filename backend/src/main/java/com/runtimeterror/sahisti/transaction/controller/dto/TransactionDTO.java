@@ -17,11 +17,11 @@ public class TransactionDTO {
 
     String month;
 
-    Long userId;
+    String year;
 
     public TransactionDTO(Transaction transaction) {
         this.month = transaction.getMonth();
-        this.userId = transaction.getUser().getId();
+        this.year = transaction.getYear();
     }
 
 }

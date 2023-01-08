@@ -74,6 +74,7 @@ CREATE TABLE transactions
 (
     id SERIAL PRIMARY KEY,
     month VARCHAR(100),
+    year VARCHAR(4),
     price INTEGER,
     member_id INTEGER
 );

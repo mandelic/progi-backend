@@ -23,20 +23,21 @@ public class TransactionServiceImpl implements TransactionService {
     private UserRepository userRepository;
 
     @Override
-    public Transaction addTransaction(String month, Long id) {
+    public Transaction addTransaction(String month, String year, Long id) {
         System.out.println(userRepository.findAll());
         User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+        if (transactionRepository.existsByMonthAndYearAndUserId(month, year, id)) throw new CustomMessageException("Već ste uplatili za navedeni mjesec!");
         Boolean random = Math.random() < 0.85;
         if (random) {
-             return transactionRepository.save(new Transaction(month, 10L, member));
+             return transactionRepository.save(new Transaction(month, year, 10L, member));
         } else {
             throw new CustomMessageException("Transakcija nije uspjela. Molimo Vas, pokušajte ponovno.");
         }
     }
 
     @Override
-    public List<Transaction> getById(Long id) {
-        return transactionRepository.findAllById(id);
+    public List<Transaction> getByMemberId(Long id) {
+        return transactionRepository.findAllByUserId(id);
     }
 
     @Override

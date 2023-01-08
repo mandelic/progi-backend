@@ -23,16 +23,19 @@ public class Transaction {
 
     String month;
 
+    String year;
+
     Long price;
 
     @ManyToOne
     @JoinColumn(name="member_id", nullable=false)
     User user;
 
-    public Transaction(String month, Long price, User user) {
+    public Transaction(String month, String year, Long price, User user) {
         this.month = month;
         this.price = price;
         this.user = user;
+        this.year = year;
     }
 
 }

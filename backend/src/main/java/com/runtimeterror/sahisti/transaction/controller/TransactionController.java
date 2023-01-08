@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.transaction.controller;
 
 import com.runtimeterror.sahisti.news.controller.dto.TransactionDTO;
+import com.runtimeterror.sahisti.transaction.controller.dto.TransactionDataDTO;
 import com.runtimeterror.sahisti.transaction.entity.Transaction;
 import com.runtimeterror.sahisti.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,15 @@ public class TransactionController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
     @PostMapping("/member/{id}")
-    public ResponseEntity<TransactionDTO> addTransaction(@PathVariable Long id, @Valid @RequestBody TransactionDTO transactionDTO) {
-        Transaction transaction = transactionService.addTransaction(transactionDTO.getMonth(), id);
+    public ResponseEntity<TransactionDTO> addTransaction(@PathVariable Long id, @Valid @RequestBody TransactionDataDTO transactionDataDTO) {
+        Transaction transaction = transactionService.addTransaction(transactionDataDTO.getMonth(), transactionDataDTO.getYear(), id);
         return ResponseEntity.ok(new TransactionDTO(transaction));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
     @GetMapping("/member/{id}")
     public ResponseEntity<List<TransactionDTO>> getTransactionsById(@PathVariable Long id) {
-        return ResponseEntity.ok(transactionService.getById(id).stream().map(TransactionDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(transactionService.getByMemberId(id).stream().map(TransactionDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
