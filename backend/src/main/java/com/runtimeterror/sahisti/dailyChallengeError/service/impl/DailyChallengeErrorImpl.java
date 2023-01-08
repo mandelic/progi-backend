@@ -49,7 +49,6 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
         DailyChallengeError dce = dailyChallengeErrorRepository.findById(dceId).orElseThrow(() -> new EntityIdNotFoundException("Daily challenge", dceId));
         dce.setValid(validation);
         dce.setChecked(true);
-        System.out.println(validation);
         if (validation == true) {
             revisePoints(dce);
         }
