@@ -19,9 +19,12 @@ public class TransactionDTO {
 
     String year;
 
+    Long id;
+
     public TransactionDTO(Transaction transaction) {
         this.month = transaction.getMonth();
         this.year = transaction.getYear();
+        this.id = transaction.getId();
     }
 
 }
