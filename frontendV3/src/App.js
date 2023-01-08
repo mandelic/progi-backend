@@ -11,10 +11,13 @@ import Trening from './pages/Trening';
 import Turnir from './pages/Turnir'
 import Profil from './pages/Profil';
 import Placanje  from './pages/Placanje';
+import Rang from './pages/Rang';
+import Vijesti from './pages/Vijesti';
 
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -31,6 +34,8 @@ function App() {
         <Route path='/turnir' element={<Turnir/>} />
         <Route path='/podaci' element={<Podaci/>} />
         <Route path='/placanje' element={<Placanje/>} />
+        <Route path='/rang' element={<Rang/>} />
+        <Route path='/vijesti' element={<Vijesti/>} />
       </Routes>
     </Router>
     </>

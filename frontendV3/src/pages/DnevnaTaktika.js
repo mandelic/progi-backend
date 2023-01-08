@@ -7,7 +7,7 @@ import Popup from '../components/Popup'
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Stopwatch from "../components/Stopwatch";
 
 
 
@@ -20,9 +20,28 @@ function DnevnaTaktika() {
 
   
   let [board, setBoard] = useState(["........", "........", "........", "........", "........", "........", "........", "........"])
+  let [igrac, setIgrac] = useState("")
+
+
+  let [taktika, setTaktika] = useState("")
+
+
+  const [time, setTime] = useState(0);
+  const [running, setRunning] = useState(false);
+  useEffect(() => {
+    let interval;
+    if (running) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!running) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [running]);
+
 
   today = dd + '.' + mm + '.' + yyyy + '.';
-
 
 
   useEffect(() =>{
@@ -35,11 +54,21 @@ function DnevnaTaktika() {
     })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data.message)
+    
+if(localStorage.getItem("role") == 'ROLE_MEMBER'){
+    if(!data.message){
       setBoard(board = data.board)
       console.log(board)
-    
+      setIgrac(igrac = data.side)
+      
+    }
+    else{
+      document.getElementsByClassName("poruka").innerHTML = data.message
+    }
     console.log("board")
     console.log(board)
+    
     for(let i=0; i<board.length; i++) {
       for(let j=0; j<board[i].length; j++){
         let id = 'b' + String(i) + String(j)
@@ -51,44 +80,43 @@ function DnevnaTaktika() {
         console.log(id)
         console.log(board[i][j])
         switch(board[i][j]){
-          case "Q":
+          case "q":
             document.getElementById(id).innerHTML = "&#9819";
             break;
-          case "q":
+          case "Q":
             document.getElementById(id).innerHTML = "&#9813";
             break
-          case "K":
+          case "k":
             document.getElementById(id).innerHTML = "&#9818";
             break
-          case "k":
+          case "K":
             document.getElementById(id).innerHTML = "&#9812";
             break
-          case "R":
+          case "r":
             document.getElementById(id).innerHTML = "&#9820";
             break
-          case "r":
+          case "R":
             document.getElementById(id).innerHTML = "&#9814";
             break
-          case "B":
+          case "b":
             document.getElementById(id).innerHTML = "&#9821";
             break
-          case "b":
+          case "B":
             document.getElementById(id).innerHTML = "&#9815";
             break
-          case "N":
+          case "n":
             document.getElementById(id).innerHTML = "&#9822";
             break
-          case "n":
+          case "N":
             document.getElementById(id).innerHTML = "&#9816";
             break
-          case "P":
+          case "p":
             document.getElementById(id).innerHTML = "&#9823";
             break
-          case "p":
+          case "P":
             document.getElementById(id).innerHTML = "&#9817";
             break
           default:
-            console.log("tu")
             document.getElementById(id).innerHTML = ".";
             if((i + j) % 2 == 0){
               document.getElementById(id).style.color= "white";
@@ -99,8 +127,10 @@ function DnevnaTaktika() {
         }
       }
     }
+}
   })
   }, [])
+
 
 
   let  [rjesenje, setRjesenje] = useState("");
@@ -112,6 +142,8 @@ function DnevnaTaktika() {
   const userrjesenje = (p) => {
     setRjesenje(rjesenje = p)
   }
+
+
   const userocjena = (p) => {
     setOcjena(ocjena = p)
   }
@@ -124,25 +156,152 @@ function DnevnaTaktika() {
     setIsOpen(!isOpen);
   }
 
-  function ppredajOcjenu(e){
-    alert("Ocjena uspješno podnesena")
+  function kreni(){
+    document.getElementById("kreni").remove()
+    document.getElementById("chs").style.visibility = "visible"
+    setRunning(true)
+  }
+
+  function ppredajOcjenu(){
+    fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
+      },
+      body: JSON.stringify({
+        grade: String(ocjena)
+      }),
+    })
+    .then((res) => {
+      if(res.status != '200'){
+        console.log(ocjena)
+        toast.error( "došlo je do pogreške pri predaji ocijen", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+        }
+      else{
+        toast.success( "uspješno predana ocijena", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      })
   }
   function ppredajGresku(e){
     alert("Prijava greške uspješno podnesena")
   }
   function ppredajRjesenje(e){
-    alert("Vaše rješenje je predano");
-    setIsOpen(!isOpen)
+    setRunning(false);
+    let bonus = false
+    if((time / 60000) <= 5){bonus = true}
+
+    let id = localStorage.getItem("userId")
+    if(localStorage.getItem("userId") == null){id = 0}
+    let f = "http://localhost:8080/api/v1/daily-challenge/make-a-move/" + id
+    fetch(f, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        move: rjesenje, 
+        bonus: bonus
+      }),  
+    })
+    .then((res) => res.json()).then(data => {
+      console.log(data)
+      if(data.errors){
+        setRunning(true);
+        toast.error( data.errors[0], {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      else if(data.message){
+
+        toast.error( data.message, {
+          position: "top-right",
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      else{
+        console.log(time)
+        setIsOpen(!isOpen)
+        if(data == false){
+          toast.error( "Nažalost nisi ponudio optimalno riješenje za današnju taktiku. Slobosno ostavi ocijenu ili dojavi grešku", {
+            position: "top-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            backgroundColor: '#634133',
+            theme: "dark"
+            });
+        }
+        if(data == true){
+          toast.success( "Bravo! Uspješno si riješio danasšnju taktiku. Slobosno ostavi ocijenu ili dojavi grešku", {
+            position: "top-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            backgroundColor: '#634133',
+            theme: "dark"
+            });
+        }
+        
+      }    
+    })
+    
   }
+if(localStorage.getItem("role") == 'ROLE_MEMBER'){
+
 
   return (
     <div>  <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
          <NavBar></NavBar>
 
+
 {
         isOpen && <Popup content = {<>
       
-      <><><div className="form-group mt-3">
+      <><> <div className="form-group mt-3">
         <label>Ocjena</label>
         <select name="list"
                 className="form-control mt-1"
@@ -179,12 +338,20 @@ function DnevnaTaktika() {
           />}
 
 
-
+<p id='color-bg-primary' className='poruka'></p>
       <div class='container'>
 
 
-          <div className='chess'>
-            <table className='chessboard'>
+          <div>
+            <div id='kreni'> <p> Stisni kad si spreman za rješavanje danasnjeg zadatka i krenuti će odbrojavanje!</p>
+            <button className='btn' onClick={kreni}>KRENI!</button>
+            </div>
+            <div id='chs' style={{visibility: "hidden"}}>
+            <div className="stopwatch">
+            <p>vrijeme: {("0" + Math.floor((time / 60000) % 60)).slice(-2)}: {("0" + Math.floor((time / 1000) % 60)).slice(-2)}:{("0" + ((time / 10) % 100)).slice(-2)}</p>
+        </div>
+            <table className='chessboard' >
+              
               <tr className='boardTD' id='slova'>
               <td className='boardTD'>  </td>
               <td className='boardTD'> a </td>
@@ -215,43 +382,204 @@ function DnevnaTaktika() {
                 )
               })}
             </table>
+            
+            </div>
           </div>
  
 
 
 
 
-      <div>
-        <p> Taktika dana {today}</p>
-      <textarea
-            type="text"
-            id='color-bg-primary'
-            rows="32"
-            cols="50"
-            required
-          ></textarea>
-      </div></div>
-
-      <div className="form-group mt-3">
-          <label>Sljedeći potez</label>
-          <input
-            type="text"
-            className="form-control mt-1"
-            id='color-bg-primary'
-            onChange={(e) => userrjesenje(e.target.value)}
-            required
-          />
-      </div>
-      <div>
-        <button type="submit" className="btn" onClick={ppredajRjesenje}>
-            Predaj rješenje
-        </button>
-      </div>
-
+          <div>
+            <p> Taktika dana {today}</p>
+            <p className='tekstTaktike' id='igrac'> Igrač na potezu: {igrac}</p>
+            <p className='tekstTaktike'> Upute: </p>
+            <div className='tekstUputa'>
+              Unesite početni i krajnji položaj. Položaj je u polju a-h, 1-8.<br></br>
+              Primjer unosa: <b>"b2c2"</b><br></br>
+              Oznake za figure: <br></br>
+              <b>K</b> - King/Kralj<br></br>
+              <b>Q</b> - Queen/Dama<br></br>
+              <b>R</b> - Rook/Top<br></br>
+              <b>N</b> - Knight/Skakač<br></br>
+              <b>B</b> - Bishop/Lovac<br></br>
+              <b>P</b> - Pawn/Pješak
+            </div>
+            <p className='tekstTaktike'> Unesi najbolji potez: </p>
+            <input 
+              className="upisRjesenja"  
+              onChange={(e) => setRjesenje(rjesenje = e.target.value)}
+              required/>
+            <button type="submit" className="btn" onClick={ppredajRjesenje}>
+              Predaj rješenje
+            </button>
+          </div>
+        </div>
     </div>
+
   )
 
   
 }
+
+else {
+
+  
+
+  function zadaj(){
+    let f = "http://localhost:8080/api/v1/daily-challenge/coach/" + localStorage.getItem("userId")
+    fetch(f, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
+      },
+      body: JSON.stringify({
+        assignmentNumber: taktika
+      }),  
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+      console.log(data)
+      if(data.message){
+      toast(data.message, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+      }
+      else{
+        toast.success("uspješno dodana dnevna taktika", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+    })
+  }
+
+
+
+  return(
+  <div>
+    <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+        <NavBar></NavBar>
+        <div className='taktika-trener-pozadina' id='color-bg-primary'>
+            <p className='pozdrav'>Pozdrav trener, odaberi taktiku za danas</p>
+            <div>
+                <div className='taktika-form-container' id='color-bg-primary'>
+                    <div className="taktika-form" id='color-bg-secundary'>
+                        <div className="takika-form-content">
+                            <p>Prijavljena greška u taktici:</p>
+                            <div className='trener-prijavaGreske-container '>
+                                <p className='tekstPrijavljeneGreske'>dnoscsdocnsdodscnsdofnrowfbdsovbdfgorg ofgbsofwhrfrofbo</p>
+                                <div>
+                                    <button type="submit" className="buttonOdaberiTaktiku">
+                                        Prihvati rješenje
+                                    </button>
+                                    <button type="submit" className="buttonOdaberiTaktiku">
+                                        Odbaci rješenje
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='taktika-form-container' id='color-bg-primary'>
+                <div className="taktika-form" id='color-bg-secundary'>
+                    <div className="takika-form-content">
+                        <div className='taktikaTrener-container'>
+                            <p className='tekstTaktike2'>1. Nimzovich-Rossolimo attack (with ...g6, without ...d6)</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 1); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>7. Variation "classical variation (5.Bf4)"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 7); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>2. Variation "classical variation (5.Bf4)"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 2); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>8. Variation "Pelikan (Lasker/Sveshnikov) variation"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 8); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>3. Variation "Nimzovich-Rossolimo attack"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 3); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>9. Variation "four knights, kingside fianchetto"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 9); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>4. Variation "four knights, kingside fianchetto"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 4); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>10. Variation "Nimzovich attack"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 10); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>5. Variation "Nimzovich-Rossolimo attack, Gurgenidze variation"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 5); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>11. Variation "Bremen, Smyslov system"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 11); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                            <p className='tekstTaktike2'>6. Opening "Petrov's defence"</p>
+                            <div className='poredakGumba'>
+                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 6); zadaj()}}>
+                                    Odaberi taktiku
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  )
+}
+
+}
+
 
 export default DnevnaTaktika
