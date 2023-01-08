@@ -10,6 +10,8 @@ public interface UserService {
     List<User> findAll();
     User addUser(User user);
     TokenDTO verifyLogin(LoginDTO loginDTO);
-
     User findById(Long id);
+    User changeRole(Long id, String role);
+
+    User deleteUser(Long id);
 }
