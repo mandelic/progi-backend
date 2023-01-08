@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS daily_challenge;
 DROP TABLE IF EXISTS daily_challenge_error;
+DROP TABLE IF EXISTS transactions_not_paid;
 
 CREATE TABLE users
 (
@@ -76,6 +77,12 @@ CREATE TABLE transactions
     month VARCHAR(100),
     year VARCHAR(4),
     price INTEGER,
+    member_id INTEGER
+);
+
+CREATE TABLE transactions_not_paid
+(
+    id SERIAL PRIMARY KEY,
     member_id INTEGER
 );
 

@@ -8,4 +8,6 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
     List<Transaction> findAllByUserId(Long id);
     Boolean existsByMonthAndYearAndUserId(String month, String year, Long id);
+
+    List<Transaction> findAllByMonthAndYear(String month, String year);
 }

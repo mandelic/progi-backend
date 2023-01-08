@@ -1,8 +1,8 @@
 package com.runtimeterror.sahisti.transaction.service;
 
 import com.runtimeterror.sahisti.transaction.entity.Transaction;
+import com.runtimeterror.sahisti.transaction.entity.TransactionsNotPaid;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface TransactionService {
@@ -12,4 +12,8 @@ public interface TransactionService {
     List<Transaction> getByMemberId(Long id);
 
     List<Transaction> getAll();
+
+    void getUnpaidMembers();
+
+    List<Long> getAllUnpaid();
 }
