@@ -9,6 +9,8 @@ import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeReposit
 import com.runtimeterror.sahisti.dailyChallengeError.repository.DailyChallengeErrorRepository;
 import com.runtimeterror.sahisti.dailyChallengeError.service.DailyChallengeErrorService;
 import com.runtimeterror.sahisti.news.entity.DailyChallengeError;
+import com.runtimeterror.sahisti.rankedList.entity.RankedList;
+import com.runtimeterror.sahisti.rankedList.repository.RankedListRepository;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
 
     @Autowired
     private DailyChallengeGradeRepository dailyChallengeGradeRepository;
+
+    @Autowired
+    private RankedListRepository rankedListRepository;
 
     @Override
     public DailyChallengeError createNewTicket(Long userId, Long dcId, String solution, String description) {
@@ -59,8 +64,24 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
         List<DailyChallengeGrade> gradeList = dailyChallengeGradeRepository.findAllByDailyChallengeId(dce.getDailyChallenge().getId());
         gradeList.forEach(g -> {
             if (g.getSolution().equals(dce.getSolution())) {
+                if (rankedListRepository.existsByMember(g.getMemberId())) {
+                    RankedList list = rankedListRepository.findByMember(g.getMemberId());
+                    list.setPoints(list.getPoints() + 1L);
+                    rankedListRepository.save(list);
+                } else {
+                    RankedList list = new RankedList(1L, g.getMemberId());
+                    rankedListRepository.save(list);
+                }
                 g.setPoints(1L);
             } else {
+                if (rankedListRepository.existsByMember(g.getMemberId())) {
+                    RankedList list = rankedListRepository.findByMember(g.getMemberId());
+                    list.setPoints(list.getPoints() - 1L);
+                    rankedListRepository.save(list);
+                } else {
+                    RankedList list = new RankedList(0L, g.getMemberId());
+                    rankedListRepository.save(list);
+                }
                 g.setPoints(0L);
             }
         });

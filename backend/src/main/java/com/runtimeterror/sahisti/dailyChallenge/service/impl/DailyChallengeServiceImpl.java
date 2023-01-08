@@ -15,6 +15,8 @@ import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeGradeRe
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import com.runtimeterror.sahisti.dailyChallengeError.repository.DailyChallengeErrorRepository;
+import com.runtimeterror.sahisti.rankedList.entity.RankedList;
+import com.runtimeterror.sahisti.rankedList.repository.RankedListRepository;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Autowired
     private DailyChallengeErrorRepository dailyChallengeErrorRepository;
 
+    @Autowired
+    private RankedListRepository rankedListRepository;
+
     public Boolean startGame(Long id, String move) throws Exception {
 
         PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
@@ -53,6 +58,13 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
                     User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
                     DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
                     dailyChallengeGradeRepository.save(dcg);
+                    if (rankedListRepository.existsByMember(id)) {
+                        RankedList list = rankedListRepository.findByMember(id);
+                        list.setPoints(list.getPoints() + 1L);
+                        rankedListRepository.save(list);
+                    } else {
+                        rankedListRepository.save(new RankedList(1L, id));
+                    }
                 }
                 return true;
             } else {
@@ -87,6 +99,13 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
                     User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
                     DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
                     dailyChallengeGradeRepository.save(dcg);
+                    if (rankedListRepository.existsByMember(id)) {
+                        RankedList list = rankedListRepository.findByMember(id);
+                        list.setPoints(list.getPoints() + 1L);
+                        rankedListRepository.save(list);
+                    } else {
+                        rankedListRepository.save(new RankedList(1L, id));
+                    }
                 }
                 return true;
             }
