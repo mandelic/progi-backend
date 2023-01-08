@@ -1,18 +1,17 @@
 DROP TABLE IF EXISTS list_member;
+DROP TABLE IF EXISTS dc_grade;
 DROP TABLE IF EXISTS news_author;
 DROP TABLE IF EXISTS news;
 DROP TABLE IF EXISTS columns;
 DROP TABLE IF EXISTS ranked_list;
 DROP TABLE IF EXISTS tournament_members;
 DROP TABLE IF EXISTS training_member;
-DROP TABLE IF EXISTS dcerror_members;
 DROP TABLE IF EXISTS training;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS daily_challenge;
 DROP TABLE IF EXISTS daily_challenge_error;
-DROP TABLE IF EXISTS dc_grade;
 
 CREATE TABLE users
 (
@@ -121,17 +120,10 @@ CREATE TABLE dc_grade
 CREATE TABLE daily_challenge_error
 (
     id SERIAL PRIMARY KEY,
+    solution VARCHAR(10),
     description TEXT,
     checked BOOLEAN,
     valid BOOLEAN,
-    daily_challenge_id INTEGER
-);
-
-CREATE TABLE dcerror_members
-(
-    dce_id INTEGER,
     member_id INTEGER,
-    CONSTRAINT dce_member_pk PRIMARY KEY(member_id, dce_id),
-    CONSTRAINT member_fk FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT dce_fk FOREIGN KEY (dce_id) REFERENCES daily_challenge_error(id) ON DELETE CASCADE
+    daily_challenge_id INTEGER
 );

@@ -76,14 +76,6 @@ public class User {
     )
     Set<Tournament> tournaments = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "dcerror_members",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "dce_id")
-    )
-    Set<DailyChallengeError> dcerrors = new HashSet<>();
-
     private String role;
 
     public User(String email, String firstName, String lastName, String password, String phoneNumber, String cardNumber) {

@@ -25,6 +25,8 @@ public class DailyChallengeError {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    String solution;
+
     String description;
 
     Boolean checked;
@@ -35,6 +37,16 @@ public class DailyChallengeError {
     @JoinColumn(name="daily_challenge_id", nullable=false)
     DailyChallenge dailyChallenge;
 
-    @ManyToMany(mappedBy = "dcerrors")
-    Set<User> members = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name="member_id", nullable=false)
+    User member;
+
+    public DailyChallengeError(String solution, String description, DailyChallenge dailyChallenge, User member) {
+        this.solution = solution;
+        this.description = description;
+        this.dailyChallenge = dailyChallenge;
+        this.member = member;
+        this.checked = false;
+        this.valid = null;
+    }
 }
