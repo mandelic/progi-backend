@@ -66,7 +66,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc != null) throw new CustomMessageException("Trener je već odabrao dnevnu taktiku za danas.");
         User coach = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-        return dailyChallengeRepository.save(new DailyChallenge(0, LocalDate.now(),assignmentNumber, coach));
+        return dailyChallengeRepository.save(new DailyChallenge(LocalDate.now(),assignmentNumber, coach));
     }
 
     @Override
@@ -113,5 +113,28 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
             allChallenges.add(boardDTO);
         }
         return allChallenges;
+    }
+
+    @Override
+    public Float giveGrade(Float grade) {
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        Float dcGrade = dc.getGrade();
+        Long dcNumOfGrades = dc.getNumOfGrades();
+        if (dcGrade != 0f) dcGrade *= dcNumOfGrades;
+        dcGrade += grade;
+        dcNumOfGrades++;
+        dc.setNumOfGrades(dcNumOfGrades);
+        dc.setGrade(dcGrade/dcNumOfGrades);
+        dailyChallengeRepository.save(dc);
+        return dcGrade / dcNumOfGrades;
+    }
+
+    @Override
+    public Float getGrade() {
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        if (dc.getNumOfGrades() == 0f) throw new CustomMessageException("Nitko još nije ocijenio taktiku.");
+        return dc.getGrade() / dc.getNumOfGrades();
     }
 }

@@ -16,6 +16,10 @@ public interface DailyChallengeService {
     BoardDTO showBoard() throws Exception;
 
     List<BoardDTO> getAll() throws Exception;
+
+    Float giveGrade(Float grade);
+
+    Float getGrade();
 }
 
 

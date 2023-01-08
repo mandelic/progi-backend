@@ -24,8 +24,8 @@ public class DailyChallenge {
 
     LocalDate date;
 
-
-    int grade;
+    Float grade;
+    Long numOfGrades;
 
     Boolean visible;
 
@@ -35,8 +35,9 @@ public class DailyChallenge {
     @JoinColumn(name="coach_id", nullable=false)
     User coach;
 
-    public DailyChallenge(int grade, LocalDate date, int assignmentNumber, User coach) {
-        this.grade = grade;
+    public DailyChallenge(LocalDate date, int assignmentNumber, User coach) {
+        this.grade = 0f;
+        this.numOfGrades = 0L;
         this.date = date;
         this.assignmentNumber = assignmentNumber;
         this.coach = coach;

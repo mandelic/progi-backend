@@ -1,9 +1,6 @@
 package com.runtimeterror.sahisti.dailyChallenge.controller;
 
-import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AssignmentDTO;
-import com.runtimeterror.sahisti.dailyChallenge.controller.dto.AvailableChallenges;
-import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
-import com.runtimeterror.sahisti.dailyChallenge.controller.dto.DailyChallengeDTO;
+import com.runtimeterror.sahisti.dailyChallenge.controller.dto.*;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +45,17 @@ public class DailyChallengeController {
     @GetMapping("/get-all")
     public ResponseEntity<AvailableChallenges> getAllChallenges() throws Exception {
         return ResponseEntity.ok(new AvailableChallenges(dailyChallengeService.getAll()));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PostMapping("/grade")
+    public ResponseEntity<GradeDTO> giveGrade(@RequestBody GradeDTO gradeDTO) {
+        return ResponseEntity.ok(new GradeDTO(dailyChallengeService.giveGrade(gradeDTO.getGrade())));
+    }
+
+    @GetMapping("/grade")
+    public ResponseEntity<GradeDTO> getGrade() {
+        return ResponseEntity.ok(new GradeDTO(dailyChallengeService.getGrade()));
     }
 
 

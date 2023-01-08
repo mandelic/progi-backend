@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 public class GradeDTO {
-    @Pattern(regexp = "[1-5]", message = "Ocijeni dnevnu taktiku ocijenom 1-5")
-    @Size(max = 1, message = "Unesite numeričku vrijednost ocjene.")
-    private int grade;
+    private Float grade;
 }
 

@@ -102,6 +102,7 @@ CREATE TABLE daily_challenge
     id SERIAL PRIMARY KEY,
     date DATE,
     grade FLOAT,
+    num_of_grades INTEGER,
     assignment_number INTEGER,
     visible BOOLEAN,
     coach_id INTEGER
