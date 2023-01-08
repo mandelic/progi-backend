@@ -1,5 +1,7 @@
 package com.runtimeterror.sahisti.dailyChallengeError.service.impl;
 
+import com.github.bhlangonijr.chesslib.game.Game;
+import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
@@ -50,33 +52,45 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
     }
 
     @Override
-    public DailyChallengeError validateError(Long dceId, Boolean validation) {
+    public DailyChallengeError validateError(Long dceId, Boolean validation) throws Exception {
         DailyChallengeError dce = dailyChallengeErrorRepository.findById(dceId).orElseThrow(() -> new EntityIdNotFoundException("Daily challenge", dceId));
-        dce.setValid(validation);
-        dce.setChecked(true);
         if (validation == true) {
             revisePoints(dce);
+            DailyChallengeError dceTemp = dailyChallengeErrorRepository.findDailyChallengeErrorByDailyChallengeIdAndValid(dce.getDailyChallenge().getId(), true);
+            if (dceTemp != null) {
+                dceTemp.setValid(false);
+                dailyChallengeErrorRepository.save(dceTemp);
+            }
         }
+        dce.setValid(validation);
+        dce.setChecked(true);
         return dailyChallengeErrorRepository.save(dce);
     }
 
-    private void revisePoints(DailyChallengeError dce) {
+    private void revisePoints(DailyChallengeError dce) throws Exception {
         List<DailyChallengeGrade> gradeList = dailyChallengeGradeRepository.findAllByDailyChallengeId(dce.getDailyChallenge().getId());
-        gradeList.forEach(g -> {
+        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        pgn.loadPgn();
+        DailyChallenge dc = dce.getDailyChallenge();
+        Game game = pgn.getGames().get(dc.getAssignmentNumber());
+        Long points = game.getResult().equals("DRAW") ? 2L : 1L;
+        gradeList.stream().forEach(g -> {
             if (g.getSolution().equals(dce.getSolution())) {
                 if (rankedListRepository.existsByMember(g.getMemberId())) {
                     RankedList list = rankedListRepository.findByMember(g.getMemberId());
-                    list.setPoints(list.getPoints() + 1L);
+                    if (g.getBonus()) list.setPoints(list.getPoints() + points + 1);
+                    else list.setPoints(list.getPoints() + points);
                     rankedListRepository.save(list);
                 } else {
-                    RankedList list = new RankedList(1L, g.getMemberId());
+                    RankedList list = g.getBonus() ? new RankedList(points + 1, g.getMemberId()) : new RankedList(points, g.getMemberId());
                     rankedListRepository.save(list);
                 }
-                g.setPoints(1L);
+                if (g.getBonus()) g.setPoints(points + 1);
+                else g.setPoints(points);
             } else {
                 if (rankedListRepository.existsByMember(g.getMemberId())) {
                     RankedList list = rankedListRepository.findByMember(g.getMemberId());
-                    list.setPoints(list.getPoints() - 1L);
+                    list.setPoints(list.getPoints() - g.getPoints());
                     rankedListRepository.save(list);
                 } else {
                     RankedList list = new RankedList(0L, g.getMemberId());

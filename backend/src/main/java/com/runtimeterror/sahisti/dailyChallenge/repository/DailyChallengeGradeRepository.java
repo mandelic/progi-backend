@@ -11,4 +11,7 @@ public interface DailyChallengeGradeRepository extends JpaRepository<DailyChalle
 
         List<DailyChallengeGrade> findAllByDailyChallengeId(Long dailyChallengeId);
 
+        DailyChallengeGrade findDailyChallengeGradeByDailyChallengeIdAndMemberId(Long dailyChallengeId, Long memberId);
+
+
 }

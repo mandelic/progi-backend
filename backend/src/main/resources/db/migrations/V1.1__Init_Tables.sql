@@ -113,6 +113,7 @@ CREATE TABLE dc_grade
     id SERIAL PRIMARY KEY,
     points INTEGER,
     solution VARCHAR(10),
+    bonus BOOLEAN,
     member_id INTEGER,
     daily_challenge_id INTEGER
 );

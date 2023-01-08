@@ -36,7 +36,7 @@ public class DailyChallengeErrorController {
 
     @PreAuthorize("hasAnyRole('SENSEI', 'ADMIN')")
     @PostMapping("/{dceId}/validate")
-    public ResponseEntity<DceDetailsDTO> sendDCError(@PathVariable Long dceId, @RequestBody ValidateDTO validateDTO) {
+    public ResponseEntity<DceDetailsDTO> sendDCError(@PathVariable Long dceId, @RequestBody ValidateDTO validateDTO) throws Exception {
         return ResponseEntity.ok(new DceDetailsDTO(dailyChallengeErrorService.validateError(dceId, validateDTO.getValidation())));
     }
 

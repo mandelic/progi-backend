@@ -24,14 +24,16 @@ public class DailyChallengeGrade {
 
     String solution;
 
+    Boolean bonus;
     Long memberId;
 
     Long dailyChallengeId;
 
-    public DailyChallengeGrade(Long points, String solution, User member, DailyChallenge dc) {
+    public DailyChallengeGrade(Long points, String solution, User member, DailyChallenge dc, Boolean bonus) {
         this.points = points;
         this.solution = solution;
         this.memberId = member.getId();
         this.dailyChallengeId = dc.getId();
+        this.bonus = bonus;
     }
 }

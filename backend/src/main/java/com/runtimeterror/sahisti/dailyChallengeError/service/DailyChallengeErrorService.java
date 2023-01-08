@@ -10,5 +10,5 @@ public interface DailyChallengeErrorService {
 
     List<DailyChallengeError> getAllUnchecked();
 
-    DailyChallengeError validateError(Long dceId, Boolean validation);
+    DailyChallengeError validateError(Long dceId, Boolean validation) throws Exception;
 }

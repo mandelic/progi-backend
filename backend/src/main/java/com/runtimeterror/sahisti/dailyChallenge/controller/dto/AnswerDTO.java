@@ -15,4 +15,6 @@ public class AnswerDTO {
     @Pattern(regexp = "[A-Ha-h][1-8][A-Ha-h][1-8]", message = "Unesite početni i krajnji položaj. Položaj je u polju a-h, 1-8.")
     @Size(max = 4, message = "Položaj zahtjeva slovo i broj polja.")
     private String move;
+
+    private Boolean bonus;
 }

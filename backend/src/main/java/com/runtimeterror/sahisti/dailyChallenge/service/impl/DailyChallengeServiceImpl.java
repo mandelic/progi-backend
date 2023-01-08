@@ -44,39 +44,44 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Autowired
     private RankedListRepository rankedListRepository;
 
-    public Boolean startGame(Long id, String move) throws Exception {
+    public Boolean startGame(Long id, String move, Boolean bonus) throws Exception {
 
         PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        Game game = pgn.getGames().get(dc.getAssignmentNumber());
+        Long points = game.getResult().toString().equals("DRAW") ? 2L : 1L;
+        if (bonus) points++;
         if (dailyChallengeGradeRepository.existsDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id)) throw new CustomMessageException("Već ste riješili dnevnu taktiku i ostvarili broj bodova: " + dailyChallengeGradeRepository.findByMemberId(id).getPoints());
         if (dailyChallengeErrorRepository.existsDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true)) {
             String solution = dailyChallengeErrorRepository.findDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true).getSolution();
             if (move.equals(solution)) {
                 if (id != 0) {
                     User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-                    DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(points, move, member, dc, bonus);
                     dailyChallengeGradeRepository.save(dcg);
                     if (rankedListRepository.existsByMember(id)) {
                         RankedList list = rankedListRepository.findByMember(id);
-                        list.setPoints(list.getPoints() + 1L);
+                        list.setPoints(list.getPoints() + points);
                         rankedListRepository.save(list);
                     } else {
-                        rankedListRepository.save(new RankedList(1L, id));
+                        rankedListRepository.save(new RankedList(points, id));
                     }
                 }
                 return true;
             } else {
                 if (id != 0) {
                     User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-                    DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc);
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc, bonus);
                     dailyChallengeGradeRepository.save(dcg);
+                    if (!rankedListRepository.existsByMember(id)) {
+                        rankedListRepository.save(new RankedList(0L, id));
+                    }
                 }
                 return false;
             }
         }
-        Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
 
         MoveList moves = game.getHalfMoves();
@@ -85,26 +90,23 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         for(int i = 0; i<j;i++) {
             board.doMove(moves.get(i));
         }
-        System.out.println(moves.get(j));
         Move m1 = new Move(move,board.getSideToMove());
         Board b2 = board.clone();
         b2.doMove(moves.get(j));
         List<Move> moves2 = board.legalMoves();
-        System.out.println(moves2);
-        System.out.println(board.getSideToMove());
         if (moves2.contains(m1)) {
             board.doMove(m1);
             if (board.getFen().equals(b2.getFen())){
                 if (id != 0) {
                     User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-                    DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(points, move, member, dc, bonus);
                     dailyChallengeGradeRepository.save(dcg);
                     if (rankedListRepository.existsByMember(id)) {
                         RankedList list = rankedListRepository.findByMember(id);
-                        list.setPoints(list.getPoints() + 1L);
+                        list.setPoints(list.getPoints() + points);
                         rankedListRepository.save(list);
                     } else {
-                        rankedListRepository.save(new RankedList(1L, id));
+                        rankedListRepository.save(new RankedList(points, id));
                     }
                 }
                 return true;
@@ -112,8 +114,11 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         }
         if (id != 0) {
             User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-            DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc);
+            DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc, bonus);
             dailyChallengeGradeRepository.save(dcg);
+            if (!rankedListRepository.existsByMember(id)) {
+                rankedListRepository.save(new RankedList(0L, id));
+            }
         }
         return false;
     }
@@ -139,7 +144,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
-        Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
+        Game game = pgn.getGames().get(dc.getAssignmentNumber());
         game.loadMoveText();
         MoveList moves = game.getHalfMoves();
         int j = moves.size()-1;
@@ -147,8 +152,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         for(int i = 0; i<j;i++) {
             board.doMove(moves.get(i));
         }
-        BoardDTO boardDTO = new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
-        return boardDTO;
+        return new BoardDTO(board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
     }
 
     @Override
