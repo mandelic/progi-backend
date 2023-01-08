@@ -10,6 +10,8 @@ import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundExcepti
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
 import com.runtimeterror.sahisti.dailyChallenge.controller.dto.BoardDTO;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
+import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallengeGrade;
+import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeGradeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
 import com.runtimeterror.sahisti.user.entity.User;
@@ -30,12 +32,16 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Autowired
     private UserRepository userRepository;
 
-    public Boolean startGame(String move) throws Exception {
+    @Autowired
+    private DailyChallengeGradeRepository dailyChallengeGradeRepository;
+
+    public Boolean startGame(Long id, String move) throws Exception {
 
         PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        if (dailyChallengeGradeRepository.existsDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id)) throw new CustomMessageException("Već ste riješili dnevnu taktiku i ostvarili broj bodova: " + dailyChallengeGradeRepository.findByMemberId(id).getPoints());
         Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
 
@@ -54,11 +60,21 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         System.out.println(board.getSideToMove());
         if (moves2.contains(m1)) {
             board.doMove(m1);
-            return board.getFen().equals(b2.getFen());
+            if (board.getFen().equals(b2.getFen())){
+                if (id != 0) {
+                    User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
+                    dailyChallengeGradeRepository.save(dcg);
+                }
+                return true;
+            }
         }
-        else {
-            return false;
+        if (id != 0) {
+            User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+            DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc);
+            dailyChallengeGradeRepository.save(dcg);
         }
+        return false;
     }
 
     @Override

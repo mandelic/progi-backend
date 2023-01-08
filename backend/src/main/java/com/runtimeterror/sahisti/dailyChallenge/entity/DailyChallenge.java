@@ -6,15 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "daily_challenge",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "id")
-        })
+@Table(name = "daily_challenge")
 @Getter @Setter @NoArgsConstructor
 public class DailyChallenge {
 

@@ -24,9 +24,9 @@ public class DailyChallengeController {
         return ResponseEntity.ok(dailyChallengeService.showBoard());
     }
 
-    @PostMapping("/make-a-move")
-    public ResponseEntity<Boolean> makeAMove(@Valid @RequestBody com.runtimeterror.sahisti.ChessGame.controller.dto.AnswerDTO answerDTO) throws Exception {
-        return ResponseEntity.ok(dailyChallengeService.startGame(answerDTO.getMove()));
+    @PostMapping("/make-a-move/{id}")
+    public ResponseEntity<Boolean> makeAMove(@PathVariable Long id, @Valid @RequestBody com.runtimeterror.sahisti.ChessGame.controller.dto.AnswerDTO answerDTO) throws Exception {
+        return ResponseEntity.ok(dailyChallengeService.startGame(id, answerDTO.getMove()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")

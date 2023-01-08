@@ -7,7 +7,7 @@ import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
 import java.util.List;
 
 public interface DailyChallengeService {
-    Boolean startGame(String move) throws Exception;
+    Boolean startGame(Long id, String move) throws Exception;
 
     DailyChallenge addDailyChallenge(int assignmentNumber, Long id);
 

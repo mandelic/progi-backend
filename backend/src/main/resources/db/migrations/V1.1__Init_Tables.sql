@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tournament;
 DROP TABLE IF EXISTS daily_challenge;
 DROP TABLE IF EXISTS daily_challenge_error;
+DROP TABLE IF EXISTS dc_grade;
 
 CREATE TABLE users
 (
@@ -106,6 +107,15 @@ CREATE TABLE daily_challenge
     assignment_number INTEGER,
     visible BOOLEAN,
     coach_id INTEGER
+);
+
+CREATE TABLE dc_grade
+(
+    id SERIAL PRIMARY KEY,
+    points INTEGER,
+    solution VARCHAR(10),
+    member_id INTEGER,
+    daily_challenge_id INTEGER
 );
 
 CREATE TABLE daily_challenge_error
