@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.news.controller;
 
 import com.runtimeterror.sahisti.news.controller.dto.NewsDTO;
+import com.runtimeterror.sahisti.news.controller.dto.NewsFormattedDTO;
 import com.runtimeterror.sahisti.news.entity.News;
 import com.runtimeterror.sahisti.news.service.NewsService;
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
@@ -23,13 +24,13 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping
-    public ResponseEntity<List<NewsDTO>> findAll() {
-        return ResponseEntity.ok(newsService.findAll().stream().map(News -> new NewsDTO(News)).collect(Collectors.toList()));
+    public ResponseEntity<List<NewsFormattedDTO>> findAll() {
+        return ResponseEntity.ok(newsService.findAll().stream().map(News -> new NewsFormattedDTO(News)).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NewsDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(new NewsDTO(newsService.findById(id)));
+    public ResponseEntity<NewsFormattedDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(new NewsFormattedDTO(newsService.findById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

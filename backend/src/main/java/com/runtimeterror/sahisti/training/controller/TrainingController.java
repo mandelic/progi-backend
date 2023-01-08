@@ -2,6 +2,7 @@ package com.runtimeterror.sahisti.training.controller;
 
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDTO;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
+import com.runtimeterror.sahisti.training.controller.dto.TrainingFormattedDTO;
 import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.training.service.TrainingService;
 import com.runtimeterror.sahisti.user.controller.dto.UserDetailsDTO;
@@ -25,21 +26,21 @@ public class TrainingController {
     private TrainingService trainingService;
 
     @GetMapping
-    public ResponseEntity<List<TrainingDetailsDTO>> findAll() {
-        return ResponseEntity.ok(trainingService.findAllRelevant().stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<List<TrainingFormattedDTO>> findAll() {
+        return ResponseEntity.ok(trainingService.findAllRelevant().stream().map(TrainingFormattedDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}/applied")
-    public ResponseEntity<List<TrainingDetailsDTO>> findAllByUserId(@PathVariable Long id) {
-        return ResponseEntity.ok(trainingService.findAllByUserId(id).stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<List<TrainingFormattedDTO>> findAllByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok(trainingService.findAllByUserId(id).stream().map(TrainingFormattedDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}/not-applied")
-    public ResponseEntity<List<TrainingDetailsDTO>> findAllByUserIdNotApplied(@PathVariable Long id) {
+    public ResponseEntity<List<TrainingFormattedDTO>> findAllByUserIdNotApplied(@PathVariable Long id) {
         List<Training> allRelevant= trainingService.findAllRelevant();
         List<Training> allByUserId= trainingService.findAllByUserId(id);
         allRelevant = allRelevant.stream().filter(training -> !allByUserId.contains(training)).collect(Collectors.toList());
-        return ResponseEntity.ok(allRelevant.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(allRelevant.stream().map(TrainingFormattedDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")

@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.tournament.controller;
 
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
+import com.runtimeterror.sahisti.tournament.controller.dto.TournamentFormattedDTO;
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
@@ -25,8 +26,8 @@ public class TournamentController {
     private TournamentService tournamentService;
 
     @GetMapping
-    public ResponseEntity<List<TournamentDetailsDTO>> findAll() {
-        return ResponseEntity.ok(tournamentService.findAllVisibile().stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<List<TournamentFormattedDTO>> findAll() {
+        return ResponseEntity.ok(tournamentService.findAllVisibile().stream().map(TournamentFormattedDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
@@ -37,16 +38,16 @@ public class TournamentController {
     }
 
     @GetMapping("/{id}/applied")
-    public ResponseEntity<List<TournamentDetailsDTO>> findAllByUserId(@PathVariable Long id) {
-        return ResponseEntity.ok(tournamentService.findAllByUserID(id).stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<List<TournamentFormattedDTO>> findAllByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok(tournamentService.findAllByUserID(id).stream().map(TournamentFormattedDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}/not-applied")
-    public ResponseEntity<List<TournamentDetailsDTO>> findAllByUserIdNotApplied(@PathVariable Long id) {
+    public ResponseEntity<List<TournamentFormattedDTO>> findAllByUserIdNotApplied(@PathVariable Long id) {
         List<Tournament> allRelevant= tournamentService.findAllVisibile();
         List<Tournament> allByUserId= tournamentService.findAllByUserID(id);
         allRelevant = allRelevant.stream().filter(training -> !allByUserId.contains(training)).collect(Collectors.toList());
-        return ResponseEntity.ok(allRelevant.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(allRelevant.stream().map(TournamentFormattedDTO::new).collect(Collectors.toList()));
     }
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
