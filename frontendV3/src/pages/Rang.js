@@ -1,29 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Rang.css';
 
 import NavBar from '../components/NavBar';
 
-const data = [
-  { redni: 1., name: "I. Ivic", brojBod: 76 },
-  { redni: 2., name: "M. Matic", brojBod: 58 },
-  { redni: 3., name: "I. Goric", brojBod: 49},
-  { redni: 4., name: "M. Savic", brojBod: 38},
-  { redni: 5., name: "T. Tonic", brojBod: 32},
-  { redni: 6., name: "K. Baric", brojBod: 30},
-  { redni: 7., name: "Z. Kovac", brojBod: 29},
-  { redni: 8., name: "R. Barisic", brojBod: 27},
-  { redni: 9., name: "D. Horvat", brojBod: 26},
-  { redni: 10., name: "A. Lucic", brojBod: 24},
-  { redni: 11., name: "M. Marusic", brojBod: 22},
-  { redni: 12., name: "M. Tomic", brojBod: 20},
-  { redni: 13., name: "K. Matic", brojBod: 19},
-  { redni: 14., name: "V. Grubisic", brojBod: 18},
-  { redni: 15., name: "Z. Kralj", brojBod: 15},  
-]
 
 
 
 function Rang() {
+
+  let [data, setData] = useState([])
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/v1/ranked-list",{
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => res.json())
+  .then((data) => {setData(data = data)})
+  }, [])
   return (
     <><NavBar></NavBar >
       <div className="Tab">
@@ -36,9 +32,9 @@ function Rang() {
           {data.map((val, key) => {
             return (
               <tr key={key}>
-                <td>{val.redni}</td>
-                <td>{val.name}</td>
-                <td>{val.brojBod}</td>
+                <td>{key + 1}</td>
+                <td>{val.memberId}</td>
+                <td>{val.points}</td>
               </tr>
             )
           })}

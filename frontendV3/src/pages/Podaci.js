@@ -17,6 +17,26 @@ function Podaci() {
   
 let [podaci, setPodaci] = useState([])
 let [rang, setRang] = useState("-")
+let [profili, setProfili] =useState([])
+
+useEffect(() => {
+  fetch("http://localhost:8080/api/v1/users", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    }
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+    setProfili(data)
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
+}, [])
 
 useEffect(() => {
   let f = "http://localhost:8080/api/v1/users/" + localStorage.getItem("userId")
@@ -76,7 +96,52 @@ useEffect(() => {
 
   const navigate = useNavigate();
 
-
+if(localStorage.getItem("role") == "ROLE_ADMIN"){
+  return (
+    <div>
+        <NavBar></NavBar>
+        <div className='pozadina'>
+        <div className="tablicaAdmin">
+                <table className='tableAdmin'>
+                    <tr>
+                        <th className='thAdmin'>ID</th>
+                        <th className='thAdmin'>email</th>
+                        <th className='thAdmin'>Ime</th>
+                        <th className='thAdmin'>Prezime</th>
+                        <th className='thAdmin'>Broj mobitela</th>
+                        <th className='thAdmin'></th>
+                    </tr>
+                    {profili.map((val, key)=>{
+                        return(
+                            <tr key={key}>
+                                <td className='tdAdmin'>{val.id}</td>
+                                <td className='tdAdmin'>{val.email}</td>
+                                <td className='tdAdmin'>{val.firstName}</td>
+                                <td className='tdAdmin'>{val.lastName}</td>
+                                <td className='tdAdmin'>{val.phoneNumber}</td>
+                                <td className='gumbi-container'>
+                                    <div className='gumbi-container2'>
+                                        <button type="submit" className="buttonsAdmin" >
+                                            Obriši
+                                        </button>
+                                    </div>
+                                    <div className='gumbi-container2'>
+                                        <button type="submit" className="buttonsAdmin">
+                                            Zabrani Pristup
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                    })}      
+                </table>
+            </div>
+        </div>
+    </div>
+    
+)
+}
+else{
 
   return (
     <> <NavBar></NavBar >
@@ -116,6 +181,7 @@ useEffect(() => {
     </div>
     </>
   )
+}
 }
 
 export default Podaci

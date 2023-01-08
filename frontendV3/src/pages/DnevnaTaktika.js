@@ -64,7 +64,7 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
       
     }
     else{
-      document.getElementsByClassName("poruka").innerHTML = data.message
+      document.getElementById("poruka").innerHTML = data.message
     }
     console.log("board")
     console.log(board)
@@ -136,6 +136,7 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
   let  [rjesenje, setRjesenje] = useState("");
   let  [ocjena, setOcjena] = useState("");
   let  [greska, setGreska] = useState("");
+  let [greskaOpis, setGreskaOpis] = useState("")
 
   const navigate = useNavigate();
 
@@ -205,7 +206,7 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
       })
   }
   function ppredajGresku(e){
-    alert("Prijava greške uspješno podnesena")
+    alert(greska + greskaOpis)
   }
   function ppredajRjesenje(e){
     setRunning(false);
@@ -320,12 +321,20 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
           </button>
 
         </div></><><div className="form-group mt-3">
-          <label>Prijava greške</label>
+          <label>Prijava greške: </label>
+          <label>Prijedlog točnog riješenja:</label>
           <input
             type="text"
             className="form-control mt-1"
             id='color-bg-primary'
             onChange={(e) => usergreska(e.target.value)}
+            required />
+          <label>Obrazloženje: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => setGreskaOpis(greskaOpis = e.target.value)}
             required />
         </div><div>
             <button type="submit" className="btn" onClick={ppredajGresku}>
@@ -338,12 +347,13 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
           />}
 
 
-<p id='color-bg-primary' className='poruka'></p>
+
       <div class='container'>
 
 
           <div>
-            <div id='kreni'> <p> Stisni kad si spreman za rješavanje danasnjeg zadatka i krenuti će odbrojavanje!</p>
+          
+            <div id='kreni'> <p id='poruka' className='poruka'></p> <p> Stisni kad si spreman za rješavanje danasnjeg zadatka i krenuti će odbrojavanje!</p>
             <button className='btn' onClick={kreni}>KRENI!</button>
             </div>
             <div id='chs' style={{visibility: "hidden"}}>
@@ -436,7 +446,7 @@ else {
         "Authorization": localStorage.getItem("profil")
       },
       body: JSON.stringify({
-        assignmentNumber: taktika
+        assignmentNumber: taktika - 1
       }),  
     })
     .then((res) => res.json())
