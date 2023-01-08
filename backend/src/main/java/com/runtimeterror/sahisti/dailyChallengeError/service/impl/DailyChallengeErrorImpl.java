@@ -3,6 +3,8 @@ package com.runtimeterror.sahisti.dailyChallengeError.service.impl;
 import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
 import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallenge;
+import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallengeGrade;
+import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeGradeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
 import com.runtimeterror.sahisti.dailyChallengeError.repository.DailyChallengeErrorRepository;
 import com.runtimeterror.sahisti.dailyChallengeError.service.DailyChallengeErrorService;
@@ -26,6 +28,9 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
     @Autowired
     private DailyChallengeRepository dailyChallengeRepository;
 
+    @Autowired
+    private DailyChallengeGradeRepository dailyChallengeGradeRepository;
+
     @Override
     public DailyChallengeError createNewTicket(Long userId, Long dcId, String solution, String description) {
         User member = userRepository.findById(userId).orElseThrow(() -> new UserIdNotFoundException(userId));
@@ -44,6 +49,22 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
         DailyChallengeError dce = dailyChallengeErrorRepository.findById(dceId).orElseThrow(() -> new EntityIdNotFoundException("Daily challenge", dceId));
         dce.setValid(validation);
         dce.setChecked(true);
+        System.out.println(validation);
+        if (validation == true) {
+            revisePoints(dce);
+        }
         return dailyChallengeErrorRepository.save(dce);
+    }
+
+    private void revisePoints(DailyChallengeError dce) {
+        List<DailyChallengeGrade> gradeList = dailyChallengeGradeRepository.findAllByDailyChallengeId(dce.getDailyChallenge().getId());
+        gradeList.forEach(g -> {
+            if (g.getSolution().equals(dce.getSolution())) {
+                g.setPoints(1L);
+            } else {
+                g.setPoints(0L);
+            }
+        });
+        dailyChallengeGradeRepository.saveAll(gradeList);
     }
 }
