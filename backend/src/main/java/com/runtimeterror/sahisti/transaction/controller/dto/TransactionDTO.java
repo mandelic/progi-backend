@@ -24,7 +24,7 @@ public class TransactionDTO {
     public TransactionDTO(Transaction transaction) {
         this.month = transaction.getMonth();
         this.year = transaction.getYear();
-        this.id = transaction.getId();
+        this.id = transaction.getUser().getId();
     }
 
 }
