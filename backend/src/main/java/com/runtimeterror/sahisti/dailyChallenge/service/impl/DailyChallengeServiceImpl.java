@@ -14,6 +14,7 @@ import com.runtimeterror.sahisti.dailyChallenge.entity.DailyChallengeGrade;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeGradeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.repository.DailyChallengeRepository;
 import com.runtimeterror.sahisti.dailyChallenge.service.DailyChallengeService;
+import com.runtimeterror.sahisti.dailyChallengeError.repository.DailyChallengeErrorRepository;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Autowired
     private DailyChallengeGradeRepository dailyChallengeGradeRepository;
 
+    @Autowired
+    private DailyChallengeErrorRepository dailyChallengeErrorRepository;
+
     public Boolean startGame(Long id, String move) throws Exception {
 
         PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
@@ -42,6 +46,24 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
         if (dailyChallengeGradeRepository.existsDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id)) throw new CustomMessageException("Već ste riješili dnevnu taktiku i ostvarili broj bodova: " + dailyChallengeGradeRepository.findByMemberId(id).getPoints());
+        if (dailyChallengeErrorRepository.existsDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true)) {
+            String solution = dailyChallengeErrorRepository.findDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true).getSolution();
+            if (move.equals(solution)) {
+                if (id != 0) {
+                    User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(1L, move, member, dc);
+                    dailyChallengeGradeRepository.save(dcg);
+                }
+                return true;
+            } else {
+                if (id != 0) {
+                    User member = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
+                    DailyChallengeGrade dcg = new DailyChallengeGrade(0L, move, member, dc);
+                    dailyChallengeGradeRepository.save(dcg);
+                }
+                return false;
+            }
+        }
         Game game = pgn.getGames().get(dc.getAssignmentNumber() - 1);
         game.loadMoveText();
 
