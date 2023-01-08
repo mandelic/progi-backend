@@ -16,4 +16,7 @@ public interface TransactionService {
     void getUnpaidMembers();
 
     List<Long> getAllUnpaid();
+
+    void resetUnpaidMembers();
+
 }

@@ -12,9 +12,13 @@ public class SchedulerConfig {
     @Autowired
     private TransactionService transactionService;
 
-    @Scheduled(cron = "0 5 15 * * *")
+    @Scheduled(cron = "0 0 2 15 * ?")
     public void warningToPay() {
         transactionService.getUnpaidMembers();
     }
 
+    @Scheduled(cron = "0 0 2 1 * ?")
+    public void resetNotPaid() {
+        transactionService.resetUnpaidMembers();
+    }
 }

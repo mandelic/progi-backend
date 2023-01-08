@@ -12,7 +12,9 @@ import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -107,5 +109,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Long> getAllUnpaid() {
         return transactionsNotPaidRepository.findAll().stream().map(t -> t.getMemberId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void resetUnpaidMembers() {
+        List<TransactionsNotPaid> list = transactionsNotPaidRepository.findAll();
+        changeRoleUnpaid(list.stream().map(t -> t.getMemberId()).collect(Collectors.toList()));
+        transactionsNotPaidRepository.deleteAll(list);
+    }
+
+    private void changeRoleUnpaid(List<Long> list) {
+        List<User> members = new ArrayList<>();
+        list.forEach(t -> {
+            User member = userRepository.findById(t).orElseThrow(() -> new UserIdNotFoundException(t));
+            members.add(member);
+        });
+        members.forEach(m -> {
+            m.setRole("ROLE_UNPAID");
+        });
+        userRepository.saveAll(members);
     }
 }

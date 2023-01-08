@@ -4,8 +4,8 @@ VALUES (
         'admin',
         'admin',
         '$2a$11$Xhln5JuapOW9Tz51YUL8POiFES.GgOiVpcuI2raFj6sQcAxV4GdjW', /* admin */
-        null,
-        null,
+        '0919999555',
+        '48485555544444',
         null,
         'ROLE_ADMIN'
        ),(
