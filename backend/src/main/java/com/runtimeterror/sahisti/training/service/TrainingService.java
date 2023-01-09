@@ -17,4 +17,6 @@ public interface TrainingService{
     User addMember(Long id, Long memberId);
 
     Training removeTraining(Long id);
+
+    List<Training> findAllByCoachId(Long id);
 }

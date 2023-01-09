@@ -12,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/v1")
 @RestController
@@ -30,5 +32,12 @@ public class CoachTrainingController {
         User coach = userService.findById(id);
         Training training = trainingService.addTraining(new Training(trainingDTO.getDate(), trainingDTO.getLocation(), trainingDTO.getDuration(), coach));
         return ResponseEntity.ok(new TrainingDetailsDTO(training));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
+    @GetMapping("/coach/{id}/training")
+    public ResponseEntity<List<TrainingDetailsDTO>> getTrainingByTrainer(@PathVariable Long id) {
+        List<Training> trainingList = trainingService.findAllByCoachId(id);
+        return ResponseEntity.ok(trainingList.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
     }
 }

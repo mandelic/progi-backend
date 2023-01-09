@@ -59,4 +59,9 @@ public class TrainingServiceImpl implements TrainingService {
         training.setVisible(false);
         return trainingRepository.save(training);
     }
+
+    @Override
+    public List<Training> findAllByCoachId(Long id) {
+        return trainingRepository.findAllByCoachId(id);
+    }
 }

@@ -66,5 +66,10 @@ public class TournamentServiceImpl implements TournamentService {
         return tournamentRepository.save(tournament);
     }
 
+    @Override
+    public List<Tournament> findAllByCoachId(Long id) {
+        return tournamentRepository.findAllByCoachId(id);
+    }
+
 
 }

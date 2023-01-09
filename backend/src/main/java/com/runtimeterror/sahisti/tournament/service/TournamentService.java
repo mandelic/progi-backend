@@ -19,4 +19,6 @@ public interface TournamentService {
     
     Tournament removeTournament(Long id);
 
+    List<Tournament> findAllByCoachId(Long id);
+
 }
