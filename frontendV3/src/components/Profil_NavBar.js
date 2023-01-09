@@ -4,6 +4,13 @@ import {Link} from 'react-router-dom';
 
 function Profil_nb() {
     let trenutno = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+
+    if(localStorage.getItem("role") == "" || localStorage.getItem("role") == "ROLE_UNPAID"){
+        return(
+          <></>
+        )
+      }
+      else{
   return (
     
     <>
@@ -32,6 +39,7 @@ function Profil_nb() {
     </ul>    
     </>
   )
+}
 }
 
 export default Profil_nb

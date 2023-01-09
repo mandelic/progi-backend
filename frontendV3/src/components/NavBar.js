@@ -37,6 +37,12 @@ function NavBar() {
 
   window.addEventListener('resize', showButton);
 
+  if(localStorage.getItem("role") == "" || localStorage.getItem("role") == "ROLE_UNPAID"){
+    return(
+      <></>
+    )
+  }
+  else{
   return (
     <>
     <nav className='navbar'id='color-bg-secundary'>
@@ -69,6 +75,7 @@ function NavBar() {
     </nav>
   </>
   )
+  }
 }
 
 export default NavBar

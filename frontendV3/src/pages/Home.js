@@ -4,12 +4,30 @@ import {BrowserRouter as Router, Routes, Route, useRouteLoaderData} from 'react-
 import Centar from '../components/Centar.js';
 import Novosti from '../components/Novosti.js';
 import NavBar from '../components/NavBar.js'
+import ZabranaPristupa from './ZabranaPristupa.js';
+import PotpunaZabranaPristupa from './PotpunaZabranaPristupa.js';
 
 
 
 
 function Home() {
   console.log(localStorage)
+
+  if(localStorage.getItem("role") == 'ROLE_UNPAID'){
+    return(
+      <>
+      <ZabranaPristupa></ZabranaPristupa>
+      </>
+    )
+  }
+
+  else if(localStorage.getItem("role") == ''){
+    return(
+      <><PotpunaZabranaPristupa></PotpunaZabranaPristupa></>
+    )
+  }
+  else{
+
   return (
     
     <div className='home-container'>
@@ -18,6 +36,7 @@ function Home() {
 
     </ div>
   )
+  }
 }
 
 export default Home

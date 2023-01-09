@@ -13,6 +13,8 @@ import Profil from './pages/Profil';
 import Placanje  from './pages/Placanje';
 import Rang from './pages/Rang';
 import Vijesti from './pages/Vijesti';
+import ZabranaPristupa from './pages/ZabranaPristupa'
+import PotpunaZabranaPristupa from './pages/PotpunaZabranaPristupa';
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,7 +25,8 @@ function App() {
   return (
     <>
     <Router>
-      <Routes>
+      
+    <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/kontakt' element={<Kontakt/>} />
@@ -37,6 +40,7 @@ function App() {
         <Route path='/rang' element={<Rang/>} />
         <Route path='/vijesti' element={<Vijesti/>} />
       </Routes>
+      
     </Router>
     </>
   );

@@ -3,6 +3,8 @@ import './Podaci.css'
 import NavBar from '../components/NavBar';
 import Profil_NavBar from '../components/Profil_NavBar'
 import { useLocation, useNavigate } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {FaChessBishop} from 'react-icons/fa'
 import {FaChessKing} from 'react-icons/fa'
@@ -86,19 +88,101 @@ useEffect(() => {
 }, [])
 
 
-  let korisnik = {
-    email: 'fran.hunski@gmail.com',
-    ime: 'fran',
-    prezime: 'hunski',
-    mob: '0992332295',
-    uloga: 'trener'
+async function obrisi(id){
+  let f = "http://localhost:8080/api/v1/users/" + id 
+  fetch(f, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    },
+  })
+  .then((res) => {
+    if(res.status != '200'){
+      toast.error( "došlo je do greške", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    else{
+      toast.success( "uspješno izbrisan korisnik", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+
+})
+
+}
+
+async function zabraniPristup(id){
+    let f = "http://localhost:8080/api/v1/users/" + id + "/change-role"
+    fetch(f, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
+      },
+      body: JSON.stringify({
+        role: "ROLE_UNPAID"
+      }),  
+    })
+    .then((res) => {
+      if(res.status != '200'){
+        toast.error( "došlo je do greške", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      else{
+        toast.success( "uspješno zabranjen pristup", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+
+  })
+
   }
+
+
 
   const navigate = useNavigate();
 
 if(localStorage.getItem("role") == "ROLE_ADMIN"){
   return (
     <div>
+      <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
      <NavBar></NavBar >
     <div className='podaciContainer' id='color-bg-primary'>
       <Profil_NavBar></Profil_NavBar>
@@ -111,6 +195,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                         <th className='thAdmin'>Ime</th>
                         <th className='thAdmin'>Prezime</th>
                         <th className='thAdmin'>Broj mobitela</th>
+                        <th className='thAdmin'>Role</th>
                         <th className='thAdmin'></th>
                     </tr>
                     {profili.map((val, key)=>{
@@ -121,14 +206,15 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                                 <td className='tdAdmin'>{val.firstName}</td>
                                 <td className='tdAdmin'>{val.lastName}</td>
                                 <td className='tdAdmin'>{val.phoneNumber}</td>
+                                <td className='tdAdmin'>{val.role}</td>
                                 <td className='gumbi-container'>
                                     <div className='gumbi-container2'>
-                                        <button type="submit" className="buttonsAdmin" >
+                                        <button type="submit" className="buttonsAdmin" onClick={() => obrisi(val.id)}>
                                             Obriši
                                         </button>
                                     </div>
                                     <div className='gumbi-container2'>
-                                        <button type="submit" className="buttonsAdmin">
+                                        <button type="submit" className="buttonsAdmin" onClick={() => zabraniPristup(val.id)}>
                                             Zabrani Pristup
                                         </button>
                                     </div>

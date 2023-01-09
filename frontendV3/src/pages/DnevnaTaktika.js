@@ -393,7 +393,7 @@ function validiraj(v, id){
     })
     
   }
-if(localStorage.getItem("role") == 'ROLE_MEMBER'){
+if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role") != 'ROLE_ADMIN'){
 
 
   return (
