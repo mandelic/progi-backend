@@ -198,6 +198,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
         if (dc.getNumOfGrades() == 0f) throw new CustomMessageException("Nitko još nije ocijenio taktiku.");
-        return dc.getGrade() / dc.getNumOfGrades();
+        return dc.getGrade();
     }
 }
