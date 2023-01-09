@@ -8,6 +8,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class DceDetailsDTO {
+    private Long id;
 
     private String solution;
 
@@ -22,6 +23,7 @@ public class DceDetailsDTO {
     private Boolean valid;
 
     public DceDetailsDTO(DailyChallengeError dce) {
+        this.id = dce.getId();
         this.solution = dce.getSolution();
         this.description = dce.getDescription();
         this.memberId = dce.getMember().getId();
