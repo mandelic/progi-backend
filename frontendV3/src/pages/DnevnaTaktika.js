@@ -135,7 +135,64 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
   })
   }, [])
 
+let [neRevidirani, setNeRevidirani] = useState([])
 
+useEffect(() => {
+  fetch("http://localhost:8080/api/v1/daily-challenge-error/unchecked", {
+    method: 'GET',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    }
+  })
+  .then((res) => res.json())
+  .then((data) => {console.log(data);setNeRevidirani(neRevidirani = data)})
+}, [])
+
+
+function validiraj(v, id){
+  let f =" http://localhost:8080/api/v1/daily-challenge-error/" + id + "/validate"
+  fetch(f, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    },
+    body: JSON.stringify({
+      validation: v
+    }),  
+  })
+  .then((res) => {
+    if(res.status == "200"){
+      toast.success("uspješno validirano", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    else{
+      toast.error( "došlo je do pogreške prilikom validacije", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+  })
+}
 
   let  [rjesenje, setRjesenje] = useState("");
   let  [ocjena, setOcjena] = useState("");
@@ -539,17 +596,21 @@ else {
                     <div className="taktika-form" id='color-bg-secundary'>
                         <div className="takika-form-content">
                             <p>Prijavljena greška u taktici:</p>
-                            <div className='trener-prijavaGreske-container '>
-                                <p className='tekstPrijavljeneGreske'>dnoscsdocnsdodscnsdofnrowfbdsovbdfgorg ofgbsofwhrfrofbo</p>
-                                <div>
-                                    <button type="submit" className="buttonOdaberiTaktiku">
-                                        Prihvati rješenje
-                                    </button>
-                                    <button type="submit" className="buttonOdaberiTaktiku">
-                                        Odbaci rješenje
-                                    </button>
-                                </div>
-                            </div>
+                            {neRevidirani.map((val, key) => {
+                              return(                            
+                              <div className='trener-prijavaGreske-container '>
+                              <p className='tekstPrijavljeneGreske'>Predlozeno rjesenj: {val.solution} Obrazloženje: {val.description}</p>
+                              <div>
+                                  <button type="submit" className="buttonOdaberiTaktiku" onClick={() => {validiraj(true, val.id)}}>
+                                      Prihvati rješenje
+                                  </button>
+                                  <button type="submit" className="buttonOdaberiTaktiku" onClick={() => {validiraj(false, val.id)}}>
+                                      Odbaci rješenje
+                                  </button>
+                              </div>
+                          </div>
+                          )
+                            })}
                             
                         </div>
                     </div>
