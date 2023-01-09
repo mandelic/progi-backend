@@ -4,6 +4,7 @@ package com.runtimeterror.sahisti.tournament.controller;
 
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDTO;
 import com.runtimeterror.sahisti.tournament.controller.dto.TournamentDetailsDTO;
+import com.runtimeterror.sahisti.tournament.controller.dto.TournamentFormattedDTO;
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
@@ -41,9 +42,9 @@ public class CoachTournamentController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @GetMapping("/coach/{id}/tournament")
-    public ResponseEntity<List<TournamentDetailsDTO>> getTournamentsByTrainer(@PathVariable Long id) {
+    public ResponseEntity<List<TournamentFormattedDTO>> getTournamentsByTrainer(@PathVariable Long id) {
         List<Tournament> tournamentList = tournamentService.findAllByCoachId(id);
-        return ResponseEntity.ok(tournamentList.stream().map(TournamentDetailsDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(tournamentList.stream().map(TournamentFormattedDTO::new).collect(Collectors.toList()));
     }
 
 }

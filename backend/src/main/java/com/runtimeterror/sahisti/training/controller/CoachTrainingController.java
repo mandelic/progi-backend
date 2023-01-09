@@ -2,6 +2,7 @@ package com.runtimeterror.sahisti.training.controller;
 
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDTO;
 import com.runtimeterror.sahisti.training.controller.dto.TrainingDetailsDTO;
+import com.runtimeterror.sahisti.training.controller.dto.TrainingFormattedDTO;
 import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.training.service.TrainingService;
 import com.runtimeterror.sahisti.user.entity.User;
@@ -36,8 +37,8 @@ public class CoachTrainingController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SENSEI')")
     @GetMapping("/coach/{id}/training")
-    public ResponseEntity<List<TrainingDetailsDTO>> getTrainingByTrainer(@PathVariable Long id) {
+    public ResponseEntity<List<TrainingFormattedDTO>> getTrainingByTrainer(@PathVariable Long id) {
         List<Training> trainingList = trainingService.findAllByCoachId(id);
-        return ResponseEntity.ok(trainingList.stream().map(TrainingDetailsDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(trainingList.stream().map(TrainingFormattedDTO::new).collect(Collectors.toList()));
     }
 }
