@@ -40,6 +40,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findByColumnId(Long id) {
-        return newsRepository.findAllByColumnId(id);
+        return newsRepository.findAllByColumnIdAndVisible(id, true);
     }
 }
