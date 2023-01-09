@@ -33,12 +33,14 @@ public class TransactionController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
     @GetMapping("/member/{id}")
     public ResponseEntity<List<TransactionDTO>> getTransactionsById(@PathVariable Long id) {
+        transactionService.resetUnpaidMembers();
         return ResponseEntity.ok(transactionService.getByMemberId(id).stream().map(TransactionDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<TransactionDetailsDTO>> getAllTransactions() {
+        transactionService.getUnpaidMembers();
         return ResponseEntity.ok(transactionService.getAll().stream().map(TransactionDetailsDTO::new).collect(Collectors.toList()));
     }
 
