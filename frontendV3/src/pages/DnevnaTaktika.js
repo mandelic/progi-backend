@@ -620,7 +620,7 @@ else {
                 <div className="taktika-form" id='color-bg-secundary'>
                     <div className="takika-form-content">
                         <div className='taktikaTrener-container'>
-                            <p className='tekstTaktike2'>1. Nimzovich-Rossolimo attack (with ...g6, without ...d6)</p>
+                            <p className='tekstTaktike2'><a id='color-text' href="https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_1:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD">Game 1: Caruana–Carlsen, ½–½</a></p>
                             <div className='poredakGumba'>
                                 <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 1); zadaj()}}>
                                     Odaberi taktiku

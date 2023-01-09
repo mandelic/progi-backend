@@ -68,6 +68,7 @@ useEffect(() => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       },
       body: JSON.stringify({
         date: datum,
@@ -133,6 +134,7 @@ useEffect(() => {
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
       },
       body: id  
   })
@@ -247,6 +249,7 @@ useEffect(() => {
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
       },
   })
   .then((res) => {

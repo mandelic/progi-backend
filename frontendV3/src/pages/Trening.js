@@ -54,6 +54,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       },
       body: JSON.stringify({
         date: datum,
@@ -118,6 +119,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
       },
       body: id  
   })
@@ -167,6 +169,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       }
     })
     .then((res) => res.json())
@@ -206,6 +209,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       }
     })
     .then((res) => res.json())
@@ -226,6 +230,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       }
     })
     .then((res) => res.json())
@@ -248,6 +253,7 @@ if(uloga == "ROLE_SENSEI"){
       headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
       },
   })
   .then((res) => {
