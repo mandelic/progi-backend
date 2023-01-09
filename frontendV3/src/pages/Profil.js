@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Profil.css'
 import NavBar from '../components/NavBar';
 import Profil_NavBar from '../components/Profil_NavBar'
 import { useLocation, useNavigate } from "react-router";
 
 import {Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Profil() {
 
@@ -16,6 +17,35 @@ function logout(){
     navigate("/");
 
 }
+
+useEffect(() =>{
+  fetch("http://localhost:8080/api/v1/transaction/unpaid",{
+    method: 'GET',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    }
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    if(localStorage.getItem("userId") in data){
+      toast( "Potsjecamo te da platis članarinu za ovaj mjesec! Hvala", {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+  })
+}, [])
+
+
 
   return (
     <> <NavBar></NavBar >
