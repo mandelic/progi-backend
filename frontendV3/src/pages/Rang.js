@@ -22,7 +22,7 @@ function Rang() {
   }, [])
   return (
     <><NavBar></NavBar >
-      <div className="Tab">
+      <div className="Tab" id='color-bg-primary'>
         <table>
           <tr>
             <th>Pozicija</th>
@@ -33,7 +33,7 @@ function Rang() {
             return (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{val.memberId}</td>
+                <td>{val.member}</td>
                 <td>{val.points}</td>
               </tr>
             )

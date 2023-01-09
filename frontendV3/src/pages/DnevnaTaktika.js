@@ -22,6 +22,8 @@ function DnevnaTaktika() {
   let [board, setBoard] = useState(["........", "........", "........", "........", "........", "........", "........", "........"])
   let [igrac, setIgrac] = useState("")
 
+  let [taktikaId, setTaktikaId] = useState("")
+
 
   let [taktika, setTaktika] = useState("")
 
@@ -55,6 +57,8 @@ function DnevnaTaktika() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data.message)
+
+      setTaktikaId(taktikaId = data.dailyChallengeId)
     
 if(localStorage.getItem("role") == 'ROLE_MEMBER'){
     if(!data.message){
@@ -205,8 +209,49 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
       }
       })
   }
-  function ppredajGresku(e){
-    alert(greska + greskaOpis)
+  function ppredajGresku(){
+    let f = "http://localhost:8080/api/v1/daily-challenge-error/member/" + localStorage.getItem("userId") + "/dc/" + taktikaId
+    fetch(f, {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("profil")
+      },
+      body: JSON.stringify({
+        solution: greska,
+        description: greskaOpis
+      }),
+    })
+    .then((res) => {
+      if(res.status != '200'){
+        console.log(ocjena)
+        toast.error( "došlo je do pogreške pri predaji greške", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+        }
+      else{
+        toast.success( "uspješno predana greška", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+      })
   }
   function ppredajRjesenje(e){
     setRunning(false);

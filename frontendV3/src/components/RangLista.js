@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './RangLista.css'
 import {Link} from 'react-router-dom';
 
-const data = [
-    { redni: 1., name: "I. Ivic", brojBod: 76 },
-    { redni: 2., name: "M. Matic", brojBod: 58 },
-    { redni: 3., name: "I. Goric", brojBod: 49},
-    { redni: 4., name: "M. Savic", brojBod: 38},
-    { redni: 5., name: "T. Tonic", brojBod: 32},
-  ]
+
+
+
 
 function RangLista() {
+
+  let [data, setData] = useState([{points: "", member:""},{points: "", member:""},{points: "", member:""},{points: "", member:""},{points: "", member:""}])
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/v1/ranked-list",{
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => res.json())
+  .then((data) => {setData(data = data.slice(0,5))})
+  }, [])
+  
     return (
       <div>
       <h2 className='naslov'>RANG LISTA</h2>
@@ -25,9 +35,9 @@ function RangLista() {
           {data.map((val, key) => {
             return (
               <tr key={key}>
-                <td>{val.redni}</td>
-                <td>{val.name}</td>
-                <td>{val.brojBod}</td>
+                <td>{key + 1}</td>
+                <td>{val.points}</td>
+                <td>{val.member}</td>
               </tr>
             )
           })}
