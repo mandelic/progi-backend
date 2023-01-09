@@ -10,9 +10,4 @@ import lombok.Setter;
 public class RankedListDTO {
     private Long points;
     private String member;
-
-    public RankedListDTO(Long points, String member){
-        this.points = points;
-        this.member = member;
-    }
 }
