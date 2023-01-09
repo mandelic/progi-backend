@@ -37,7 +37,7 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public List<Tournament> findAllVisibile() {
         userRepository.findAll();
-        return tournamentRepository.findAllByVisible(true);
+        return tournamentRepository.findAllByVisibleAndDateAfter(true, LocalDateTime.now());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TournamentServiceImpl implements TournamentService {
     public User addMember(Long id, Long memberID) {
         Tournament tournament = tournamentRepository.findById(id).orElseThrow(() -> new EntityIdNotFoundException("Tournament", id));
         if (tournament.getVisible() == false) throw new EntityIdNotFoundException("Tournament", id);
-        userRepository.findAll();
+        System.out.println(userRepository.findAll());
         User member = userRepository.findById(memberID).orElseThrow(() -> new UserIdNotFoundException(memberID));
         member.addTournament(tournament);
         return userRepository.save(member);
