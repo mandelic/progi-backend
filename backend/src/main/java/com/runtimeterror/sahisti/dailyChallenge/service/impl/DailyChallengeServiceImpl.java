@@ -53,7 +53,9 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
         Game game = pgn.getGames().get(dc.getAssignmentNumber());
         Long points = game.getResult().toString().equals("DRAW") ? 2L : 1L;
         if (bonus) points++;
-        if (dailyChallengeGradeRepository.existsDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id)) throw new CustomMessageException("Već ste riješili dnevnu taktiku i ostvarili broj bodova: " + dailyChallengeGradeRepository.findByMemberId(id).getPoints());
+        if (dailyChallengeGradeRepository.existsDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id)) {
+            throw new CustomMessageException("Već ste riješili dnevnu taktiku i ostvarili broj bodova: " + dailyChallengeGradeRepository.findDailyChallengeGradeByDailyChallengeIdAndMemberId(dc.getId(), id).getPoints());
+        }
         if (dailyChallengeErrorRepository.existsDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true)) {
             String solution = dailyChallengeErrorRepository.findDailyChallengeErrorByDailyChallengeIdAndValid(dc.getId(), true).getSolution();
             if (move.equals(solution)) {
