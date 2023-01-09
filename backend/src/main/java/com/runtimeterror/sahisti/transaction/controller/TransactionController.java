@@ -2,6 +2,7 @@ package com.runtimeterror.sahisti.transaction.controller;
 
 import com.runtimeterror.sahisti.news.controller.dto.TransactionDTO;
 import com.runtimeterror.sahisti.transaction.controller.dto.TransactionDataDTO;
+import com.runtimeterror.sahisti.transaction.controller.dto.TransactionDetailsDTO;
 import com.runtimeterror.sahisti.transaction.entity.Transaction;
 import com.runtimeterror.sahisti.transaction.entity.TransactionsNotPaid;
 import com.runtimeterror.sahisti.transaction.service.TransactionService;
@@ -37,8 +38,8 @@ public class TransactionController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<TransactionDTO>> getAllTransactions() {
-        return ResponseEntity.ok(transactionService.getAll().stream().map(TransactionDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<List<TransactionDetailsDTO>> getAllTransactions() {
+        return ResponseEntity.ok(transactionService.getAll().stream().map(TransactionDetailsDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

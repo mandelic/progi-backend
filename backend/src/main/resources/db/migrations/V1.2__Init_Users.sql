@@ -10,8 +10,8 @@ VALUES (
         'ROLE_ADMIN'
        ),(
            'stadic@gmail.com',
-           'Sladan',
-           'Tadic',
+           'Slađan',
+           'Tadić',
            '$2a$11$tbtVdC.10cWRv5ldNPD8.evxrWYr8rT7RlqipI6Rv7u47a/3LdJF2', /* sensei */
            '0911111222',
            '484855526664',
@@ -30,7 +30,7 @@ VALUES (
         (
         'mroginic@gmail.com',
         'Matija',
-        'Roginic',
+        'Roginić',
         '$2a$11$.ly/N0gw8VoaHQP4uO3s1OLT73dObro8dqnyDFvTv86dzXbWPrJNu', /* unpaid */
         '0911111222',
         '484855526664',
