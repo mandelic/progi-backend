@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Profil_NavBar from '../components/Profil_NavBar'
 import NavBar from '../components/NavBar';
 import './Placanje.css';
@@ -80,7 +80,61 @@ function Placanje() {
   })
 }
 
-  return (
+let [sveTransakcije, setSveTransakcije] = useState([])
+
+useEffect(() => {
+
+  fetch("http://localhost:8080/api/v1/transaction", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    }
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+    setSveTransakcije(sveTransakcije = data)
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
+}, [])
+
+if(localStorage.getItem("role") == "ROLE_ADMIN"){
+  return(
+    <>
+    <NavBar></NavBar>
+        <div className='podaciContainer2' id='color-bg-primary'>
+            <Profil_NavBar></Profil_NavBar>
+          <div className='t'>
+
+            <table className='t-table'>
+              <caption>TRANSAKCIJE</caption>
+              <tr>
+                <th>mjesec</th>
+                <th>godina</th>
+                <th>član</th>
+              </tr>
+              {sveTransakcije.map((val,key) =>{
+                return(
+                  <tr key={key}>
+                    <td>{val.month}</td>
+                    <td>{val.year}</td>
+                    <td>{val.member}</td>
+                  </tr>
+                )
+              })}
+            </table>
+          </div>
+          </div>
+    </>
+  )
+}
+
+else
+{  return (
     <div>
       <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
         <NavBar></NavBar>
@@ -239,6 +293,8 @@ function Placanje() {
     </div>
 
   )
+}
+
 }
 
 export default Placanje

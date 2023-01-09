@@ -99,7 +99,9 @@ useEffect(() => {
 if(localStorage.getItem("role") == "ROLE_ADMIN"){
   return (
     <div>
-        <NavBar></NavBar>
+     <NavBar></NavBar >
+    <div className='podaciContainer' id='color-bg-primary'>
+      <Profil_NavBar></Profil_NavBar>
         <div className='pozadina'>
         <div className="tablicaAdmin">
                 <table className='tableAdmin'>
@@ -137,6 +139,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                 </table>
             </div>
         </div>
+    </div>
     </div>
     
 )
