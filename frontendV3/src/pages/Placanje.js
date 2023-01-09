@@ -3,6 +3,7 @@ import Profil_NavBar from '../components/Profil_NavBar'
 import NavBar from '../components/NavBar';
 import './Placanje.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { resolvePath } from 'react-router-dom';
 
 
 function Placanje() {
@@ -15,6 +16,12 @@ function Placanje() {
   let [month, setMonth ] = useState("")
 
   function predajUplatu(e){
+    console.log(firstName)
+    console.log(lastName)
+    console.log(phoneNumber)
+    console.log(cardNumber)
+    console.log(year)
+    console.log(month)
     e.preventDefault();
     let f = "http://localhost:8080/api/v1/transaction/member/" + localStorage.getItem("userId")
     fetch(f, {
@@ -33,8 +40,11 @@ function Placanje() {
           month: month
     }),
   })
-  .then((res) => res.json())
+  .then((res) => 
+  res.json()
+  )
   .then(data => {
+    console.log(data)
     if(!data.errors && !data.message){
       toast.success( "Uspješno si platio članarinu", {
         position: "top-right",
@@ -48,7 +58,8 @@ function Placanje() {
         theme: "dark"
         });
     }
-    else if(data.error){
+    else if(data.errors){
+      console.log("HEJ")
       for(let i in data.errors){
         toast.error( data.errors[i], {
           position: "top-right",
