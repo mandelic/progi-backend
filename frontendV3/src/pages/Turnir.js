@@ -14,6 +14,8 @@ function Turnir() {
   let [pr, setPr] = useState([])
   let [sviTurniri, setT] = useState([])
 
+
+  let [treneroviTurniri, setTT] = useState([])
   const trenerNaslov = (t) => {
     setNaslov(naslov= t)
   }
@@ -37,9 +39,25 @@ if(uloga == "ROLE_SENSEI"){
   var trener = true;
 }
 
-//trener = true
-admin = true
-
+useEffect(() => {
+  let f = "http://localhost:8080/api/v1/coach/" + localStorage.getItem("userId") +"/tournament"
+  fetch(f, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    }
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+    setTT(treneroviTurniri = data)
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
+}, [])
   
 
   async function predajturnir(e){
@@ -421,7 +439,7 @@ else if(trener){
         <div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TVOJI TURNIRI</caption>
+              <caption>TVOJI TURNIRI</caption>
               <tr>
               <th>naslov</th>
                 <th>datum</th>
@@ -429,7 +447,7 @@ else if(trener){
                 
                 <th>organizator</th>
               </tr>
-              {sviTurniri.map((val,key) =>{
+              {treneroviTurniri.map((val,key) =>{
                 return(
                   <tr key={key}>
                     <td>{val.title}</td>

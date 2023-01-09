@@ -14,6 +14,8 @@ function Trening() {
   let [pr, setPr] = useState([])
   let [sviTreninzi, setT] = useState([])
 
+  let [treneroviTreninzi, setTT] = useState([])
+
   
 
   const trenertrajanje = (t) => {
@@ -40,7 +42,7 @@ if(uloga == "ROLE_SENSEI"){
 }
 
 //trener = true
-admin = true
+//admin = true
 
   
 
@@ -177,6 +179,25 @@ admin = true
     })
   }, [])
 
+  useEffect(() => {
+    let f = "http://localhost:8080/api/v1/coach/" + localStorage.getItem("userId") +"/training"
+    fetch(f, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      setTT(treneroviTreninzi = data)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+  }, [])
 
   useEffect(() => {
     let f = "http://localhost:8080/api/v1/training/" + id + "/applied"
@@ -417,14 +438,14 @@ else if(trener){
         <div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TVOJI TRENINZI</caption>
+              <caption>TVOJI TRENINZI</caption>
               <tr>
                 <th>datum</th>
                 <th>lokacija</th>
                 <th>trajanje</th>
                 <th>organizator</th>
               </tr>
-              {sviTreninzi.map((val,key) =>{
+              {treneroviTreninzi.map((val,key) =>{
                 return(
                   <tr key={key}>
                     <td>{val.date}</td>
