@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findAllByColumnId(Long id);
+    List<News> findAllByVisible(Boolean visible);
 }

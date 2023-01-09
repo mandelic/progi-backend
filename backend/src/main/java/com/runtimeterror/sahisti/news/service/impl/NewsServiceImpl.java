@@ -18,7 +18,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findAll() {
-        return newsRepository.findAll();
+        return newsRepository.findAllByVisible(true);
     }
 
     @Override
