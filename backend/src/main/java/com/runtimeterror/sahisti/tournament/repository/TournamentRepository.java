@@ -13,7 +13,8 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     List<Tournament> findAllByVisible(Boolean visible);
 
     List<Tournament> findAllByVisibleAndDateAfter(Boolean visible, LocalDateTime date);
-    @Query(value = "SELECT t.* FROM tournament t LEFT JOIN tournament_members t_m ON t_m.tournament_id = t.id WHERE t_m.member_id = :id", nativeQuery = true)
+
+    @Query(value = "SELECT t.* FROM tournament t LEFT JOIN tournament_member t_m ON t_m.tournament_id = t.id WHERE t_m.member_id = :id", nativeQuery = true)
     List<Tournament> findAllByUserId(Long id);
 
 }
