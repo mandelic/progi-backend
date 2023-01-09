@@ -17,6 +17,6 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     @Query(value = "SELECT t.* FROM tournament t LEFT JOIN tournament_member t_m ON t_m.tournament_id = t.id WHERE t_m.member_id = :id", nativeQuery = true)
     List<Tournament> findAllByUserId(Long id);
 
-    List<Tournament> findAllByCoachId(Long id);
+    List<Tournament> findAllByCoachIdOrderByDateDesc(Long id);
 
 }

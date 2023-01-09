@@ -27,10 +27,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasAnyRole('MEMBER', 'SENSEI', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('SENSEI', 'ADMIN')")
     @GetMapping
     public ResponseEntity<List<UserDetailsDTO>> findAll() {
         return ResponseEntity.ok(userService.findAll().stream().map(UserDetailsDTO::new).collect(Collectors.toList()));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleted")
+    public ResponseEntity<List<UserDetailsDTO>> findAllDeleted() {
+        return ResponseEntity.ok(userService.findAllDeleted().stream().map(UserDetailsDTO::new).collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasAnyRole('MEMBER', 'SENSEI', 'ADMIN')")

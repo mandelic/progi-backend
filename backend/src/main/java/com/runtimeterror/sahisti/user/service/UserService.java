@@ -12,6 +12,6 @@ public interface UserService {
     TokenDTO verifyLogin(LoginDTO loginDTO);
     User findById(Long id);
     User changeRole(Long id, String role);
-
     User deleteUser(Long id);
+    List<User> findAllDeleted();
 }

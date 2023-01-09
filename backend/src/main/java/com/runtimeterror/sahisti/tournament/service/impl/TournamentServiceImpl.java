@@ -5,7 +5,6 @@ import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException
 import com.runtimeterror.sahisti.tournament.entity.Tournament;
 import com.runtimeterror.sahisti.tournament.repository.TournamentRepository;
 import com.runtimeterror.sahisti.tournament.service.TournamentService;
-import com.runtimeterror.sahisti.training.entity.Training;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,7 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public List<Tournament> findAllByCoachId(Long id) {
-        return tournamentRepository.findAllByCoachId(id);
+        return tournamentRepository.findAllByCoachIdOrderByDateDesc(id);
     }
 
 

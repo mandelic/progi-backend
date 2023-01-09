@@ -25,7 +25,13 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     public List<User> findAll() {
-        return userRepository.findAll();
+        List<User> all = userRepository.findAll();
+        all.removeAll(userRepository.findAllByRole("ROLE_DELETED"));
+        return all;
+    }
+
+    public List<User> findAllDeleted() {
+        return userRepository.findAllByRole("ROLE_DELETED");
     }
 
     public User addUser(User user) {
@@ -59,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User deleteUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException(id));
-        user.setRole("");
+        user.setRole("ROLE_DELETED");
         return userRepository.save(user);
     }
 
