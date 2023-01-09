@@ -60,7 +60,7 @@ function DnevnaTaktika() {
 
       setTaktikaId(taktikaId = data.dailyChallengeId)
     
-if(localStorage.getItem("role") == 'ROLE_MEMBER'){
+
     if(!data.message){
       setBoard(board = data.board)
       console.log(board)
@@ -131,7 +131,7 @@ if(localStorage.getItem("role") == 'ROLE_MEMBER'){
         }
       }
     }
-}
+
   })
   }, [])
 

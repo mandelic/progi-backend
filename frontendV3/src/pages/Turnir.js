@@ -182,6 +182,7 @@ useEffect(() => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       }
     })
     .then((res) => res.json())
@@ -202,6 +203,8 @@ useEffect(() => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
+
       }
     })
     .then((res) => res.json())
@@ -222,6 +225,7 @@ useEffect(() => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
       }
     })
     .then((res) => res.json())
