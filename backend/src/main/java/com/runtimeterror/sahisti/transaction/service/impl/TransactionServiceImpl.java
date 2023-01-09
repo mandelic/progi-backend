@@ -41,6 +41,8 @@ public class TransactionServiceImpl implements TransactionService {
                  TransactionsNotPaid tnp = transactionsNotPaidRepository.findByMemberId(id);
                  transactionsNotPaidRepository.delete(tnp);
              }
+             member.setRole("ROLE_MEMBER");
+             userRepository.save(member);
              return transactionRepository.save(new Transaction(month, year, 50L, member));
         } else {
             throw new CustomMessageException("Transakcija nije uspjela. Molimo Vas, pokušajte ponovno.");
@@ -101,11 +103,12 @@ public class TransactionServiceImpl implements TransactionService {
         }
         int year = LocalDate.now().getYear();
         List<Long> paid = transactionRepository.findAllByMonthAndYear(month, "" + year).stream().map(t -> t.getUser().getId()).toList();
-        List<Long> all = userRepository.findAll().stream().map(User::getId).collect(Collectors.toList());;
+        List<Long> all = userRepository.findAll().stream().map(User::getId).collect(Collectors.toList());
         all.removeAll(paid);
-        all.removeAll(userRepository.findAllByRole("ROLE_DELETED"));
-        all.removeAll(userRepository.findAllByRole("ROLE_ADMIN"));
-        all.removeAll(userRepository.findAllByRole("ROLE_SENSEI"));
+        all.removeAll(userRepository.findAllByRole("ROLE_DELETED").stream().map(User::getId).collect(Collectors.toList()));
+        all.removeAll(userRepository.findAllByRole("ROLE_ADMIN").stream().map(User::getId).collect(Collectors.toList()));
+        all.removeAll(userRepository.findAllByRole("ROLE_SENSEI").stream().map(User::getId).collect(Collectors.toList()));
+        System.out.println(all);
         all.forEach(a -> transactionsNotPaidRepository.save(new TransactionsNotPaid(a)));
     }
 

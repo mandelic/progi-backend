@@ -1,6 +1,7 @@
 package com.runtimeterror.sahisti.dailyChallengeError.service.impl;
 
 import com.github.bhlangonijr.chesslib.game.Game;
+import com.github.bhlangonijr.chesslib.game.GameResult;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import com.runtimeterror.sahisti.configuration.exception.EntityIdNotFoundException;
 import com.runtimeterror.sahisti.configuration.exception.UserIdNotFoundException;
@@ -73,7 +74,8 @@ public class DailyChallengeErrorImpl implements DailyChallengeErrorService {
         pgn.loadPgn();
         DailyChallenge dc = dce.getDailyChallenge();
         Game game = pgn.getGames().get(dc.getAssignmentNumber());
-        Long points = game.getResult().equals("DRAW") ? 2L : 1L;
+        String res = game.getResult().toString();
+        Long points = res.equals("DRAW") ? 2L : 1L;
         gradeList.stream().forEach(g -> {
             if (g.getSolution().equals(dce.getSolution())) {
                 if (rankedListRepository.existsByMember(g.getMemberId())) {
