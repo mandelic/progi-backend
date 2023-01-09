@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class RankedListDTO {
     private Long points;
-    private Long memberId;
+    private String member;
 
-    public RankedListDTO(RankedList rankedList){
-        this.points = rankedList.getPoints();
-        this.memberId = rankedList.getMember();
+    public RankedListDTO(Long points, String member){
+        this.points = points;
+        this.member = member;
     }
 }

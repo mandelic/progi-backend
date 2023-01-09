@@ -20,7 +20,7 @@ public class RankedListController {
 
     @GetMapping
     public ResponseEntity<List<RankedListDTO>> findAll(){
-        return ResponseEntity.ok(rankedListService.findAll().stream().map(RankedListDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(rankedListService.findAll());
     }
 
     @GetMapping("/{id}")
