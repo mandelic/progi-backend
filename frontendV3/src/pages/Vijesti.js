@@ -196,6 +196,7 @@ else if(localStorage.getItem("role") == "ROLE_SENSEI"){
                     className='form-control mt-1'
                     onChange={(e) => setDodajRubrika(dodajRubrika = e.target.value)}
                     required>
+                      <option value="" disabled selected hidden>odaberi ...</option>
                     {rubrike.map((val,key) => {
                       return(
                           <option value={key}>{val.title}</option>  
@@ -255,7 +256,49 @@ else{
   return(
     <>
     <NavBar></NavBar>
-    
+
+    {
+        isOpen && <Popup content = {
+          <>
+          <div className='form-group mt-3'>
+            <label>Kategorija</label>
+            <select name="list" 
+                    id="kategorija"
+                    className='form-control mt-1'
+                    onChange={(e) => setDodajRubrika(dodajRubrika = e.target.value)}
+                    required>
+                      <option value="" disabled selected hidden>odaberi ...</option>
+                    {rubrike.map((val,key) => {
+                      return(
+                          <option value={key}>{val.title}</option>  
+                      )
+                    })}
+            </select>
+          </div>
+          <div className='form-group mt-3'>
+            <label>Naslov</label>
+            <input             
+            type="text"
+            className="form-control mt-1"
+            id='naslov'
+            onChange={(e) => setDodajNaslov(dodajNaslov = e.target.value)}
+            required />
+          </div>
+          <div className='form-group mt-3'>
+            <label>Tekst</label>
+            <textarea rows={6}
+            className="form-control mt-1"
+            id='tekst'
+            onChange={(e) => setDodajTekst(dodajTekst = e.target.value)}
+            required />
+          </div>
+          <button type="submit" className="btn" onClick={predajNovost}>
+              Predaj!
+            </button>
+          </>}
+          handleClose = {togglePopup}
+          />}
+          
     <div className = 'vijesti' id='color-bg-primary'>
     <div className='rubrike' id='color-bg-primary'>
     {rubrike.map((val,key) => {

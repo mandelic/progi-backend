@@ -7,7 +7,7 @@ import Popup from '../components/Popup'
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Stopwatch from "../components/Stopwatch";
+
 
 
 
@@ -243,6 +243,7 @@ function validiraj(v, id){
   }
 
   function ppredajOcjenu(){
+    console.log(ocjena)
     fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
       method: "POST",
       headers: {
@@ -251,7 +252,7 @@ function validiraj(v, id){
           "Authorization": localStorage.getItem("profil")
       },
       body: JSON.stringify({
-        grade: String(ocjena)
+        grade: ocjena
       }),
     })
     .then((res) => {
@@ -425,10 +426,12 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
       <><> <div className="form-group mt-3">
         <label>Ocjena</label>
         <select name="list"
+                defaultValue=""
                 className="form-control mt-1"
                 id='color-bg-primary' 
-                onChange={(e) => userocjena(e.target.value)}
+                onChange={(e) => {userocjena(e.target.value); }}
                 required>
+          <option value="" disabled selected hidden>odaberi ocijenu...</option>
           <option>1</option>
           <option>2</option>
           <option>3</option>

@@ -224,6 +224,7 @@ else
                       <label>Datum isteka</label>
                       <div className='datumIsteka-container'>
                         <select className='datumIsteka-container2'>
+                        <option value="" disabled selected hidden>odaberi ...</option>
                           <option>Siječanj</option>
                           <option>Veljača</option>
                           <option>Ožujak</option>
@@ -238,6 +239,7 @@ else
                           <option>Prosinac</option>
                         </select>
                         <select className='datumIsteka-container2'>
+                        <option value="" disabled selected hidden>odaberi ...</option>
                           <option>2023</option>
                           <option>2024</option>
                           <option>2025</option>
@@ -260,6 +262,7 @@ else
                         <select className='datumIsteka-container2'
                         onChange={(e) => setMonth(month = e.target.value)}
                         >
+                          <option value="" disabled selected hidden>odaberi ...</option>
                           <option>Siječanj</option>
                           <option>Veljača</option>
                           <option>Ožujak</option>
@@ -275,6 +278,7 @@ else
                         </select>
                         <select className='datumIsteka-container2'
                         onChange={(e) => setYear(year = e.target.value)}>
+                          <option value="" disabled selected hidden>odaberi ...</option>
                           <option>2022</option>
                           <option>2023</option>
                           <option>2024</option>

@@ -110,7 +110,6 @@ export default function (props) {
   .then(data => {
     console.log(data.errors)
     if(!data.errors){
-      localStorage.setItem("profil", data.token);
       navigate("/login");
       changeAuthMode();
       toast.success( "Uspješno si registriran, slobodno se prijavi s novo stvorenim profilom", {

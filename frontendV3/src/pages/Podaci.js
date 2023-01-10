@@ -285,6 +285,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                 id='color-bg-primary' 
                 onChange={(e) => {setRoleZZ(roleZaZamijenu = e.target.value ); console.log(e.target.value)}}
                 required>
+          <option value="" disabled selected hidden>odaberi ulogu...</option>
           <option>ROLE_MEMBER</option>
           <option>ROLE_ADMIN</option>
           <option>ROLE_SENSEI</option>
