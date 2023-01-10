@@ -46,6 +46,17 @@ function Placanje() {
   .then(data => {
     console.log(data)
     if(!data.errors && !data.message){
+      let f = "http://localhost:8080/api/v1/users/" + localStorage.getItem("userId")
+      fetch("http://localhost:8080/api/v1/news",{
+        method: 'GET',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      })
+      .then((res) => res.json())
+    .then((data) => {localStorage.setItem("role", data.role)})
+
       toast.success( "Uspješno si platio članarinu", {
         position: "top-right",
         autoClose: 5000,
@@ -301,9 +312,15 @@ else
                       <button type="submit" className="btn btn-danger" onClick={predajUplatu}>
                         Plati
                       </button>
+                     
                     </div>
+                    
                 </form>
+                
+                
             </div>
+            
+            
         </div>
     </div>
 
