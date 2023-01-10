@@ -108,6 +108,7 @@ useEffect(() =>{
 }, [])
 
 function predajNovost(){
+  
   let i = parseInt(dodajRubrika) + 1
   let f = "http://localhost:8080/api/v1/column/" + i + "/author/" + localStorage.getItem("userId")+"/news"
   fetch(f, {

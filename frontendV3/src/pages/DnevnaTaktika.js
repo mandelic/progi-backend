@@ -259,7 +259,7 @@ function validiraj(v, id){
     .then((res) => {
       if(res.status != '200'){
         console.log(ocjena)
-        toast.error( "došlo je do pogreške pri predaji ocijen", {
+        toast.error( "došlo je do pogreške pri predaji ocijene", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -396,7 +396,7 @@ function validiraj(v, id){
             });
         }
         if(data == true){
-          toast.success( "Bravo! Uspješno si riješio danasšnju taktiku. Slobosno ostavi ocijenu ili dojavi grešku", {
+          toast.success( "Bravo! Uspješno si riješio današnju taktiku. Slobodno ostavi ocjenu ili dojavi grešku", {
             position: "top-right",
             autoClose: false,
             hideProgressBar: false,
@@ -477,7 +477,7 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
 
           <div>
           
-            <div id='kreni'> <p id='poruka' className='poruka'></p> <p> Stisni kad si spreman za rješavanje danasnjeg zadatka i krenuti će odbrojavanje!</p>
+            <div id='kreni'> <p id='poruka' className='poruka'></p> <p> Stisni kad si spreman za rješavanje današnjeg zadatka i krenuti će odbrojavanje!</p>
             <button className='btn' onClick={kreni}>KRENI!</button>
             </div>
             <div id='chs' style={{visibility: "hidden"}}>
@@ -502,7 +502,7 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
                 return(
                   <>
                   <tr className='boardTR'>
-                  <td id = 'brojevi'>{key + 1}</td>
+                  <td id = 'brojevi'>{8 - key}</td>
                   <td className='boardTD'id={'b'+key+'0'}> </td>
                   <td className='boardTD' id={'b'+key+'1'}></td>
                   <td className='boardTD' id={'b'+key+'2'}></td>

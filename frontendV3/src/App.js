@@ -13,8 +13,7 @@ import Profil from './pages/Profil';
 import Placanje  from './pages/Placanje';
 import Rang from './pages/Rang';
 import Vijesti from './pages/Vijesti';
-import ZabranaPristupa from './pages/ZabranaPristupa'
-import PotpunaZabranaPristupa from './pages/PotpunaZabranaPristupa';
+
 
 
 import { ToastContainer, toast } from 'react-toastify';

@@ -37,7 +37,7 @@ function NavBar() {
 
   window.addEventListener('resize', showButton);
 
-  if(localStorage.getItem("role") == "" || localStorage.getItem("role") == "ROLE_UNPAID"){
+  if(localStorage.getItem("role") == "ROLE_DELETED" || localStorage.getItem("role") == "ROLE_UNPAID"){
     return(
       <></>
     )

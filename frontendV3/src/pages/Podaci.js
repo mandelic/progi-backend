@@ -14,6 +14,7 @@ import {FaChessQueen} from 'react-icons/fa'
 import {FaChessRook} from 'react-icons/fa'
 
 import Popup from '../components/Popup'
+import {Link} from 'react-router-dom';
 
 
 
@@ -293,7 +294,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
         </select>
       </div><div>
           <button type="submit" className="btn" onClick={() => {ZamijeniUlogu()}}>
-            Predaj ocjenu
+            Predaj
           </button>
 
         </div>
@@ -431,9 +432,10 @@ else{
             </div>
             <div className="Podaci-form-content">
               <p className='textPodaci'>Pozicija na rang listi: {rang}</p>
-              <p className='textPodaci'>Bodovi: to-do</p> 
-              <p className='textPodaci'>Broj odigranih turnira: to-do</p>
-              <p className='textPodaci'>Broj odrađenih treninga: to-do</p>
+              <p className='textPodaci'>              <Link className='pogledaj' to='/rang' id='link'>
+                Pogledaj rang listu
+            </Link></p>
+
             </div>
             <div className='chess-icons-container'>
               <FaChessBishop className='chess-icons-container' size={"4vh"}></FaChessBishop>

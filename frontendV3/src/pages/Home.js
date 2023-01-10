@@ -21,7 +21,7 @@ function Home() {
     )
   }
 
-  else if(localStorage.getItem("role") == ''){
+  else if(localStorage.getItem("role") == 'ROLE_DELETED'){
     return(
       <><PotpunaZabranaPristupa></PotpunaZabranaPristupa></>
     )

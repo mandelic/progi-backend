@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 function Profil_nb() {
     let trenutno = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
-    if(localStorage.getItem("role") == "" || localStorage.getItem("role") == "ROLE_UNPAID"){
+    if(localStorage.getItem("role") == "ROLE_DELETED" || localStorage.getItem("role") == "ROLE_UNPAID"){
         return(
           <></>
         )

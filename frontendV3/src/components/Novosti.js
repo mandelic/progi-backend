@@ -34,7 +34,7 @@ function Novosti() {
       })}
             <div>
         <h4 className='pN' >
-          <Link className='pogledajNovosti' to='/vijesti' id='link'>Pogledaj vise novosti</Link>
+          <Link className='pogledajNovosti' to='/vijesti' id='link'>Pogledaj više novosti</Link>
         </h4>
       </div>
 

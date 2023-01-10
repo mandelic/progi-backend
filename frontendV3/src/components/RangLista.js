@@ -36,8 +36,8 @@ function RangLista() {
             return (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{val.points}</td>
                 <td>{val.member}</td>
+                <td>{val.points}</td>
               </tr>
             )
           })}
