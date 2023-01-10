@@ -7,6 +7,7 @@ import Popup from '../components/Popup'
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Link} from 'react-router-dom';
 
 
 
@@ -22,18 +23,18 @@ function DnevnaTaktika() {
     {name:"Sicilian Defence, Rossolimo Variation (ECO B31)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_1:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
     {name: "Queen's Gambit Declined, Harrwitz Attack (ECO D37)", link: "https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_2:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
     {name:"Sicilian Defence, Rossolimo Variation (ECO B31)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_3:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
-    {name:"English Opening, Four Knights, Kingside Fianchetto (ECO A29)", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
-    {name:"", link:""},
+    {name:"English Opening, Four Knights, Kingside Fianchetto (ECO A29)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_4:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Sicilian Defence, Rossolimo Variation (ECO B31)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_5:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Petrov's Defence, Karklins-Martinovsky Variation (ECO C42)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_6:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Queen's Gambit Declined, Harrwitz Attack (ECO D37)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_7:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Sicilian Defence, Sveshnikov Variation (ECO B33)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_8:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"English Opening, Four Knights, Kingside Fianchetto (ECO A29)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_9:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Sicilian Defence, Sveshnikov Variation (ECO B33)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_10:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Petrov's Defence, Classical Variation (ECO C42)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_11:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Sicilian Defence, Sveshnikov Variation (ECO B33)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_12:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"English Opening, Bremen–Smyslov System (ECO A22)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_13:_Carlsen%E2%80%93Caruana,_1%E2%80%930"},
+    {name:"Sicilian Defence, Sveshnikov Variation (ECO B33)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_14:_Caruana%E2%80%93Carlsen,_0%E2%80%931"},
+    {name:"Sicilian Defence (ECO B40)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_15:_Carlsen%E2%80%93Caruana,_1%E2%80%930"},
   ]
 
   
@@ -546,6 +547,11 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
             <button type="submit" className="btn" onClick={ppredajRjesenje}>
               Predaj rješenje
             </button>
+            <div>
+            <Link className='pogledaj' to='/rang' id='link'>
+                Pogledaj rang listu
+            </Link>
+            </div>
           </div>
         </div>
     </div>
