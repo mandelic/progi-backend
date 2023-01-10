@@ -27,6 +27,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News addNews(News news) {
+        System.out.println(news.getVisible());
         return newsRepository.save(news);
     }
 

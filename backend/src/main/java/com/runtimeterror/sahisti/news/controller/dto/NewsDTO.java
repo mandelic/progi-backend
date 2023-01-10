@@ -22,6 +22,6 @@ public class NewsDTO {
         this.date = news.getDate();
         this.title = news.getTitle();
         this.content = news.getContent();
-        this.visible = news.getVisible() != null ? news.getVisible() : true;
+        this.visible = news.getVisible();
     }
 }

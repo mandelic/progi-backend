@@ -27,6 +27,7 @@ public class NewsFormattedDTO {
         this.title = news.getTitle();
         this.content = news.getContent();
         this.columnId = news.getColumn().getId();
+        this.visible = news.getVisible();
         this.author = news.getAuthor().getFirstName() + " " + news.getAuthor().getLastName();
     }
 }

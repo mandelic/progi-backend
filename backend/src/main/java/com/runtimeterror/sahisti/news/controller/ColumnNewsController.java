@@ -42,7 +42,9 @@ public class ColumnNewsController {
     public ResponseEntity<NewsDTO> addNews(@PathVariable("columnId") Long columnId, @PathVariable("authorId") Long authorId, @Valid @RequestBody NewsDTO newsDTO) {
         User author = userService.findById(authorId);
         Column column = columnService.findById(columnId);
-        News news = newsService.addNews(new News(newsDTO.getDate(), newsDTO.getTitle(), newsDTO.getContent(), author, column));
+        News addNews = new News(newsDTO.getDate(), newsDTO.getTitle(), newsDTO.getContent(), author, column);
+        addNews.setVisible(true);
+        News news = newsService.addNews(addNews);
         return ResponseEntity.status(HttpStatus.CREATED).body(new NewsDTO(news));
     }
 
