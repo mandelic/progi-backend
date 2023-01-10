@@ -26,9 +26,21 @@ let [profili, setProfili] =useState([])
 let [idZaZamijenu, setIdZZ] = useState("")
 let [roleZaZamijenu, setRoleZZ] = useState("")
 
+let  [email, setMail] = useState("");
+let [password, setPassword] = useState("");
+let [firstName, setIme] = useState("");
+let [lastName, setPrezime] = useState("");
+let [phoneNumber, setMobitel] = useState("");
+let [cardNumber, setKartica] = useState("");
+
 const [isOpen, setIsOpen] = useState(false);
 const togglePopup = () => {
   setIsOpen(!isOpen);
+}
+
+const [isOpen2, setIsOpen2] = useState(false);
+const togglePopup2 = () => {
+  setIsOpen2(!isOpen2);
 }
 
 useEffect(() => {
@@ -194,6 +206,66 @@ async function zabraniPristup(id){
   }
 
 
+  function StvoriKorisnika(){
+    fetch("http://localhost:8080/api/v1/users", {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          password: password,
+          phoneNumber: phoneNumber,
+          cardNumber: cardNumber
+      }),   
+  })
+  .then((res) => res.json())
+  .then(data => {
+    console.log(data.errors)
+    if(!data.errors){
+      toast.success( "Uspješno si dodao korisnika", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+
+        setIsOpen2(false)
+        setIme(firstName = "")
+        setPrezime(lastName = "")
+        setMail(email = "")
+        setMobitel(phoneNumber = "")
+        setKartica(cardNumber = "")
+        setPassword(password = "")
+
+    } else{
+      for(let i in data.errors){
+        toast.error( data.errors[i], {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+          });
+      }
+    }
+  });
+
+  }
+
+
 
   const navigate = useNavigate();
 
@@ -216,7 +288,6 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
           <option>ROLE_MEMBER</option>
           <option>ROLE_ADMIN</option>
           <option>ROLE_SENSEI</option>
-
           <option>ROLE_UNPAID</option>
         </select>
       </div><div>
@@ -228,6 +299,60 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
 
           </>}
           handleClose = {togglePopup}
+          />}
+
+{
+        isOpen2 && <Popup content = {
+      
+      <>
+<div className="form-group mt-3">
+          <label>email:</label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setMail(email = e.target.value)}}
+            required />
+          <label>ime: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setIme(firstName= e.target.value)}}
+            required />
+          <label>prezime: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setPrezime(lastName= e.target.value)}}
+            required />
+
+          <label>lozinka: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setPassword(password= e.target.value)}}
+            required />
+                      <label>broj mobitela: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setMobitel(phoneNumber= e.target.value)}}
+            required />
+                      <label>broj kartice: </label>
+          <input
+            type="text"
+            className="form-control mt-1"
+            id='color-bg-primary'
+            onChange={(e) => {setKartica(cardNumber= e.target.value)}}
+            required />
+          <button className='btn' onClick={() => {StvoriKorisnika()}}> Predaj </button>
+        </div>
+          </>}
+          handleClose = {togglePopup2}
           />}
 
 
@@ -271,9 +396,16 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                         )
                     })}      
                 </table>
+
             </div>
+            <div className='tablicaAdmin'>
+                <button className='btn'
+                onClick={() => {setIsOpen2(true)}}> DODAJ NOVOG KORISNIKA</button>
+                </div>
         </div>
+
     </div>
+
     </div>
     
 )
