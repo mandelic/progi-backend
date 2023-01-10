@@ -18,6 +18,24 @@ function DnevnaTaktika() {
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
 
+  var taktike = [
+    {name:"Sicilian Defence, Rossolimo Variation (ECO B31)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_1:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name: "Queen's Gambit Declined, Harrwitz Attack (ECO D37)", link: "https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_2:_Carlsen%E2%80%93Caruana,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"Sicilian Defence, Rossolimo Variation (ECO B31)", link:"https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_3:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD"},
+    {name:"English Opening, Four Knights, Kingside Fianchetto (ECO A29)", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+    {name:"", link:""},
+  ]
+
   
   let [board, setBoard] = useState(["........", "........", "........", "........", "........", "........", "........", "........"])
   let [igrac, setIgrac] = useState("")
@@ -620,72 +638,18 @@ else {
                 <div className="taktika-form" id='color-bg-secundary'>
                     <div className="takika-form-content">
                         <div className='taktikaTrener-container'>
-                            <p className='tekstTaktike2'><a id='color-text' href="https://en.wikipedia.org/wiki/World_Chess_Championship_2018#Game_1:_Caruana%E2%80%93Carlsen,_%C2%BD%E2%80%93%C2%BD">Game 1: Caruana–Carlsen, ½–½</a></p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 1); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>7. Variation "classical variation (5.Bf4)"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 7); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>2. Variation "classical variation (5.Bf4)"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 2); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>8. Variation "Pelikan (Lasker/Sveshnikov) variation"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 8); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>3. Variation "Nimzovich-Rossolimo attack"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 3); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>9. Variation "four knights, kingside fianchetto"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 9); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>4. Variation "four knights, kingside fianchetto"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 4); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>10. Variation "Nimzovich attack"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 10); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>5. Variation "Nimzovich-Rossolimo attack, Gurgenidze variation"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 5); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>11. Variation "Bremen, Smyslov system"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 11); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
-                            <p className='tekstTaktike2'>6. Opening "Petrov's defence"</p>
-                            <div className='poredakGumba'>
-                                <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = 6); zadaj()}}>
-                                    Odaberi taktiku
-                                </button>
-                            </div>
+                          {taktike.map((val, key) =>{
+                            return(
+                              <>
+                              <p className='tekstTaktike2'><a id='color-text' href={val.link}>{val.name}</a></p>
+                              <div className='poredakGumba'>
+                                  <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = {key}); zadaj()}}>
+                                      Odaberi taktiku
+                                  </button>
+                              </div>
+                              </>
+                            )
+                          })}
                         </div>
                     </div>
                 </div>

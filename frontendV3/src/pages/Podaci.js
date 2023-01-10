@@ -13,6 +13,8 @@ import {FaChessPawn} from 'react-icons/fa'
 import {FaChessQueen} from 'react-icons/fa'
 import {FaChessRook} from 'react-icons/fa'
 
+import Popup from '../components/Popup'
+
 
 
 function Podaci() {
@@ -20,6 +22,14 @@ function Podaci() {
 let [podaci, setPodaci] = useState([])
 let [rang, setRang] = useState("-")
 let [profili, setProfili] =useState([])
+
+let [idZaZamijenu, setIdZZ] = useState("")
+let [roleZaZamijenu, setRoleZZ] = useState("")
+
+const [isOpen, setIsOpen] = useState(false);
+const togglePopup = () => {
+  setIsOpen(!isOpen);
+}
 
 useEffect(() => {
   fetch("http://localhost:8080/api/v1/users", {
@@ -130,49 +140,57 @@ async function obrisi(id){
 
 }
 
-async function zabraniPristup(id){
-    let f = "http://localhost:8080/api/v1/users/" + id + "/change-role"
-    fetch(f, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("profil")
-      },
-      body: JSON.stringify({
-        role: "ROLE_UNPAID"
-      }),  
-    })
-    .then((res) => {
-      if(res.status != '200'){
-        toast.error( "došlo je do greške", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          backgroundColor: '#634133',
-          theme: "dark"
-          });
-      }
-      else{
-        toast.success( "uspješno zabranjen pristup", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          backgroundColor: '#634133',
-          theme: "dark"
-          });
-      }
-
+function ZamijeniUlogu(){
+  let f = "http://localhost:8080/api/v1/users/" + idZaZamijenu + "/change-role"
+  fetch(f, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("profil")
+    },
+    body: JSON.stringify({
+      role: roleZaZamijenu
+    }),  
   })
+  .then((res) => {
+    if(res.status != '200'){
+      toast.error( "došlo je do greške", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    else{
+      toast.success( "uspješno promjenjena uloga", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
 
+})
+ setIsOpen(false)
+ setIdZZ(idZaZamijenu = "")
+ setRoleZZ(roleZaZamijenu = "")
+}
+
+async function zabraniPristup(id){
+  setIsOpen(true)
+  console.log(id)
+  setIdZZ(idZaZamijenu = id)
   }
 
 
@@ -184,6 +202,35 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
     <div>
       <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
      <NavBar></NavBar >
+
+     {
+        isOpen && <Popup content = {
+      
+      <> <div className="form-group mt-3">
+        <label>Nova uloga</label>
+        <select name="list"
+                className="form-control mt-1"
+                id='color-bg-primary' 
+                onChange={(e) => {setRoleZZ(roleZaZamijenu = e.target.value ); console.log(e.target.value)}}
+                required>
+          <option>ROLE_MEMBER</option>
+          <option>ROLE_ADMIN</option>
+          <option>ROLE_SENSEI</option>
+
+          <option>ROLE_UNPAID</option>
+        </select>
+      </div><div>
+          <button type="submit" className="btn" onClick={() => {ZamijeniUlogu()}}>
+            Predaj ocjenu
+          </button>
+
+        </div>
+
+          </>}
+          handleClose = {togglePopup}
+          />}
+
+
     <div className='podaciContainer' id='color-bg-primary'>
       <Profil_NavBar></Profil_NavBar>
         <div className='pozadina'>
@@ -215,9 +262,10 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
                                     </div>
                                     <div className='gumbi-container2'>
                                         <button type="submit" className="buttonsAdmin" onClick={() => zabraniPristup(val.id)}>
-                                            Zabrani Pristup
+                                            Zabrani Pristup/Promijeni ulogu
                                         </button>
                                     </div>
+                                    
                                 </td>
                             </tr>
                         )
