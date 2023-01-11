@@ -487,8 +487,8 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
           </button>
 
         </div></><><div className="form-group mt-3">
-          <label>Prijava greške: </label>
-          <label>Prijedlog točnog riješenja:</label>
+          <label>Prijava greške - </label>
+          <label>prijedlog točnog riješenja:</label>
           <input
             type="text"
             className="form-control mt-1"
