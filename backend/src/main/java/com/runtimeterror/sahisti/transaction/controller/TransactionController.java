@@ -41,7 +41,6 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.getAll().stream().map(TransactionDetailsDTO::new).collect(Collectors.toList()));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/unpaid")
     public ResponseEntity<List<Long>> getAllUnpaidTransactions() {
         return ResponseEntity.ok(transactionService.getAllUnpaid());
