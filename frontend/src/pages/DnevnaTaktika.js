@@ -273,7 +273,20 @@ function validiraj(v, id){
       }),
     })
     .then((res) => {
-      if(res.status != '200'){
+      if (res.status == '401') {
+        toast.warn( "Samo registrirani korisnici mogu davati ocjene", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+        });
+      }
+      else if(res.status != '200'){
         console.log(ocjena)
         toast.error( "Došlo je do pogreške pri predaji ocjene", {
           position: "top-right",
@@ -317,7 +330,20 @@ function validiraj(v, id){
       }),
     })
     .then((res) => {
-      if(res.status != '200'){
+      if(res.status == '401'){
+        toast.warn( "Samo registrirani korisnici mogu slati greške", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          backgroundColor: '#634133',
+          theme: "dark"
+        });
+      }
+      else if(res.status != '200'){
         console.log(ocjena)
         toast.error( "Došlo je do pogreške pri predaji greške", {
           position: "top-right",
