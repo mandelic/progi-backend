@@ -576,7 +576,7 @@ else {
         "Authorization": localStorage.getItem("profil")
       },
       body: JSON.stringify({
-        assignmentNumber: taktika - 1
+        assignmentNumber: taktika
       }),  
     })
     .then((res) => res.json())
@@ -653,7 +653,7 @@ else {
                               <>
                               <p className='tekstTaktike2'><a id='color-text' href={val.link}>{val.name}</a></p>
                               <div className='poredakGumba'>
-                                  <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = {key}); zadaj()}}>
+                                  <button type="submit" className="buttonOdaberiTaktiku" onClick = {() => {setTaktika(taktika = key); zadaj()}}>
                                       Odaberi taktiku
                                   </button>
                               </div>
