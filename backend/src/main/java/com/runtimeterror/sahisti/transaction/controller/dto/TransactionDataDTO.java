@@ -33,7 +33,7 @@ public class TransactionDataDTO {
     private String cardNumber;
 
     @Pattern(regexp = "[0-9][0-9][0-9]", message = "Kontrolni broj kartice je neispravnog oblika.")
-    @Size(max = 3, message = "Broj kartice premašuje zadani broj znakova.")
+    @Size(max = 3, message = "Kontrolni broj kartice premašuje zadani broj znakova.")
     private String cvv;
 
     @NotBlank(message = "Mjesec je neispravnog oblika")
