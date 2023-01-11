@@ -305,7 +305,7 @@ if(!admin && !trener){
           <div className='t'>
 
             <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
+              <caption>NADOLAZEĆI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
@@ -317,7 +317,7 @@ if(!admin && !trener){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                   </tr>
                 )
@@ -326,7 +326,7 @@ if(!admin && !trener){
           </div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
+              <caption>NADOLAZEĆI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
@@ -339,7 +339,7 @@ if(!admin && !trener){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                     <td><button className='btn'  onClick={() => prijavaNaTrenig(val.id)} >želim se prijaviti!</button></td>
                   </tr>
@@ -364,7 +364,7 @@ else if(admin){
         <div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI</caption>
+              <caption>NADOLAZEĆI TRENINZI</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
@@ -377,7 +377,7 @@ else if(admin){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                     <td><button className='btn' onClick={() => obrisiTrening(val.id)}>obrisi</button></td>
                   </tr>
