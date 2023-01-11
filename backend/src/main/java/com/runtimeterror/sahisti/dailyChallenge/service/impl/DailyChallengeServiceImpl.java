@@ -19,9 +19,11 @@ import com.runtimeterror.sahisti.rankedList.entity.RankedList;
 import com.runtimeterror.sahisti.rankedList.repository.RankedListRepository;
 import com.runtimeterror.sahisti.user.entity.User;
 import com.runtimeterror.sahisti.user.repository.UserRepository;
+import org.flywaydb.core.api.resource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +162,8 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Override
     public List<BoardDTO> getAll() throws Exception {
         List<BoardDTO> allChallenges = new ArrayList<>();
-        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        URL res = Thread.currentThread().getContextClassLoader().getResource("chessGames/WorldChamp2018.pgn");
+        PgnHolder pgn = new PgnHolder(res.getFile()); //controller za odabir datoteke
         pgn.loadPgn();
 
         for (int m = 0; m < 15; m++) {
