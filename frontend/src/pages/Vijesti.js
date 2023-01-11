@@ -25,7 +25,7 @@ function Vijesti() {
   }
 
   function obrisiNovost(id){
-    let f = "http://localhost:8080/api/v1/news/" + id
+    let f = "https://sahisti-lii1.onrender.com/api/v1/news/" + id
     console.log(f)
     fetch(f, {
       method: "DELETE",
@@ -71,7 +71,7 @@ function Vijesti() {
   }
 
   useEffect(() =>{
-    let f = "http://localhost:8080/api/v1/column/" + trenutnaRubrika +"/news"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/column/" + trenutnaRubrika +"/news"
     fetch(f, {
       headers: {
         Accept: "application/json",
@@ -84,7 +84,7 @@ function Vijesti() {
   }, [trenutnaRubrika])
 
 useEffect(() =>{
-  fetch("http://localhost:8080/api/v1/news",{
+  fetch("https://sahisti-lii1.onrender.com/api/v1/news",{
     method: 'GET',
     headers: {
       Accept: "application/json",
@@ -96,7 +96,7 @@ useEffect(() =>{
 }, [])
 
 useEffect(() =>{
-  fetch("http://localhost:8080/api/v1/column",{
+  fetch("https://sahisti-lii1.onrender.com/api/v1/column",{
     method: 'GET',
     headers: {
       Accept: "application/json",
@@ -110,7 +110,7 @@ useEffect(() =>{
 function predajNovost(){
   
   let i = parseInt(dodajRubrika) + 1
-  let f = "http://localhost:8080/api/v1/column/" + i + "/author/" + localStorage.getItem("userId")+"/news"
+  let f = "https://sahisti-lii1.onrender.com/api/v1/column/" + i + "/author/" + localStorage.getItem("userId")+"/news"
   fetch(f, {
     method: "POST",
     headers: {

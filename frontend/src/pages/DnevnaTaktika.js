@@ -50,7 +50,7 @@ function DnevnaTaktika() {
   let [danasnjaOcijena, setDO] = useState("Još nema ocjene")
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/daily-challenge/grade", {
       method: 'GET',
       headers: {
         Accept: "application/json",
@@ -81,7 +81,7 @@ function DnevnaTaktika() {
 
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/v1/daily-challenge", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/daily-challenge", {
       method: 'GET',
       headers: {
         Accept: "application/json",
@@ -172,7 +172,7 @@ function DnevnaTaktika() {
 let [neRevidirani, setNeRevidirani] = useState([])
 
 useEffect(() => {
-  fetch("http://localhost:8080/api/v1/daily-challenge-error/unchecked", {
+  fetch("https://sahisti-lii1.onrender.com/api/v1/daily-challenge-error/unchecked", {
     method: 'GET',
     headers: {
       Accept: "application/json",
@@ -186,7 +186,7 @@ useEffect(() => {
 
 
 function validiraj(v, id){
-  let f =" http://localhost:8080/api/v1/daily-challenge-error/" + id + "/validate"
+  let f =" https://sahisti-lii1.onrender.com/api/v1/daily-challenge-error/" + id + "/validate"
   fetch(f, {
     method: "POST",
     headers: {
@@ -261,7 +261,7 @@ function validiraj(v, id){
 
   function ppredajOcjenu(){
     console.log(ocjena)
-    fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/daily-challenge/grade", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -303,7 +303,7 @@ function validiraj(v, id){
       })
   }
   function ppredajGresku(){
-    let f = "http://localhost:8080/api/v1/daily-challenge-error/member/" + localStorage.getItem("userId") + "/dc/" + taktikaId
+    let f = "https://sahisti-lii1.onrender.com/api/v1/daily-challenge-error/member/" + localStorage.getItem("userId") + "/dc/" + taktikaId
     fetch(f, {
       method: "POST",
       headers: {
@@ -353,7 +353,7 @@ function validiraj(v, id){
 
     let id = localStorage.getItem("userId")
     if(localStorage.getItem("userId") == null){id = 0}
-    let f = "http://localhost:8080/api/v1/daily-challenge/make-a-move/" + id
+    let f = "https://sahisti-lii1.onrender.com/api/v1/daily-challenge/make-a-move/" + id
     fetch(f, {
       method: "POST",
       headers: {
@@ -582,7 +582,7 @@ else {
   
 
   function zadaj(){
-    let f = "http://localhost:8080/api/v1/daily-challenge/coach/" + localStorage.getItem("userId")
+    let f = "https://sahisti-lii1.onrender.com/api/v1/daily-challenge/coach/" + localStorage.getItem("userId")
     fetch(f, {
       method: "POST",
       headers: {

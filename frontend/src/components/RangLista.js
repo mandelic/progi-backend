@@ -10,7 +10,7 @@ function RangLista() {
 
   let [data, setData] = useState([{points: "", member:""},{points: "", member:""},{points: "", member:""},{points: "", member:""},{points: "", member:""}])
   useEffect(() =>{
-    fetch("http://localhost:8080/api/v1/ranked-list",{
+    fetch("https://sahisti-lii1.onrender.com/api/v1/ranked-list",{
       method: 'GET',
       headers: {
         Accept: "application/json",

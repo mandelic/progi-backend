@@ -29,7 +29,7 @@ function Placanje() {
     console.log(year)
     console.log(month)
     e.preventDefault();
-    let f = "http://localhost:8080/api/v1/transaction/member/" + localStorage.getItem("userId")
+    let f = "https://sahisti-lii1.onrender.com/api/v1/transaction/member/" + localStorage.getItem("userId")
     fetch(f, {
       method: "POST",
       headers: {
@@ -110,7 +110,7 @@ let [sveTransakcije, setSveTransakcije] = useState([])
 
 useEffect(() => {
 
-  fetch("http://localhost:8080/api/v1/transaction", {
+  fetch("https://sahisti-lii1.onrender.com/api/v1/transaction", {
     method: "GET",
     headers: {
       Accept: "application/json",

@@ -48,7 +48,7 @@ if(uloga == "ROLE_SENSEI"){
 
   async function predajTrening(e){
     e.preventDefault();
-    let f = "http://localhost:8080/api/v1/coach/" + id + "/training"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/coach/" + id + "/training"
     fetch(f, {
       method: "POST",
       headers: {
@@ -112,7 +112,7 @@ if(uloga == "ROLE_SENSEI"){
 
 
   function prijavaNaTrenig(idTreninga) {
-    let f = "http://localhost:8080/api/v1/training/" + idTreninga + "/member"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/training/" + idTreninga + "/member"
     console.log(f)
     fetch(f, {
       method: "POST",
@@ -163,7 +163,7 @@ if(uloga == "ROLE_SENSEI"){
   // to do: prT i slT dohvatiti iz backenda i 
 
   useEffect(() => {
-    let f = "http://localhost:8080/api/v1/training/" + id + "/not-applied"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/training/" + id + "/not-applied"
     fetch(f, {
       method: "GET",
       headers: {
@@ -183,7 +183,7 @@ if(uloga == "ROLE_SENSEI"){
   }, [])
 
   useEffect(() => {
-    let f = "http://localhost:8080/api/v1/coach/" + localStorage.getItem("userId") +"/training"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/coach/" + localStorage.getItem("userId") +"/training"
     fetch(f, {
       method: "GET",
       headers: {
@@ -203,7 +203,7 @@ if(uloga == "ROLE_SENSEI"){
   }, [])
 
   useEffect(() => {
-    let f = "http://localhost:8080/api/v1/training/" + id + "/applied"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/training/" + id + "/applied"
     fetch(f, {
       method: "GET",
       headers: {
@@ -225,7 +225,7 @@ if(uloga == "ROLE_SENSEI"){
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1/training", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/training", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -246,7 +246,7 @@ if(uloga == "ROLE_SENSEI"){
 
 
   function obrisiTrening(id){
-    let f = "http://localhost:8080/api/v1/training/" + id
+    let f = "https://sahisti-lii1.onrender.com/api/v1/training/" + id
     console.log(f)
     fetch(f, {
       method: "DELETE",

@@ -40,7 +40,7 @@ if(uloga == "ROLE_SENSEI"){
 }
 
 useEffect(() => {
-  let f = "http://localhost:8080/api/v1/coach/" + localStorage.getItem("userId") +"/tournament"
+  let f = "https://sahisti-lii1.onrender.com/api/v1/coach/" + localStorage.getItem("userId") +"/tournament"
   fetch(f, {
     method: "GET",
     headers: {
@@ -62,7 +62,7 @@ useEffect(() => {
 
   async function predajturnir(e){
     e.preventDefault();
-    let f = "http://localhost:8080/api/v1/coach/" + id + "/tournament"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/coach/" + id + "/tournament"
     fetch(f, {
       method: "POST",
       headers: {
@@ -127,7 +127,7 @@ useEffect(() => {
 
 
   function prijavaNaTurnir(idturnira) {
-    let f = "http://localhost:8080/api/v1/tournament/" + idturnira + "/member"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/tournament/" + idturnira + "/member"
     console.log(f)
     fetch(f, {
       method: "POST",
@@ -178,7 +178,7 @@ useEffect(() => {
   // to do: prT i slT dohvatiti iz backenda i 
 
   useEffect(() => {
-    let f = "http://localhost:8080/api/v1/tournament/" + id + "/not-applied"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/tournament/" + id + "/not-applied"
     fetch(f, {
       method: "GET",
       headers: {
@@ -199,7 +199,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-    let f = "http://localhost:8080/api/v1/tournament/" + id + "/applied"
+    let f = "https://sahisti-lii1.onrender.com/api/v1/tournament/" + id + "/applied"
     fetch(f, {
       method: "GET",
       headers: {
@@ -222,7 +222,7 @@ useEffect(() => {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1/tournament", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/tournament", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -242,7 +242,7 @@ useEffect(() => {
 
 
    function obrisiTurnir(id){
-    let f = "http://localhost:8080/api/v1/tournament/" + id
+    let f = "https://sahisti-lii1.onrender.com/api/v1/tournament/" + id
     console.log(f)
     fetch(f, {
       method: "DELETE",

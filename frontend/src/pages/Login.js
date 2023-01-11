@@ -67,7 +67,7 @@ export default function (props) {
   async function predajSignIn(e){
     console.log("hej")
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/login", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/login", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -108,7 +108,7 @@ export default function (props) {
 
   async function predajSignUp(e){
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/users", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",

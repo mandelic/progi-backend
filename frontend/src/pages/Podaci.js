@@ -45,7 +45,7 @@ const togglePopup2 = () => {
 }
 
 useEffect(() => {
-  fetch("http://localhost:8080/api/v1/users", {
+  fetch("https://sahisti-lii1.onrender.com/api/v1/users", {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -64,7 +64,7 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  let f = "http://localhost:8080/api/v1/users/" + localStorage.getItem("userId")
+  let f = "https://sahisti-lii1.onrender.com/api/v1/users/" + localStorage.getItem("userId")
   fetch(f, {
     method: "GET",
     headers: {
@@ -84,7 +84,7 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  let f = "http://localhost:8080/api/v1/ranked-list/" + localStorage.getItem("userId")
+  let f = "https://sahisti-lii1.onrender.com/api/v1/ranked-list/" + localStorage.getItem("userId")
   fetch(f, {
     method: "GET",
     headers: {
@@ -112,7 +112,7 @@ useEffect(() => {
 
 
 async function obrisi(id){
-  let f = "http://localhost:8080/api/v1/users/" + id 
+  let f = "https://sahisti-lii1.onrender.com/api/v1/users/" + id 
   fetch(f, {
     method: "DELETE",
     headers: {
@@ -154,7 +154,7 @@ async function obrisi(id){
 }
 
 function ZamijeniUlogu(){
-  let f = "http://localhost:8080/api/v1/users/" + idZaZamijenu + "/change-role"
+  let f = "https://sahisti-lii1.onrender.com/api/v1/users/" + idZaZamijenu + "/change-role"
   fetch(f, {
     method: "POST",
     headers: {
@@ -208,7 +208,7 @@ async function zabraniPristup(id){
 
 
   function StvoriKorisnika(){
-    fetch("http://localhost:8080/api/v1/users", {
+    fetch("https://sahisti-lii1.onrender.com/api/v1/users", {
       method: "POST",
       headers: {
           Accept: "application/json",

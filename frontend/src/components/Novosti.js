@@ -7,7 +7,7 @@ function Novosti() {
   let [novosti, setData] = useState([{title:"",content:""}])
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/v1/news",{
+    fetch("https://sahisti-lii1.onrender.com/api/v1/news",{
       method: 'GET',
       headers: {
         Accept: "application/json",
