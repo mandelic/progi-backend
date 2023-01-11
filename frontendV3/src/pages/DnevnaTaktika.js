@@ -42,7 +42,7 @@ function DnevnaTaktika() {
   let [igrac, setIgrac] = useState("")
 
   let [taktikaId, setTaktikaId] = useState("")
-
+  let [nijePokrenuto, setNijePokrenuto] = useState(true)
 
   let [taktika, setTaktika] = useState("")
 
@@ -241,6 +241,7 @@ function validiraj(v, id){
     document.getElementById("kreni").remove()
     document.getElementById("chs").style.visibility = "visible"
     setRunning(true)
+    setNijePokrenuto(false)
   }
 
   function ppredajOcjenu(){
@@ -544,7 +545,7 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
               className="upisRjesenja"  
               onChange={(e) => setRjesenje(rjesenje = e.target.value)}
               required/>
-            <button type="submit" className="btn" onClick={ppredajRjesenje}>
+            <button type="submit" className="btn" onClick={ppredajRjesenje} disabled={nijePokrenuto}>
               Predaj rješenje
             </button>
             <div>
