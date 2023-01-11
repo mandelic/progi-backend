@@ -23,6 +23,7 @@ import org.flywaydb.core.api.resource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -163,7 +164,30 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     public List<BoardDTO> getAll() throws Exception {
         List<BoardDTO> allChallenges = new ArrayList<>();
         //String file = getClass().getResource("/resources/chessGames/WorldChamp2018.pgn/").getFile();
-        PgnHolder pgn = new PgnHolder(Thread.currentThread().getContextClassLoader().getResource("chessGames/WorldChamp2018.pgn").getPath()); //controller za odabir datoteke
+        try {
+            BufferedReader txtReader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("classpath:chessGames/WorldChamp2018.pgn")));
+            System.out.println(txtReader.lines());
+            File myObj = new File("chessgame.pgn");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+                FileWriter myWriter = new FileWriter("chessgame.pgn");
+                txtReader.lines().forEach(l -> {
+                    try {
+                        myWriter.write(l + "\n");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                });
+                myWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        PgnHolder pgn = new PgnHolder("chessgame.pgn"); //controller za odabir datoteke
         pgn.loadPgn();
 
         for (int m = 0; m < 15; m++) {
