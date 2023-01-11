@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class TransactionDataDTO {
 
+    @NotBlank(message = "Adresa e-pošte je neispravnog oblika.")
     @Pattern(regexp = "^(.+)@(\\S+)$", message = "Adresa e-pošte je neispravnog oblika.")
     @Size(max = 70, message = "Adresa e-pošte premašuje zadani broj znakova.")
     private String email;
@@ -24,14 +25,17 @@ public class TransactionDataDTO {
     @Size(max = 30, message = "Prezime premašuje zadani broj znakova.")
     private String lastName;
 
+    @NotBlank(message = "Broj mobitela je neispravnog oblika.")
     @Pattern(regexp = "[+]*[0-9]{9,}", message = "Broj mobitela je neispravnog oblika.")
     @Size(max = 15, message = "Broj mobitela premašuje zadani broj znakova.")
     private String phoneNumber;
 
+    @NotBlank(message = "Broj kartice je neispravnog oblika.")
     @Pattern(regexp = "[0-9]{14,}", message = "Broj kartice je neispravnog oblika.")
     @Size(max = 20, message = "Broj kartice premašuje zadani broj znakova.")
     private String cardNumber;
 
+    @NotBlank(message = "Kontrolni broj kartice je neispravnog oblika.")
     @Pattern(regexp = "[0-9][0-9][0-9]", message = "Kontrolni broj kartice je neispravnog oblika.")
     @Size(max = 3, message = "Kontrolni broj kartice premašuje zadani broj znakova.")
     private String cvv;
