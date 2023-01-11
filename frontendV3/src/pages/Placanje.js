@@ -42,6 +42,8 @@ function Placanje() {
           lastName: lastName,
           phoneNumber: phoneNumber,
           cardNumber: cardNumber,
+          email: email,
+          cvv: cvv,
           year: year,
           month: month
     }),
@@ -157,7 +159,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
   )
 }
 
-else if(localStorage.getItem("role") != "ROLE_MEMBER")
+else if(localStorage.getItem("role") == "ROLE_MEMBER" || localStorage.getItem("role") == "ROLE_UNPAID")
 {  return (
     <div>
       <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
