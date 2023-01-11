@@ -4,9 +4,12 @@ import NavBar from '../components/NavBar';
 import './Placanje.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { resolvePath } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router";
 
 
 function Placanje() {
+
+  const navigate = useNavigate();
 
   let [firstName, setFirstName ] = useState("")
   let [lastName, setLasttName ] = useState("")
@@ -14,6 +17,7 @@ function Placanje() {
   let [cardNumber, setcardNumber ] = useState("")
   let [year, setYear ] = useState("")
   let [month, setMonth ] = useState("")
+
 
   function predajUplatu(e){
     console.log(firstName)
@@ -46,16 +50,12 @@ function Placanje() {
   .then(data => {
     console.log(data)
     if(!data.errors && !data.message){
-      let f = "http://localhost:8080/api/v1/users/" + localStorage.getItem("userId")
-      fetch("http://localhost:8080/api/v1/news",{
-        method: 'GET',
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        }
-      })
-      .then((res) => res.json())
-    .then((data) => {localStorage.setItem("role", data.role)})
+      if(localStorage.getItem("role") == "ROLE_UNPAID"){
+      
+        navigate("/login");
+        localStorage.clear()
+        localStorage.setItem("obnovljen","da")
+      }
 
       toast.success( "Uspješno si platio članarinu", {
         position: "top-right",
@@ -155,7 +155,7 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
   )
 }
 
-else
+else if(localStorage.getItem("role") != "ROLE_MEMBER")
 {  return (
     <div>
       <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
@@ -325,6 +325,14 @@ else
     </div>
 
   )
+}
+else {
+  return(    <div>
+    <ToastContainer    toastStyle={{ backgroundColor: '#634133'}}/>
+      <NavBar></NavBar>
+      <div className='podaciContainer2' id='color-bg-primary'>
+          <Profil_NavBar></Profil_NavBar>        </div>
+    </div>)
 }
 
 }

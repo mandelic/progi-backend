@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useEffect, useState }  from 'react'
 import './Login.css'
 import '../App.css'
 import { useLocation, useNavigate } from "react-router";
@@ -17,6 +17,23 @@ export default function (props) {
   let [cardNumber, setKartica] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem("obnovljen") == "da"){
+      toast.success( "Uspješno si odblokiran, prijavi se na svoj račun i kreni ponovno koristiti našu stranicu", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        backgroundColor: '#634133',
+        theme: "dark"
+        });
+    }
+    localStorage.clear()
+  }, [])
 
 
   const usermail = (mail) => {
@@ -112,7 +129,7 @@ export default function (props) {
     if(!data.errors){
       navigate("/login");
       changeAuthMode();
-      toast.success( "Uspješno si registriran, slobodno se prijavi s novostvorenim profilom", {
+      toast.success( "Uspješno si registriran, slobodno se prijavi s novo stvorenim profilom", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
