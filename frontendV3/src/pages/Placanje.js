@@ -15,6 +15,8 @@ function Placanje() {
   let [lastName, setLasttName ] = useState("")
   let [phoneNumber, setphoneNumber ] = useState("")
   let [cardNumber, setcardNumber ] = useState("")
+  let [email, setEmail ] = useState("")
+  let [cvv, setCvv ] = useState("")
   let [year, setYear ] = useState("")
   let [month, setMonth ] = useState("")
 
@@ -196,6 +198,7 @@ else if(localStorage.getItem("role") != "ROLE_MEMBER")
                         className="form-control mt-1 sign-up"
                         id='color-bg-primary'
                         placeholder="npr. fran.hunski@gmail.com"
+                        onChange={(e) => setEmail(email = e.target.value)}
                         required
                       />
                     </div>
@@ -228,6 +231,7 @@ else if(localStorage.getItem("role") != "ROLE_MEMBER")
                         className="form-control mt-1 sign-up"
                         id='color-bg-primary'
                         placeholder="kontrolni broj kartice"
+                        onChange={(e) => setCvv(cvv = e.target.value)}
                         required
                       />
                     </div>
