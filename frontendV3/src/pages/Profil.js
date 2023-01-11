@@ -30,7 +30,7 @@ useEffect(() =>{
   .then((res) => res.json())
   .then((data) => {
     if(localStorage.getItem("userId") in data){
-      toast( "Podsjećamo te da platiš članarinu za ovaj mjesec! Hvala", {
+      toast.warn( "Podsjećamo te da platiš članarinu za ovaj mjesec! Hvala", {
         position: "top-right",
         autoClose: false,
         hideProgressBar: false,
