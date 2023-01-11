@@ -305,7 +305,7 @@ if(!admin && !trener){
           <div className='t'>
 
             <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
+              <caption>NADOLAZEĆI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
@@ -326,7 +326,7 @@ if(!admin && !trener){
           </div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
+              <caption>NADOLAZEĆI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
@@ -364,7 +364,7 @@ else if(admin){
         <div>
           <div className='t'>
           <table className='t-table'>
-              <caption>NADOLAZECI TRENINZI</caption>
+              <caption>NADOLAZEĆI TRENINZI</caption>
               <tr>
                 <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
