@@ -48,8 +48,30 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     private RankedListRepository rankedListRepository;
 
     public Boolean startGame(Long id, String move, Boolean bonus) throws Exception {
-
-        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        try {
+            BufferedReader txtReader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("classpath:chessGames/WorldChamp2018.pgn")));
+            System.out.println(txtReader.lines());
+            File myObj = new File("chessgame.pgn");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+                FileWriter myWriter = new FileWriter("chessgame.pgn");
+                txtReader.lines().forEach(l -> {
+                    try {
+                        myWriter.write(l + "\n");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                });
+                myWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        PgnHolder pgn = new PgnHolder("chessgame.pgn");
         pgn.loadPgn();
         DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
         if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
@@ -145,25 +167,6 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
 
     @Override
     public BoardDTO showBoard() throws Exception {
-        PgnHolder pgn = new PgnHolder("src/main/resources/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
-        pgn.loadPgn();
-        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
-        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
-        Game game = pgn.getGames().get(dc.getAssignmentNumber());
-        game.loadMoveText();
-        MoveList moves = game.getHalfMoves();
-        int j = moves.size()-1;
-        Board board = new Board();
-        for(int i = 0; i<j;i++) {
-            board.doMove(moves.get(i));
-        }
-        return new BoardDTO(dc.getId(), board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
-    }
-
-    @Override
-    public List<BoardDTO> getAll() throws Exception {
-        List<BoardDTO> allChallenges = new ArrayList<>();
-        //String file = getClass().getResource("/resources/chessGames/WorldChamp2018.pgn/").getFile();
         try {
             BufferedReader txtReader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("classpath:chessGames/WorldChamp2018.pgn")));
             System.out.println(txtReader.lines());
@@ -187,7 +190,48 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        PgnHolder pgn = new PgnHolder("chessgame.pgn"); //controller za odabir datoteke
+        PgnHolder pgn = new PgnHolder("chessgame.pgn");
+        pgn.loadPgn();
+        DailyChallenge dc = dailyChallengeRepository.findByDateAndVisible(LocalDate.now(), true);
+        if (dc == null) throw new CustomMessageException("Trener još uvijek nije odabrao dnevnu taktiku. Pokušaj ponovno kasnije.");
+        Game game = pgn.getGames().get(dc.getAssignmentNumber());
+        game.loadMoveText();
+        MoveList moves = game.getHalfMoves();
+        int j = moves.size()-1;
+        Board board = new Board();
+        for(int i = 0; i<j;i++) {
+            board.doMove(moves.get(i));
+        }
+        return new BoardDTO(dc.getId(), board.toString(), game.getResult().toString(), game.getWhitePlayer().toString(), game.getBlackPlayer().toString(), moves.get(j).toString());
+    }
+
+    @Override
+    public List<BoardDTO> getAll() throws Exception {
+        List<BoardDTO> allChallenges = new ArrayList<>();
+        try {
+            BufferedReader txtReader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("classpath:chessGames/WorldChamp2018.pgn")));
+            System.out.println(txtReader.lines());
+            File myObj = new File("chessgame.pgn");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+                FileWriter myWriter = new FileWriter("chessgame.pgn");
+                txtReader.lines().forEach(l -> {
+                    try {
+                        myWriter.write(l + "\n");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                });
+                myWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        PgnHolder pgn = new PgnHolder("chessgame.pgn");
         pgn.loadPgn();
 
         for (int m = 0; m < 15; m++) {
