@@ -112,7 +112,7 @@ export default function (props) {
     if(!data.errors){
       navigate("/login");
       changeAuthMode();
-      toast.success( "Uspješno si registriran, slobodno se prijavi s novo stvorenim profilom", {
+      toast.success( "Uspješno si registriran, slobodno se prijavi s novostvorenim profilom", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

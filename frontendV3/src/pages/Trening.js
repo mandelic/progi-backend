@@ -66,7 +66,7 @@ if(uloga == "ROLE_SENSEI"){
       console.log(res.status)
       if(res.status == '400'){
         console.log("da")
-        toast.error( "pogrešan format", {
+        toast.error( "Pogrešan format", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -79,7 +79,7 @@ if(uloga == "ROLE_SENSEI"){
           });
       }
       else{
-        toast.success( "uspješno dodan trening", {
+        toast.success( "Trening uspješno dodan", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -127,7 +127,7 @@ if(uloga == "ROLE_SENSEI"){
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
-      toast.error( "došlo je do pogreške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -140,7 +140,7 @@ if(uloga == "ROLE_SENSEI"){
         });
     }
     else{
-      toast.success( "uspješno si prijavljen na trening", {
+      toast.success( "Uspješno si prijavljen na trening", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -260,7 +260,7 @@ if(uloga == "ROLE_SENSEI"){
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
-      toast.error( "došlo je do pogreške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -273,7 +273,7 @@ if(uloga == "ROLE_SENSEI"){
         });
     }
     else{
-      toast.success( "uspješno obrisan trening", {
+      toast.success( "Trening uspješno obrisan", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

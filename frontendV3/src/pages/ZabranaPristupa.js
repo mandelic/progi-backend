@@ -23,7 +23,7 @@ function odlazakNaPlacanje(){
                             <GiStopSign size={"50vh"} color={"#392a16"}></GiStopSign>
                         </div>
                         <div>
-                            <p>Zabranjem vam je pristup stranici jer niste platili članarinu. Pristup stranici će vam biti omogučen nakon što platite članarinu.</p>
+                            <p>Zabranjem vam je pristup stranici jer niste platili članarinu. Pristup stranici će vam biti omogućen nakon što platite članarinu.</p>
                             <div className="d-grid gap-2 mt-3">
                                 <button type="submit" className="btn btn-danger" onClick={odlazakNaPlacanje}>
                                     Plati

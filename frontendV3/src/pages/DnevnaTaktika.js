@@ -185,7 +185,7 @@ function validiraj(v, id){
   })
   .then((res) => {
     if(res.status == "200"){
-      toast.success("uspješno validirano", {
+      toast.success("Greška uspješno validirana", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -198,7 +198,7 @@ function validiraj(v, id){
         });
     }
     else{
-      toast.error( "došlo je do pogreške prilikom validacije", {
+      toast.error( "Došlo je do pogreške prilikom validacije greške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -259,7 +259,7 @@ function validiraj(v, id){
     .then((res) => {
       if(res.status != '200'){
         console.log(ocjena)
-        toast.error( "došlo je do pogreške pri predaji ocijene", {
+        toast.error( "Došlo je do pogreške pri predaji ocjene", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -272,7 +272,7 @@ function validiraj(v, id){
           });
         }
       else{
-        toast.success( "uspješno predana ocijena", {
+        toast.success( "Ocjena uspješno predana", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -303,7 +303,7 @@ function validiraj(v, id){
     .then((res) => {
       if(res.status != '200'){
         console.log(ocjena)
-        toast.error( "došlo je do pogreške pri predaji greške", {
+        toast.error( "Došlo je do pogreške pri predaji greške", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -316,7 +316,7 @@ function validiraj(v, id){
           });
         }
       else{
-        toast.success( "uspješno predana greška", {
+        toast.success( "Greška uspješno predana", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -383,7 +383,7 @@ function validiraj(v, id){
         console.log(time)
         setIsOpen(!isOpen)
         if(data == false){
-          toast.error( "Nažalost nisi ponudio optimalno riješenje za današnju taktiku. Slobosno ostavi ocijenu ili dojavi grešku", {
+          toast.error( "Nažalost nisi ponudio optimalno riješenje za današnju taktiku. Slobodno ostavi ocjenu ili dojavi grešku", {
             position: "top-right",
             autoClose: false,
             hideProgressBar: false,
@@ -595,7 +595,7 @@ else {
         });
       }
       else{
-        toast.success("uspješno dodana dnevna taktika", {
+        toast.success("Dnevna taktika uspješno dodana", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

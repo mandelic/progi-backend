@@ -80,7 +80,7 @@ useEffect(() => {
       console.log(res.status)
       if(res.status == '400'){
         console.log("da")
-        toast.error( "pogrešan format", {
+        toast.error( "Pogrešan format", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -93,7 +93,7 @@ useEffect(() => {
           });
       }
       else{
-        toast.success( "uspješno dodan turnir", {
+        toast.success( "Turnir uspješno dodan", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -142,7 +142,7 @@ useEffect(() => {
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
-      toast.error( "došlo je do pogreške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -155,7 +155,7 @@ useEffect(() => {
         });
     }
     else{
-      toast.success( "uspješno si prijavljen na turnir", {
+      toast.success( "Uspješno si prijavljen na turnir", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -256,7 +256,7 @@ useEffect(() => {
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
-      toast.error( "došlo je do pogreške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -269,7 +269,7 @@ useEffect(() => {
         });
     }
     else{
-      toast.success( "uspješno obrisan turnir", {
+      toast.success( "Turnir uspješno obrisan", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

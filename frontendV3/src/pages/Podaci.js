@@ -123,7 +123,7 @@ async function obrisi(id){
   })
   .then((res) => {
     if(res.status != '200'){
-      toast.error( "došlo je do greške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -136,7 +136,7 @@ async function obrisi(id){
         });
     }
     else{
-      toast.success( "uspješno izbrisan korisnik", {
+      toast.success( "Korisnik uspješno izbrisan", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -168,7 +168,7 @@ function ZamijeniUlogu(){
   })
   .then((res) => {
     if(res.status != '200'){
-      toast.error( "došlo je do greške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -181,7 +181,7 @@ function ZamijeniUlogu(){
         });
     }
     else{
-      toast.success( "uspješno promjenjena uloga", {
+      toast.success( "Uloga korisnika uspješno promijenjena", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

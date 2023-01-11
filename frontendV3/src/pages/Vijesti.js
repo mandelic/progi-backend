@@ -38,7 +38,7 @@ function Vijesti() {
     console.log(res)
     if(res.status == '400'){
       console.log("ups")
-      toast.error( "došlo je do pogreške", {
+      toast.error( "Došlo je do pogreške", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -51,7 +51,7 @@ function Vijesti() {
         });
     }
     else{
-      toast.success( "uspješno obrisana novost", {
+      toast.success( "Novost uspješno obrisana", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -127,7 +127,7 @@ function predajNovost(){
   .then((res) => {
     if(res.status != '201'){
       console.log(res)
-      toast.error( "došlo je do pogreške pri predaji novosti", {
+      toast.error( "Došlo je do pogreške pri predaji novosti", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -141,7 +141,7 @@ function predajNovost(){
       }
     else{
       setIsOpen(!isOpen)
-      toast.success( "uspješno predana novost", {
+      toast.success( "Novost uspješno predana", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
