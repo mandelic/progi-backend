@@ -307,10 +307,10 @@ if(!admin && !trener){
             <table className='t-table'>
               <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
               <tr>
-                <th>datum</th>
-                <th>lokacija</th>
-                <th>trajanje</th>
-                <th>organizator</th>
+                <th>Datum i vrijmee</th>
+                <th>Lokacija</th>
+                <th>Trajanje</th>
+                <th>Organizator</th>
               </tr>
               {pr.map((val,key) =>{
                 return(
@@ -328,11 +328,11 @@ if(!admin && !trener){
           <table className='t-table'>
               <caption>NADOLAZECI TRENINZI NA KOJE SE MOŽEŠ PRIJAVITI</caption>
               <tr>
-                <th>datum</th>
-                <th>lokacija</th>
-                <th>trajanje</th>
-                <th>organizator</th>
-                <th>prijavi se</th>
+                <th>Datum i vrijeme</th>
+                <th>Lokacija</th>
+                <th>Trajanje</th>
+                <th>Organizator</th>
+                <th>Prijavi se</th>
               </tr>
               {nepr.map((val,key) =>{
                 return(
@@ -366,11 +366,11 @@ else if(admin){
           <table className='t-table'>
               <caption>NADOLAZECI TRENINZI</caption>
               <tr>
-                <th>datum</th>
-                <th>lokacija</th>
-                <th>trajanje</th>
-                <th>organizator</th>
-                <th>uredi</th>
+                <th>Datum i vrijeme</th>
+                <th>Lokacija</th>
+                <th>Trajanje</th>
+                <th>Organizator</th>
+                <th>Uredi</th>
               </tr>
               {sviTreninzi.map((val,key) =>{
                 return(
@@ -404,12 +404,12 @@ else if(trener){
       content={<>
       <p>Kreiraj Trening</p>
       <div className="form-group mt-3">
-              <label>Datum</label>
+              <label>Datum i vrijeme</label>
               <input
                 id='datum'
                 type="datum"
                 className="form-control mt-1"
-                placeholder='2022-05-10T22:03:46'
+                placeholder='2022-05-25T22:03:46'
                 onChange={(e) => trenerdatum(e.target.value)}
                 required
               />
@@ -446,17 +446,17 @@ else if(trener){
           <table className='t-table'>
               <caption>TVOJI TRENINZI</caption>
               <tr>
-                <th>datum</th>
-                <th>lokacija</th>
-                <th>trajanje</th>
-                <th>organizator</th>
+                <th>Datum i vrijeme</th>
+                <th>Lokacija</th>
+                <th>Trajanje</th>
+                <th>Organizator</th>
               </tr>
               {treneroviTreninzi.map((val,key) =>{
                 return(
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                   </tr>
                 )
