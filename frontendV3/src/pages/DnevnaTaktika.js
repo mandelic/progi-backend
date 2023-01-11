@@ -47,7 +47,7 @@ function DnevnaTaktika() {
   let [taktika, setTaktika] = useState("")
 
 
-  let [danasnjaOcijena, setDO] = useState("još nema ocijena")
+  let [danasnjaOcijena, setDO] = useState("Još nema ocjene")
 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
@@ -663,7 +663,7 @@ else {
                 <div className='taktika-form-container' id='color-bg-primary'>
                     <div className="taktika-form" id='color-bg-secundary'>
                         <div className="takika-form-content">
-                            <p>Ocijena današnje taktike: {danasnjaOcijena}</p>
+                            <p>Ocjena današnje taktike: {danasnjaOcijena}</p>
                            
                         </div>
                     </div>
