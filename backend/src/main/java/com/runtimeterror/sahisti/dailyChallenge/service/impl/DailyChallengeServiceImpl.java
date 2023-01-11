@@ -160,7 +160,7 @@ public class DailyChallengeServiceImpl implements DailyChallengeService {
     @Override
     public List<BoardDTO> getAll() throws Exception {
         List<BoardDTO> allChallenges = new ArrayList<>();
-        PgnHolder pgn = new PgnHolder("/resources/main/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
+        PgnHolder pgn = new PgnHolder("/chessGames/WorldChamp2018.pgn/"); //controller za odabir datoteke
         pgn.loadPgn();
 
         for (int m = 0; m < 15; m++) {
