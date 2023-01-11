@@ -135,9 +135,9 @@ if(localStorage.getItem("role") == "ROLE_ADMIN"){
             <table className='t-table'>
               <caption>TRANSAKCIJE</caption>
               <tr>
-                <th>mjesec</th>
-                <th>godina</th>
-                <th>član</th>
+                <th>Mjesec</th>
+                <th>Godina</th>
+                <th>Član</th>
               </tr>
               {sveTransakcije.map((val,key) =>{
                 return(

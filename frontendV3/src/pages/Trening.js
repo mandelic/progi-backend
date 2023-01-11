@@ -307,7 +307,7 @@ if(!admin && !trener){
             <table className='t-table'>
               <caption>NADOLAZECI TRENINZI NA KOJE SI PRIJAVLJEN</caption>
               <tr>
-                <th>Datum i vrijmee</th>
+                <th>Datum i vrijeme</th>
                 <th>Lokacija</th>
                 <th>Trajanje</th>
                 <th>Organizator</th>
