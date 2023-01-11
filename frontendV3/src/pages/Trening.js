@@ -317,7 +317,7 @@ if(!admin && !trener){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                   </tr>
                 )
@@ -339,7 +339,7 @@ if(!admin && !trener){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                     <td><button className='btn'  onClick={() => prijavaNaTrenig(val.id)} >želim se prijaviti!</button></td>
                   </tr>
@@ -377,7 +377,7 @@ else if(admin){
                   <tr key={key}>
                     <td>{val.date}</td>
                     <td>{val.location}</td>
-                    <td>{val.duration}</td>
+                    <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
                     <td><button className='btn' onClick={() => obrisiTrening(val.id)}>obrisi</button></td>
                   </tr>

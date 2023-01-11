@@ -433,7 +433,7 @@ if(localStorage.getItem("role") != 'ROLE_SENSEI' && localStorage.getItem("role")
                 id='color-bg-primary' 
                 onChange={(e) => {userocjena(e.target.value); }}
                 required>
-          <option value="" disabled selected hidden>odaberi ocijenu...</option>
+          <option value="" disabled selected hidden>Odaberi ocjenu...</option>
           <option>1</option>
           <option>2</option>
           <option>3</option>
