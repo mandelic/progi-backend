@@ -330,7 +330,7 @@ function validiraj(v, id){
       }),
     })
     .then((res) => {
-      if(res.status == '401'){
+      if(localStorage.getItem("userId") == null){
         toast.warn( "Samo registrirani korisnici mogu slati greške", {
           position: "top-right",
           autoClose: 5000,
