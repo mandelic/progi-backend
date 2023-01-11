@@ -47,6 +47,21 @@ function DnevnaTaktika() {
   let [taktika, setTaktika] = useState("")
 
 
+  let [danasnjaOcijena, setDO] = useState("još nema ocijena")
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/v1/daily-challenge/grade", {
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("profil")
+      }
+    })
+    .then((res) => res.json()).then((data) => {console.log(data);if(data.grade){setDO(danasnjaOcijena = ((Math.round(data.grade * 100) / 100).toString() + " / 5") )}})
+  }, [])
+
+
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   useEffect(() => {
@@ -640,6 +655,16 @@ else {
                           )
                             })}
                             
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        <div>
+                <div className='taktika-form-container' id='color-bg-primary'>
+                    <div className="taktika-form" id='color-bg-secundary'>
+                        <div className="takika-form-content">
+                            <p>Ocijena današnje taktike: {danasnjaOcijena}</p>
+                           
                         </div>
                     </div>
                 </div>
