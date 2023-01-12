@@ -34,11 +34,11 @@ function Kontakt() {
                 </div>
                 <div className="form-group mt-3">
                   <p className='textKontakt2'>Radno vrijeme:</p>
-                  <p className='textKontakt3'> PONEDJELJAK-PETAK: 08:00-21:00<br></br>SUBOTA: 08:00-19:00<br></br>NEDJELJA: 08:00-12:00</p>
+                  <p className='textKontakt3'> PONEDJELJAK-PETAK: 08:00-21:00<br></br>SUBOTA: 08:00-19:00<br></br>NEDJELJA: NE RADIMO</p>
                 </div>
                 <div className="form-group mt-3">
                   <p className='textKontakt2'>Broj telefona:</p>
-                  <p className='textKontakt3'><FiPhone className='phone-icon'></FiPhone> Mob: +385 995739324<br></br><FiPhone className='phone-icon'></FiPhone> Tel: +385 14257053</p>
+                  <p className='textKontakt3'><FiPhone className='phone-icon'></FiPhone> Mob: +385 (0)91 9957 932<br></br><FiPhone className='phone-icon'></FiPhone> Tel: +385 (0)1 4257 053</p>
                 </div>
                 <div className='form-group mt-3'>
                   <p className='textKontakt2'>IBAN:</p>

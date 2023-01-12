@@ -380,7 +380,7 @@ else if(admin){
                     <td>{val.location}</td>
                     
                     <td>{val.coachName}</td>
-                    <td><button className='btn' onClick={() => obrisiTurnir(val.id)}>obrisi</button></td>
+                    <td><button className='btn' onClick={() => obrisiTurnir(val.id)}>Obriši</button></td>
                   </tr>
                 )
               })}

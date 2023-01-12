@@ -379,7 +379,7 @@ else if(admin){
                     <td>{val.location}</td>
                     <td>{val.duration} min</td>
                     <td>{val.coachName}</td>
-                    <td><button className='btn' onClick={() => obrisiTrening(val.id)}>obrisi</button></td>
+                    <td><button className='btn' onClick={() => obrisiTrening(val.id)}>Obriši</button></td>
                   </tr>
                 )
               })}
